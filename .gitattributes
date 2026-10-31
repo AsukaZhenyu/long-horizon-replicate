@@ -1,0 +1,8 @@
+# Same policy as horizon-weaver: everything is text with LF, except binaries.
+# The reproduction scripts run on Linux (WSL/containers), so checkout must not
+# rewrite them to CRLF.
+* text=auto eol=lf
+*.docx binary
+*.png binary
+*.pdf binary
+*.tar.gz binary

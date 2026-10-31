@@ -1,0 +1,20 @@
+# Raw material for a reproduction: upstream clones, virtualenvs, container build
+# contexts, full logs.  Referenced by path from the reports, never committed.
+_work/
+.horizon/
+
+# tb-eval: Terminal-Bench checkout, model weights, task images, per-case evidence.
+.cache/
+
+# Local environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+.env
+.env.*
+
+# One-off archives
+*.tar
+*.tar.gz
