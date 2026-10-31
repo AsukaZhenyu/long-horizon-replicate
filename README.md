@@ -31,11 +31,14 @@ reproductions/
   tb8/        历史 TB8 开发集上的 Terminus2 与 mini-swe-agent
 experiments/
   tb-eval/    24 题分层评测装置（Pi+Spine 插件 vs Sentry 核心）
-reports/      成稿的 Word 报告；当前规划与实验设计也在这里
+docs/
+  plan/      按编写日期命名（`YYYY-MM-DD.docx`），只放规划与实验设计
+  reports/   成稿的 Word 报告
 ```
 
-当前有效的两份文档：[`长期自主Agent实验与复现规划.docx`](reports/长期自主Agent实验与复现规划.docx)（要验证什么）与
-[`实验设计与评测方案.docx`](reports/实验设计与评测方案.docx)（和谁比、拿什么测、怎么判输赢）。
+`docs/plan/` 里按日期排序就是演进顺序。当前有效的两份是
+[`2026-10-29.docx`](docs/plan/2026-10-29.docx)（规划：要验证什么）与
+[`2026-10-31.docx`](docs/plan/2026-10-31.docx)（实验设计：和谁比、拿什么测、怎么判输赢）。
 
 一份方法一张表，见 [`REPRODUCTIONS.md`](REPRODUCTIONS.md)。
 
