@@ -73,6 +73,23 @@ docs/         实验规划与口径
 | `_work/` | 上游 clone、虚拟环境、原始日志、镜像上下文 |
 | `.horizon/reproductions/<方法>/` | StateAct 等按方法隔离的数据与 venv |
 | `.cache/` | tb-eval 的 Terminal-Bench 检出、模型、镜像与逐题证据 |
+| `_work/legacy/` | 从 horizon-weaver 迁入的历史证据，见下 |
+
+### `_work/legacy/`
+
+迁入时只搬运行记录，可重建的缓存（pip/npm wheel、上游 checkout、venv、镜像上下文）
+按需保留或丢弃；这里的东西一律不入库，换机器要重跑才有。
+
+| 子目录 | 内容 | 体积 |
+| --- | --- | --- |
+| `methods/<方法>/` | 四个复现的原始 runs / console / 清单；已剔除 venv、wheel、上游 clone | 约 38 MiB |
+| `tb-eval-week8/` | round2/3/4 逐题证据与脚本、spine 与 sentry 的原始运行日志；其中 `grading-wheel-staging`、`spine/upstream`、`sentry/venv-appworld` 等缓存仍可重建 | 约 818 MiB |
+| `week8-doc/` | 生成 Word 报告的脚本、报告源 txt、被取代的旧版 docx | 约 0.4 MiB |
+| `week8-strat/` | 24 题分层抽样与镜像构建的设计记录 | 约 0.2 MiB |
+| `horizon-weaver-repro-branches.bundle` | 四个 `codex/repro-*` 分支删除前的 git bundle；`git bundle verify` 可查，`git clone` 可从它恢复 | 0.7 MiB |
+
+上表里的 `codex/repro-*` 分支已从 horizon-weaver 删除（那边只剩 `v0` / `v1` / `v2`），
+内容在 [`迁入来源`](#迁入来源)一节按目录落到本仓库，历史则留在这个 bundle 里。
 
 模型服务是外部的，两条评测轨道共用；`experiments/tb-eval/README.md` 记录了冻结的
 启动参数。评测跑分之前先确认 `/health`，否则 502 会被误记成 Agent 失败。
