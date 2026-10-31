@@ -5,6 +5,7 @@ _work/
 
 # tb-eval: Terminal-Bench checkout, model weights, task images, per-case evidence.
 .cache/
+experiments/tb-eval/.local/
 
 # Local environment
 venv/
