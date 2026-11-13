@@ -1,0 +1,562 @@
+[
+  {
+    "benchmark": "tb21",
+    "method": "base",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "tb21",
+    "method": "sentry",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "detector",
+      "verifier",
+      "updater"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "tb21",
+    "method": "spine",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "spine_open",
+      "spine_close",
+      "spine_next",
+      "spine_spawn"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "tb21",
+    "method": "recuris",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "memory_retrieve",
+      "memory_update",
+      "completion_gate"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "tb21",
+    "method": "rrsi",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "harness_edit",
+      "search_selection"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "tb21",
+    "method": "openjiuwen",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "inner_loop",
+      "outer_loop",
+      "rails"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "tb21",
+    "method": "lhh",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "manage",
+      "execute",
+      "audit"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "tb21",
+    "method": "opera",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "critic_trigger",
+      "critic_audit",
+      "resolution_tracking"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "base",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "sentry",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "detector",
+      "verifier",
+      "updater"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "spine",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "spine_open",
+      "spine_close",
+      "spine_next",
+      "spine_spawn"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "recuris",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "memory_retrieve",
+      "memory_update",
+      "completion_gate"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "rrsi",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "harness_edit",
+      "search_selection"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "openjiuwen",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "inner_loop",
+      "outer_loop",
+      "rails"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "lhh",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "manage",
+      "execute",
+      "audit"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "opera",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "critic_trigger",
+      "critic_audit",
+      "resolution_tracking"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "core",
+    "method": "base",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "core",
+    "method": "sentry",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "detector",
+      "verifier",
+      "updater"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "core",
+    "method": "spine",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "spine_open",
+      "spine_close",
+      "spine_next",
+      "spine_spawn"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "core",
+    "method": "recuris",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "memory_retrieve",
+      "memory_update",
+      "completion_gate"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "core",
+    "method": "rrsi",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "harness_edit",
+      "search_selection"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "core",
+    "method": "openjiuwen",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "inner_loop",
+      "outer_loop",
+      "rails"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "core",
+    "method": "lhh",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "manage",
+      "execute",
+      "audit"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "core",
+    "method": "opera",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "critic_trigger",
+      "critic_audit",
+      "resolution_tracking"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "mle",
+    "method": "base",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "mle",
+    "method": "sentry",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "detector",
+      "verifier",
+      "updater"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "mle",
+    "method": "spine",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "spine_open",
+      "spine_close",
+      "spine_next",
+      "spine_spawn"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "mle",
+    "method": "recuris",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "memory_retrieve",
+      "memory_update",
+      "completion_gate"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "mle",
+    "method": "rrsi",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "harness_edit",
+      "search_selection"
+    ],
+    "native_loop": "ready"
+  },
+  {
+    "benchmark": "mle",
+    "method": "openjiuwen",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "inner_loop",
+      "outer_loop",
+      "rails"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "mle",
+    "method": "lhh",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "manage",
+      "execute",
+      "audit"
+    ],
+    "native_loop": "pending"
+  },
+  {
+    "benchmark": "mle",
+    "method": "opera",
+    "contract": "ok",
+    "completion": true,
+    "grade_valid": true,
+    "checks": "1/1",
+    "tokens": 3,
+    "token_budget": 1000,
+    "hidden_test_access": false,
+    "grade_calls_during_run": 0,
+    "mechanism": [
+      "critic_trigger",
+      "critic_audit",
+      "resolution_tracking"
+    ],
+    "native_loop": "pending"
+  }
+]

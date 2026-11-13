@@ -1,0 +1,150 @@
+{
+  "contract_ready": "32/32",
+  "real_ready": "0/32",
+  "real_ready_note": "no model endpoint configured in this offline round",
+  "datasets": [
+    {
+      "benchmark": "tb21",
+      "adapter": "TerminalBench21Adapter",
+      "real_loader": true,
+      "real_host": true,
+      "real_grader": true,
+      "dataset_missing": "",
+      "tasks": 89,
+      "official_tasks": 89,
+      "root": ".cache/upstream/terminal-bench-2-1/tasks"
+    },
+    {
+      "benchmark": "lhtb2",
+      "adapter": "LHTBBenchmarkAdapter",
+      "real_loader": true,
+      "real_host": true,
+      "real_grader": true,
+      "dataset_missing": "",
+      "tasks": 46,
+      "official_tasks": 46,
+      "root": ".cache/upstream/lhtb/tasks"
+    },
+    {
+      "benchmark": "core",
+      "adapter": "CoreBenchAdapter",
+      "real_loader": false,
+      "real_host": false,
+      "real_grader": false,
+      "dataset_missing": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader",
+      "tasks": 0,
+      "official_tasks": 0
+    },
+    {
+      "benchmark": "mle",
+      "adapter": "MLEBenchAdapter",
+      "real_loader": false,
+      "real_host": false,
+      "real_grader": false,
+      "dataset_missing": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader",
+      "tasks": 0,
+      "official_tasks": 0
+    }
+  ],
+  "methods": [
+    {
+      "method": "base",
+      "native_loop_ready": true,
+      "mechanism": []
+    },
+    {
+      "method": "sentry",
+      "native_loop_ready": true,
+      "mechanism": [
+        "detector",
+        "verifier",
+        "updater"
+      ]
+    },
+    {
+      "method": "spine",
+      "native_loop_ready": false,
+      "mechanism": [
+        "spine_open",
+        "spine_close",
+        "spine_next",
+        "spine_spawn"
+      ]
+    },
+    {
+      "method": "recuris",
+      "native_loop_ready": true,
+      "mechanism": [
+        "memory_retrieve",
+        "memory_update",
+        "completion_gate"
+      ]
+    },
+    {
+      "method": "rrsi",
+      "native_loop_ready": true,
+      "mechanism": [
+        "harness_edit",
+        "search_selection"
+      ]
+    },
+    {
+      "method": "openjiuwen",
+      "native_loop_ready": false,
+      "mechanism": [
+        "inner_loop",
+        "outer_loop",
+        "rails"
+      ]
+    },
+    {
+      "method": "lhh",
+      "native_loop_ready": false,
+      "mechanism": [
+        "manage",
+        "execute",
+        "audit"
+      ]
+    },
+    {
+      "method": "opera",
+      "native_loop_ready": false,
+      "mechanism": [
+        "critic_trigger",
+        "critic_audit",
+        "resolution_tracking"
+      ]
+    }
+  ],
+  "offline_tests": {
+    "status": "passed",
+    "tests": 22
+  },
+  "official_grading_smoke": [
+    {
+      "benchmark": "tb21",
+      "task": "regex-log",
+      "kind": "oracle solution, not an agent result",
+      "expected": "pass",
+      "status": "as_expected",
+      "source": ".cache/adapters/oracle-regex-log.log",
+      "valid": true,
+      "passed": true,
+      "checks": "1/1",
+      "reward": 1.0,
+      "seconds": 80.6
+    },
+    {
+      "benchmark": "lhtb2",
+      "task": "2048",
+      "kind": "blank submission (no moves), official verifier failure path",
+      "expected": "fail",
+      "status": "as_expected",
+      "source": ".cache/adapters/lhtb-2048-smoke.log",
+      "valid": true,
+      "passed": false,
+      "checks": "0/1",
+      "reward": 0.0
+    }
+  ]
+}

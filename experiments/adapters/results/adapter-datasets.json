@@ -1,0 +1,44 @@
+[
+  {
+    "benchmark": "tb21",
+    "adapter": "TerminalBench21Adapter",
+    "real_loader": true,
+    "real_host": true,
+    "real_grader": true,
+    "dataset_missing": "",
+    "tasks": 89,
+    "official_tasks": 89,
+    "root": ".cache/upstream/terminal-bench-2-1/tasks"
+  },
+  {
+    "benchmark": "lhtb2",
+    "adapter": "LHTBBenchmarkAdapter",
+    "real_loader": true,
+    "real_host": true,
+    "real_grader": true,
+    "dataset_missing": "",
+    "tasks": 46,
+    "official_tasks": 46,
+    "root": ".cache/upstream/lhtb/tasks"
+  },
+  {
+    "benchmark": "core",
+    "adapter": "CoreBenchAdapter",
+    "real_loader": false,
+    "real_host": false,
+    "real_grader": false,
+    "dataset_missing": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader",
+    "tasks": 0,
+    "official_tasks": 0
+  },
+  {
+    "benchmark": "mle",
+    "adapter": "MLEBenchAdapter",
+    "real_loader": false,
+    "real_host": false,
+    "real_grader": false,
+    "dataset_missing": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader",
+    "tasks": 0,
+    "official_tasks": 0
+  }
+]

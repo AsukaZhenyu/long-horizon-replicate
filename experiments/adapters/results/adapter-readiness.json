@@ -1,0 +1,386 @@
+[
+  {
+    "benchmark": "tb21",
+    "method": "base",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "tb21",
+    "method": "sentry",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "tb21",
+    "method": "spine",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "tb21",
+    "method": "recuris",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "tb21",
+    "method": "rrsi",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "tb21",
+    "method": "openjiuwen",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "tb21",
+    "method": "lhh",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "tb21",
+    "method": "opera",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "base",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "sentry",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "spine",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "recuris",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "rrsi",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "openjiuwen",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "lhh",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "lhtb2",
+    "method": "opera",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": ""
+  },
+  {
+    "benchmark": "core",
+    "method": "base",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "model endpoint"
+    ],
+    "note": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader"
+  },
+  {
+    "benchmark": "core",
+    "method": "sentry",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "model endpoint"
+    ],
+    "note": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader"
+  },
+  {
+    "benchmark": "core",
+    "method": "spine",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader"
+  },
+  {
+    "benchmark": "core",
+    "method": "recuris",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "model endpoint"
+    ],
+    "note": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader"
+  },
+  {
+    "benchmark": "core",
+    "method": "rrsi",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "model endpoint"
+    ],
+    "note": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader"
+  },
+  {
+    "benchmark": "core",
+    "method": "openjiuwen",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader"
+  },
+  {
+    "benchmark": "core",
+    "method": "lhh",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader"
+  },
+  {
+    "benchmark": "core",
+    "method": "opera",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader"
+  },
+  {
+    "benchmark": "mle",
+    "method": "base",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "model endpoint"
+    ],
+    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+  },
+  {
+    "benchmark": "mle",
+    "method": "sentry",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "model endpoint"
+    ],
+    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+  },
+  {
+    "benchmark": "mle",
+    "method": "spine",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+  },
+  {
+    "benchmark": "mle",
+    "method": "recuris",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "model endpoint"
+    ],
+    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+  },
+  {
+    "benchmark": "mle",
+    "method": "rrsi",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "model endpoint"
+    ],
+    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+  },
+  {
+    "benchmark": "mle",
+    "method": "openjiuwen",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+  },
+  {
+    "benchmark": "mle",
+    "method": "lhh",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+  },
+  {
+    "benchmark": "mle",
+    "method": "opera",
+    "contract_ready": true,
+    "real_ready": false,
+    "missing": [
+      "benchmark data loader",
+      "benchmark host",
+      "official grading",
+      "method native loop",
+      "model endpoint"
+    ],
+    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+  }
+]
