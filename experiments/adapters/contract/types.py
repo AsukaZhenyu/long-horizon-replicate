@@ -161,6 +161,7 @@ class MockHost(Host):
         self._tokens = 0
         self.grade_calls = 0
         self.submitted = False
+        self.submit_guard = None
 
     @property
     def tokens_used(self) -> int:
@@ -196,6 +197,10 @@ class MockHost(Host):
                 return Observation(output=f"wrote {path}")
             return Observation(error="unsupported mock shell", exit_code=1)
         if kind == "submit":
+            if self.submit_guard is not None:
+                error = self.submit_guard()
+                if error:
+                    return Observation(error=str(error), exit_code=1)
             self.submitted = True
             return Observation(output="submitted")
         return Observation(error=f"unknown action {kind}", exit_code=1)

@@ -28,7 +28,8 @@ class ContainerCommandVerifier:
 class DockerHost(Host):
     def __init__(self, task: TaskSpec, config: ExperimentConfig, image: str,
                  verifier_command: str, container_workdir: str = "/app",
-                 docker_args: List[str] | None = None, start: bool = True):
+                 docker_args: List[str] | None = None, start: bool = True,
+                 command: List[str] | None = None):
         self.task = task
         self.config = config
         self.image = image
@@ -38,12 +39,15 @@ class DockerHost(Host):
         self._tokens = 0
         self.grade_calls = 0
         self.submitted = False
+        # Optional benchmark-side submission validation.  It may return an
+        # error string to reject the submit without revealing hidden checks.
+        self.submit_guard = None
         if start:
-            command = ["docker", "run", "-d", "--name", self.name,
-                       "--workdir", container_workdir]
-            command.extend(docker_args or [])
-            command.extend([image, "sleep", "infinity"])
-            subprocess.run(command, check=True, capture_output=True, text=True)
+            run_command = ["docker", "run", "-d", "--name", self.name,
+                           "--workdir", container_workdir]
+            run_command.extend(docker_args or [])
+            run_command.extend([image, *(command or ["sleep", "infinity"])])
+            subprocess.run(run_command, check=True, capture_output=True, text=True)
         self.verifier = ContainerCommandVerifier(self, verifier_command)
         for path, content in task.initial_files.items():
             self.step(Action("write", {"path": path, "content": content}))
@@ -122,6 +126,10 @@ class DockerHost(Host):
             return Observation(output=proc.stdout[-8000:], error=proc.stderr[-8000:],
                                exit_code=proc.returncode)
         if action.kind == "submit":
+            if self.submit_guard is not None:
+                error = self.submit_guard()
+                if error:
+                    return Observation(error=str(error), exit_code=1)
             self.submitted = True
             return Observation(output="submitted")
         return Observation(error=f"unknown action {action.kind}", exit_code=1)

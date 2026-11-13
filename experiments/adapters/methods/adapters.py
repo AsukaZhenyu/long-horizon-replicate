@@ -37,6 +37,21 @@ class SentryAdapter(PassThroughAdapter):
 class SpineAdapter(PassThroughAdapter):
     name = "spine"
     mechanism = ("spine_open", "spine_close", "spine_next", "spine_spawn")
+    # The official Pi/Node plugin is not bridged into the Python Host contract.
+    # ``SpineReimplementationAdapter`` below is a separate, clearly labeled
+    # Python reimplementation used for mechanism smoke tests.
+
+
+class SpineReimplementationAdapter(PassThroughAdapter):
+    name = "spine-reimpl"
+    mechanism = ("spine_open", "spine_close", "spine_next", "spine_spawn")
+    adapter_changes = (
+        "official Pi/Node plugin -> Python subtask-tree reimplementation",
+        "spine_* tool calls -> tree transitions",
+        "closed-branch history -> memory in the context",
+    )
+    native_loop_ready = True
+    reimplemented = True
 
 
 class RecurisAdapter(PassThroughAdapter):
@@ -100,9 +115,18 @@ def build_rrsi(client, **kwargs):
     return RRSIAdapter(RRSIPromptAgent(client, **kwargs))
 
 
+def build_spine_reimpl(client, **kwargs):
+    from agents.spine import SpineAgent
+    return SpineReimplementationAdapter(SpineAgent(client, **kwargs))
+
+
 METHOD_BUILDERS = {
     "base": build_base,
     "sentry": build_sentry,
     "recuris": build_recuris,
     "rrsi": build_rrsi,
+}
+
+EXTRA_BUILDERS = {
+    "spine-reimpl": build_spine_reimpl,
 }

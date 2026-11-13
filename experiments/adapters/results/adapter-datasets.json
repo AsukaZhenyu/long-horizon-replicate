@@ -35,11 +35,12 @@
   {
     "benchmark": "mle",
     "adapter": "MLEBenchAdapter",
-    "real_loader": false,
-    "real_host": false,
+    "real_loader": true,
+    "real_host": true,
     "real_grader": false,
-    "dataset_missing": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader",
-    "tasks": 0,
-    "official_tasks": 0
+    "dataset_missing": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`",
+    "tasks": 22,
+    "official_tasks": 22,
+    "root": ".cache/upstream/mle-bench"
   }
 ]

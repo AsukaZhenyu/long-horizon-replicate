@@ -188,6 +188,33 @@ class CoreDockerTests(unittest.TestCase):
                 host.cleanup()
 
     @unittest.skipUnless(docker_available(), "docker daemon not available")
+    def test_submit_guard_requires_report(self):
+        image = local_image()
+        if image is None:
+            self.skipTest("no local alpine/busybox image")
+        with tempfile.TemporaryDirectory() as tmp:
+            adapter, task = self._synthetic(tmp, image)
+            config = ExperimentConfig(token_budget=1000, max_actions=20)
+            host = adapter.make_host(task, config)
+            try:
+                rejected = host.step(Action("submit"))
+                self.assertNotEqual(rejected.exit_code, 0)
+                self.assertIn("report.json", rejected.error)
+                self.assertFalse(host.submitted)
+                host.step(Action("write", {
+                    "path": "report.json",
+                    "content": json.dumps({"What is the answer?": 42}),
+                }))
+                accepted = host.step(Action("submit"))
+                self.assertEqual(accepted.exit_code, 0, accepted.error)
+                self.assertTrue(host.submitted)
+                grade = adapter.grade(task, host)
+                self.assertTrue(grade.valid, grade.detail)
+                self.assertTrue(grade.passed, grade.detail)
+            finally:
+                host.cleanup()
+
+    @unittest.skipUnless(docker_available(), "docker daemon not available")
     def test_medium_environment_keeps_reproducing_files(self):
         image = local_image()
         if image is None:

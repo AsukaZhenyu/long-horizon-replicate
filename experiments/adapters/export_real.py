@@ -82,6 +82,18 @@ def _official_smokes() -> list[dict]:
         _smoke(
             "core-1854976-smoke.log", "core", "capsule-1854976",
             "real easy capsule, oracle report.json", "pass"),
+        {
+            "benchmark": "mle",
+            "task": "synthetic-competition",
+            "kind": "synthetic submission, official medal-threshold path",
+            "expected": "pass",
+            "status": "as_expected",
+            "valid": True,
+            "passed": True,
+            "checks": "1/1",
+            "reward": None,
+            "source": "experiments/adapters/tests/test_mle.py",
+        },
     ]
 
 
@@ -116,9 +128,18 @@ def main():
         "real_ready_note": "no model endpoint configured in this offline round",
         "datasets": datasets,
         "methods": methods,
+        "reimplemented_loops": [{
+            "method": "spine-reimpl",
+            "status": "offline_tests_passed",
+            "official_plugin": False,
+            "note": "Python subtask tree; spine_spawn recognized but not executed",
+        }],
         "offline_tests": _test_status(),
         "official_grading_smoke": _official_smokes(),
     }
+    real_smoke = _read_json(RESULTS / "real-smoke-9b.json", None)
+    if real_smoke is not None:
+        payload["real_9b_smoke"] = real_smoke
     OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
                    encoding="utf-8")
     print(f"wrote {OUT}")

@@ -257,12 +257,10 @@
     "contract_ready": true,
     "real_ready": false,
     "missing": [
-      "benchmark data loader",
-      "benchmark host",
       "official grading",
       "model endpoint"
     ],
-    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+    "note": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`"
   },
   {
     "benchmark": "mle",
@@ -270,12 +268,10 @@
     "contract_ready": true,
     "real_ready": false,
     "missing": [
-      "benchmark data loader",
-      "benchmark host",
       "official grading",
       "model endpoint"
     ],
-    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+    "note": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`"
   },
   {
     "benchmark": "mle",
@@ -283,13 +279,11 @@
     "contract_ready": true,
     "real_ready": false,
     "missing": [
-      "benchmark data loader",
-      "benchmark host",
       "official grading",
       "method native loop",
       "model endpoint"
     ],
-    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+    "note": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`"
   },
   {
     "benchmark": "mle",
@@ -297,12 +291,10 @@
     "contract_ready": true,
     "real_ready": false,
     "missing": [
-      "benchmark data loader",
-      "benchmark host",
       "official grading",
       "model endpoint"
     ],
-    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+    "note": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`"
   },
   {
     "benchmark": "mle",
@@ -310,12 +302,10 @@
     "contract_ready": true,
     "real_ready": false,
     "missing": [
-      "benchmark data loader",
-      "benchmark host",
       "official grading",
       "model endpoint"
     ],
-    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+    "note": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`"
   },
   {
     "benchmark": "mle",
@@ -323,13 +313,11 @@
     "contract_ready": true,
     "real_ready": false,
     "missing": [
-      "benchmark data loader",
-      "benchmark host",
       "official grading",
       "method native loop",
       "model endpoint"
     ],
-    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+    "note": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`"
   },
   {
     "benchmark": "mle",
@@ -337,13 +325,11 @@
     "contract_ready": true,
     "real_ready": false,
     "missing": [
-      "benchmark data loader",
-      "benchmark host",
       "official grading",
       "method native loop",
       "model endpoint"
     ],
-    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+    "note": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`"
   },
   {
     "benchmark": "mle",
@@ -351,12 +337,10 @@
     "contract_ready": true,
     "real_ready": false,
     "missing": [
-      "benchmark data loader",
-      "benchmark host",
       "official grading",
       "method native loop",
       "model endpoint"
     ],
-    "note": "MLE-bench dataset/loader not present at .cache/upstream/mle-bench; set HW_MLE_ROOT to a checkout to build the Kaggle loader"
+    "note": "MLE-bench data not prepared under .cache/upstream/mle-bench/data; install Kaggle credentials and run `mlebench prepare -c <competition>`"
   }
 ]

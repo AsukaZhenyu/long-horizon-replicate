@@ -23,7 +23,7 @@ from benchmarks.core import (
 )
 from benchmarks.harbor import MissingDatasetAdapter
 from benchmarks.lhtb import DEFAULT_ROOT as LHTB_ROOT, LHTBBenchmarkAdapter
-from benchmarks.mle import MLEBenchAdapter
+from benchmarks.mle import DEFAULT_ROOT as MLE_ROOT, MLEBenchAdapter
 from benchmarks.tb import DEFAULT_ROOT as TB21_ROOT, TerminalBench21Adapter
 from contract.readiness import build_matrix
 from methods.adapters import METHOD_ADAPTERS
@@ -50,7 +50,12 @@ def build_benchmarks():
     else:
         core = MissingDatasetAdapter(
             "core", f"CORE-Bench checkout not present at {CORE_ROOT}")
-    return [tb, lhtb, core, MLEBenchAdapter()]
+    if MLE_ROOT.is_dir():
+        mle = MLEBenchAdapter()
+    else:
+        mle = MissingDatasetAdapter(
+            "mle", f"MLE-bench checkout not present at {MLE_ROOT}")
+    return [tb, lhtb, core, mle]
 
 
 def dataset_rows(benchmarks):

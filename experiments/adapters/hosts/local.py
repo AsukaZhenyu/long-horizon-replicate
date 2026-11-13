@@ -81,6 +81,7 @@ class LocalHost(Host):
         self._tokens = 0
         self.grade_calls = 0
         self.submitted = False
+        self.submit_guard = None
 
     @property
     def tokens_used(self) -> int:
@@ -124,6 +125,10 @@ class LocalHost(Host):
                                error=proc.stderr[-8000:],
                                exit_code=proc.returncode)
         if action.kind == "submit":
+            if self.submit_guard is not None:
+                error = self.submit_guard()
+                if error:
+                    return Observation(error=str(error), exit_code=1)
             self.submitted = True
             return Observation(output="submitted")
         return Observation(error=f"unknown action {action.kind}", exit_code=1)

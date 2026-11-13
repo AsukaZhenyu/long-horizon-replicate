@@ -1,0 +1,484 @@
+{
+  "model": "qwen3.5-9b",
+  "conditions": {
+    "context": 16384,
+    "gpu_layers": 26,
+    "temperature": 0.2,
+    "reasoning": "off",
+    "max_tokens_per_step": 512,
+    "max_steps": 6
+  },
+  "runs": [
+    {
+      "method": "base",
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "label": "guard",
+      "max_steps": 8,
+      "max_tokens": 512,
+      "agent_seconds": 33.4,
+      "tokens": 9909,
+      "actions": 8,
+      "grade_valid": true,
+      "grade_passed": true,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976/results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat capsule-1854976/results/output"
+          }
+        },
+        {
+          "kind": "submit",
+          "payload": {}
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat > /app/report.json << 'EOF'\n{\n  \"Report the final sensitivity (Sen1) after the ten different verifications.\": \"75.23%\",\n  \"Report the final specificity (Spe1) after the ten different verifications.\": \"70.82%\",\n  \"Report the final quality index (QI) after the ten different verifications.\": \"72.29%\"\n}\nEOF"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat /app/report.json"
+          }
+        }
+      ]
+    },
+    {
+      "method": "base",
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "agent_seconds": 20.2,
+      "tokens": 4365,
+      "actions": 5,
+      "grade_valid": true,
+      "grade_passed": false,
+      "checks_passed": 0,
+      "checks_total": 3,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976/results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat capsule-1854976/results/output"
+          }
+        },
+        {
+          "kind": "submit",
+          "payload": {}
+        }
+      ]
+    },
+    {
+      "method": "base",
+      "benchmark": "tb21",
+      "task": "regex-log",
+      "agent_seconds": 60.4,
+      "tokens": 4524,
+      "actions": 6,
+      "grade_valid": true,
+      "grade_passed": false,
+      "checks_passed": 0,
+      "checks_total": 1,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat << 'EOF' > /app/regex.txt\n(?<![a-zA-Z0-9])(?:(?<!\\d)\\d{4}-(?<!\\d)\\d{2}-(?<!\\d)\\d{2}(?![a-zA-Z0-9]))(?:(?<!\\d)\\d{4}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(?![a-zA-Z0-9]))\nEOF\n"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat /app/regex.txt"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat << 'EOF' > /app/regex.txt\n(?<![a-zA-Z0-9])(?:(?<!\\d)\\d{4}-(?<!\\d)\\d{2}-(?<!\\d)\\d{2}(?![a-zA-Z0-9]))(?:(?<!\\d)\\d{4}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(?![a-zA-Z0-9]))\nEOF\n"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat << 'EOF' > /app/regex.txt\n(?<![a-zA-Z0-9])(?:(?<!\\d)\\d{4}-(?<!\\d)\\d{2}-(?<!\\d)\\d{2}(?![a-zA-Z0-9]))(?:(?<!\\d)\\d{4}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(?![a-zA-Z0-9]))\nEOF\n"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat << 'EOF' > /app/regex.txt\n(?<![a-zA-Z0-9])(?:(?<!\\d)\\d{4}-(?<!\\d)\\d{2}-(?<!\\d)\\d{2}(?![a-zA-Z0-9]))(?:(?<!\\d)\\d{4}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(?![a-zA-Z0-9]))\nEOF\n"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat << 'EOF' > /app/regex.txt\n(?<![a-zA-Z0-9])(?:(?<!\\d)\\d{4}-(?<!\\d)\\d{2}-(?<!\\d)\\d{2}(?![a-zA-Z0-9]))(?:(?<!\\d)\\d{4}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(?![a-zA-Z0-9]))\nEOF\n"
+          }
+        }
+      ]
+    },
+    {
+      "method": "recuris",
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "label": "guard",
+      "max_steps": 8,
+      "max_tokens": 512,
+      "agent_seconds": 35.6,
+      "tokens": 10413,
+      "actions": 8,
+      "turns": 8,
+      "grade_valid": true,
+      "grade_passed": true,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976/results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat capsule-1854976/results/output"
+          }
+        },
+        {
+          "kind": "submit",
+          "payload": {}
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat > /app/report.json << 'EOF'\n{\n  \"Report the final sensitivity (Sen1) after the ten different verifications.\": \"75.23%\",\n  \"Report the final specificity (Spe1) after the ten different verifications.\": \"70.82%\",\n  \"Report the final quality index (QI) after the ten different verifications.\": \"72.29%\"\n}\nEOF\n"
+          }
+        },
+        {
+          "kind": "submit",
+          "payload": {}
+        }
+      ]
+    },
+    {
+      "method": "recuris",
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "agent_seconds": 20.2,
+      "tokens": 4745,
+      "actions": 5,
+      "turns": 5,
+      "grade_valid": true,
+      "grade_passed": false,
+      "checks_passed": 0,
+      "checks_total": 3,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976/results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat capsule-1854976/results/output"
+          }
+        },
+        {
+          "kind": "submit",
+          "payload": {}
+        }
+      ]
+    },
+    {
+      "method": "recuris-gate",
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "label": "guard",
+      "max_steps": 8,
+      "max_tokens": 512,
+      "agent_seconds": 44.7,
+      "tokens": 12242,
+      "actions": 7,
+      "turns": 8,
+      "grade_valid": true,
+      "grade_passed": true,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976/results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat capsule-1854976/results/output"
+          }
+        },
+        {
+          "kind": "submit",
+          "payload": {}
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "echo '{\"Report the final sensitivity (Sen1) after the ten different verifications.\": \"75.23%\", \"Report the final specificity (Spe1) after the ten different verifications.\": \"70.82%\", \"Report the final quality index (QI) after the ten different verifications.\": \"72.29%\"}' > /app/report.json"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat /app/report.json"
+          }
+        }
+      ]
+    },
+    {
+      "method": "recuris-gate",
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "agent_seconds": 19.2,
+      "tokens": 4745,
+      "actions": 5,
+      "turns": 5,
+      "grade_valid": true,
+      "grade_passed": false,
+      "checks_passed": 0,
+      "checks_total": 3,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976/results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat capsule-1854976/results/output"
+          }
+        },
+        {
+          "kind": "submit",
+          "payload": {}
+        }
+      ]
+    },
+    {
+      "method": "rrsi",
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "agent_seconds": 24.5,
+      "tokens": 7171,
+      "actions": 6,
+      "grade_valid": true,
+      "grade_passed": true,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la /app"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la /app/capsule-1854976"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la /app/capsule-1854976/results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat /app/capsule-1854976/results/output"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat > /app/report.json << 'EOF'\n{\n  \"Report the final sensitivity (Sen1) after the ten different verifications.\": \"75.23%\",\n  \"Report the final specificity (Spe1) after the ten different verifications.\": \"70.82%\",\n  \"Report the final quality index (QI) after the ten different verifications.\": \"72.29%\"\n}\nEOF\n"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat /app/report.json"
+          }
+        }
+      ]
+    },
+    {
+      "method": "sentry",
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "agent_seconds": 158.5,
+      "tokens": 21223,
+      "actions": 6,
+      "grade_valid": true,
+      "grade_passed": true,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "phases": {
+        "detector": 6
+      },
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "ls -la capsule-1854976/results"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat capsule-1854976/results/output"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "echo '{\"Report the final sensitivity (Sen1) after the ten different verifications.\": \"75.23%\", \"Report the final specificity (Spe1) after the ten different verifications.\": \"70.82%\", \"Report the final quality index (QI) after the ten different verifications.\": \"72.29%\"}' > report.json"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "cat report.json"
+          }
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "budget": "6 steps x 512 tokens; wiring smoke, not the formal budget",
+    "tb_regex_log_first_attempt": "official grading aborted during apt-get update; recorded as D-apt environment failure and not used as a method result",
+    "core_task": "capsule-1854976, codeocean_easy, 3 questions",
+    "submit_guard": "CORE/MLE hosts reject submit until the required artifact exists; guard runs are separate conditions from no-guard runs",
+    "interpretation": "single-task descriptions only; do not read as method benefit or completion-rate evidence"
+  }
+}

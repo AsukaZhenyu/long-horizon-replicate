@@ -21,7 +21,9 @@ RECURIS_SRC = REPO / ".cache" / "upstream" / "recuris" / "src"
 DEFAULT_MEMORY = REPO / ".cache" / "upstream" / "recuris" / "skill_memories" / "tb21_seed"
 
 if RECURIS_SRC.is_dir():
-    sys.path.insert(0, str(RECURIS_SRC))
+    # Append, not insert: keep this repository's ``benchmarks`` package ahead
+    # of any same-named package in the upstream checkout.
+    sys.path.append(str(RECURIS_SRC))
 
 
 def _bridge_class():
@@ -100,7 +102,11 @@ class RecurisAgent(NativeAgent):
                                        "Address the correction and continue.",
                         })
                         continue
-                host.submit()
+                observation = host.submit()
+                if observation.exit_code != 0:
+                    messages.append({"role": "user", "content":
+                                     f"Submit rejected: {observation.error}"})
+                    continue
                 break
             messages.append({"role": "user", "content": "Use command or final."})
         self.counters = dict(bridge.state.fp.counters)

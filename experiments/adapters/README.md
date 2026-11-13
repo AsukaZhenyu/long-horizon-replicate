@@ -17,7 +17,8 @@ benchmarks/
   lhtb.py        LHTB 2.0 (46 original + 31 new tasks)
   core.py        CORE-Bench real adapter (train split, easy/medium/hard)
   core_grading.py  official CORE-Bench answer grading (std-lib port)
-  mle.py         MLE-bench skeleton (dataset missing)
+  mle.py         MLE-bench loader/host/medal adapter (Kaggle data conditional)
+  mle_grading.py medal thresholds + synthetic accuracy metric
   base.py        deterministic mock benchmarks for the contract tests
   manifest.py    real LocalHost task manifest
 agents/
@@ -25,6 +26,7 @@ agents/
   sentry.py      official SentryRunner loop (detector/verifier/updater)
   recuris.py     Recuris Skill Memory + completion gate
   rrsi.py        prompt-only RRSI candidate (Evaluate half)
+  spine.py       reimplemented Spine subtask tree (not the Pi/Node plugin)
 hosts/
   local.py       LocalHost + file/command verifier
   docker.py      DockerHost + official-test copy/exec helpers
@@ -59,6 +61,7 @@ Both datasets use the same Harbor task layout (`task.toml`,
 | `LHTBBenchmarkAdapter(subdir="tasks")` | `.cache/upstream/lhtb/tasks` | 46 | 46 |
 | `LHTBBenchmarkAdapter(subdir="tasks-2.0")` | `.cache/upstream/lhtb/tasks-2.0` | 31 | 31 |
 | `CoreBenchAdapter` | `.cache/upstream/core-bench` (train split) | 45 | 45 |
+| `MLEBenchAdapter` | `.cache/upstream/mle-bench` (low split) | 22 | conditional |
 
 The LHTB `tasks-2.0` private verifier files are present in the public checkout;
 they are copied into the container only after the method stops, so the method
@@ -70,6 +73,12 @@ is GPG-encrypted. Capsules are downloaded lazily from
 The first integration targets `codeocean_easy` (answer from `results/` without
 running code); medium/hard share the same host and official `report.json`
 grader.
+
+MLE-bench loads the 22-competition **low** split and the official competition
+descriptions. Real Kaggle data and the official per-competition metric require
+the `mlebench` package (pandas etc.) and Kaggle credentials; without them the
+adapter reports the missing dependency. The host and medal logic are tested
+with a synthetic competition and a dependency-free accuracy metric.
 
 ## Official grading
 
@@ -87,7 +96,8 @@ LF line endings so Windows checkouts behave like Linux checkouts.
 | Sentry | `sentry.py` | official `SentryRunner` detector/verifier/updater | original AppWorld driver |
 | Recuris | `recuris.py` | fixed `tb21_seed` Skill Memory + `check_completion` gate | tta meta-agent patch loop |
 | RRSI | `rrsi.py` | prompt-only candidate, scored by the official verifier | search loop (needs Anthropic Vertex) |
-| Spine | — | contract adapter only | Pi + `spine_*` native loop |
+| Spine (reimpl) | `spine.py` | Python subtask tree: `spine_open/close/next`, closed-branch history folded into memory | official Pi/Node plugin bridge; `spine_spawn` execution |
+| Spine (official) | — | contract adapter only | Pi + `spine_*` native loop |
 | openJiuwen / LHH / Opera | — | contract adapter only | native loops |
 
 ## Run the tests
@@ -100,7 +110,7 @@ The native loops import the upstream Sentry/Recuris checkouts, which need
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-Current result: **32 tests, all pass**. Coverage:
+Current result: **43 tests, all pass**. Coverage:
 
 - four mock benchmarks run the base agent;
 - seven method adapters run on all four mock benchmarks;
@@ -119,7 +129,11 @@ Current result: **32 tests, all pass**. Coverage:
   capsule round-trips through Docker to a passing `report.json`;
 - CORE-Bench medium/hard environment preparation keeps/removes the right files
   and empties `results` before grading;
-- Sentry, Recuris (m0/m0-gate) and RRSI run offline on a manifest task.
+- Sentry, Recuris (m0/m0-gate) and RRSI run offline on a manifest task;
+- the Spine reimplementation opens/closes/nexts branches and folds closed
+  history into memory; `spine_spawn` is recognized but not executed;
+- MLE-bench loads the 22-competition low split, computes official medal
+  thresholds, and grades a synthetic submission through Docker to a medal.
 
 ## Generate the evidence
 
@@ -132,7 +146,9 @@ python experiments/adapters/preflight.py
 - `results/adapter-readiness.json` — 32 combinations, missing items per row.
 - `results/adapter-datasets.json` — task counts and real-loader/host/grader flags.
 - `results/real-integration.json` — real dataset inventory, native-loop
-  readiness, offline test status, and the TB 2.1 / LHTB official-grading smokes.
+  readiness, offline test status, and the TB 2.1 / LHTB / CORE / MLE smokes.
+- `results/real-smoke-9b.json` — six real 9B runs (TB Base; CORE Base, Sentry,
+  Recuris m0, Recuris m0-gate, RRSI) with action logs and official grades.
 
 Current readiness: contract **32/32**; real-ready **0/32** because no model
 endpoint is configured in this offline round. For TB 2.1 and LHTB 2.0 the
@@ -148,7 +164,19 @@ oracle run passed the official test 1/1 (reward 1.0) in 80.6 s; a real LHTB 2.0
 `2048` blank submission was correctly scored 0/1 (reward 0.0); a synthetic and
 a real CORE-Bench easy capsule (`capsule-1854976`) round-tripped through
 Docker to a passing `report.json` (3/3); medium/hard environment preparation is
-tested with a synthetic capsule. This round did **not** run the 9B model: all method smoke is
-deterministic and offline. MLE-bench data, CORE-Bench medium/hard and the
-held-out test split, and the remaining four native loops are the next
-integration step.
+tested with a synthetic capsule. A real 9B smoke (Qwen3.5-9B, 6 steps × 512
+tokens) produced valid official grades for Base on TB 2.1 `regex-log` (0/1) and
+CORE easy `capsule-1854976` (0/3); the model repeated a wrong regex and did not
+write the required `report.json`. On the same CORE capsule, Sentry passed 3/3
+(detector triggered 6 times) and RRSI passed 3/3; Base, Recuris m0 and Recuris
+m0-gate all failed 0/3 because they submitted without writing `report.json`.
+With the benchmark-side submit guard (reject `submit` until the required
+artifact exists), those three reached 3/3; the guard is a host-level submission
+check applied uniformly, not a model improvement. A Python Spine subtask-tree
+reimplementation is
+available and tested offline, but it is **not** the official Pi/Node plugin.
+MLE-bench's loader, host and medal logic are implemented and tested with a
+synthetic competition; real Kaggle data and the official metric need
+credentials and the `mlebench` package. CORE-Bench medium/hard and the held-out
+test split, the official Spine bridge, and the remaining native loops are the
+next integration step.

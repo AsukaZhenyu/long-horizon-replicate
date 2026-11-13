@@ -36,10 +36,13 @@ class ModelClient(ABC):
 
 
 class HTTPModelClient(ModelClient):
-    def __init__(self, base_url: str, model: str, timeout: int = 300):
+    def __init__(self, base_url: str, model: str, timeout: int = 300,
+                 temperature: float = 0.2, max_tokens: int = 2048):
         self.base_url = base_url.rstrip("/")
         self.model = model
         self.timeout = timeout
+        self.temperature = temperature
+        self.max_tokens = max_tokens
 
     def complete(self, messages: List[dict], **kwargs) -> ModelResponse:
         temperature = kwargs.get("temperature")
@@ -47,8 +50,8 @@ class HTTPModelClient(ModelClient):
         payload = json.dumps({
             "model": self.model,
             "messages": messages,
-            "temperature": 0.2 if temperature is None else temperature,
-            "max_tokens": 2048 if max_tokens is None else max_tokens,
+            "temperature": self.temperature if temperature is None else temperature,
+            "max_tokens": self.max_tokens if max_tokens is None else max_tokens,
         }).encode("utf-8")
         request = urllib.request.Request(
             self.base_url + "/v1/chat/completions", data=payload,
@@ -118,6 +121,10 @@ class BaseReactAgent(NativeAgent):
                                  f"exit={observation.exit_code}\n{observation.output}\n{observation.error}"})
                 continue
             if "final" in action:
-                host.submit()
+                observation = host.submit()
+                if observation.exit_code != 0:
+                    messages.append({"role": "user", "content":
+                                     f"Submit rejected: {observation.error}"})
+                    continue
                 return
             messages.append({"role": "user", "content": "Use command or final."})

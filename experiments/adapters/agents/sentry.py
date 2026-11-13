@@ -21,7 +21,10 @@ REPO = Path(__file__).resolve().parents[3]
 SENTRY_SRC = REPO / ".cache" / "upstream" / "sentry"
 
 if SENTRY_SRC.is_dir():
-    sys.path.insert(0, str(SENTRY_SRC))
+    # Append, not insert: the Sentry checkout also has a top-level
+    # ``benchmarks`` package, which would otherwise shadow this repository's
+    # ``benchmarks`` package when both are imported in the same process.
+    sys.path.append(str(SENTRY_SRC))
 
 ACTION_SCHEMA = (
     'Return exactly one JSON object. To run a shell command: '
@@ -146,6 +149,11 @@ class SentryAgent(NativeAgent):
                         messages.append({"role": "user", "content": rescue.prompt_text})
                     continue
                 if "final" in action:
+                    observation = host.submit()
+                    if observation.exit_code != 0:
+                        messages.append({"role": "user", "content":
+                                         f"Submit rejected: {observation.error}"})
+                        continue
                     step = agent_step_from_parts(
                         step_id=step_id,
                         reasoning=str(action.get("reasoning", "")),
@@ -154,7 +162,6 @@ class SentryAgent(NativeAgent):
                         accepted_by_environment=True,
                     )
                     self.runner.step(step, terminal=True)
-                    host.submit()
                     return
                 messages.append({"role": "user", "content": "Use command or final."})
         finally:

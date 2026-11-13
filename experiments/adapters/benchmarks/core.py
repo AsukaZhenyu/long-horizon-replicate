@@ -285,6 +285,17 @@ class CoreBenchAdapter(BenchmarkAdapter):
             host.cleanup()
             raise
         host.verifier = CoreReportVerifier(host, self._gold[task.task_id])
+
+        def _report_exists() -> bool:
+            if host.read_container_file("/app/report.json") is not None:
+                return True
+            proc = host._exec(
+                "find /app -name report.json -type f 2>/dev/null | head -n 1")
+            return proc.returncode == 0 and bool(proc.stdout.strip())
+
+        host.submit_guard = lambda: (
+            None if _report_exists()
+            else "report.json is required before submit; write it in /app")
         return host
 
     def grade(self, task: TaskSpec, host: Host) -> Grade:
