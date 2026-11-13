@@ -17,7 +17,10 @@ import json
 import os
 from pathlib import Path
 
-from benchmarks.core import CoreBenchAdapter
+from benchmarks.core import (
+    DEFAULT_DATASET as CORE_DATASET, DEFAULT_PROMPTS as CORE_PROMPTS,
+    DEFAULT_ROOT as CORE_ROOT, CoreBenchAdapter,
+)
 from benchmarks.harbor import MissingDatasetAdapter
 from benchmarks.lhtb import DEFAULT_ROOT as LHTB_ROOT, LHTBBenchmarkAdapter
 from benchmarks.mle import MLEBenchAdapter
@@ -42,7 +45,12 @@ def build_benchmarks():
     else:
         lhtb = MissingDatasetAdapter(
             "lhtb2", f"LHTB checkout not present at {LHTB_ROOT}")
-    return [tb, lhtb, CoreBenchAdapter(), MLEBenchAdapter()]
+    if CORE_DATASET.is_file() and CORE_PROMPTS.is_file():
+        core = CoreBenchAdapter()
+    else:
+        core = MissingDatasetAdapter(
+            "core", f"CORE-Bench checkout not present at {CORE_ROOT}")
+    return [tb, lhtb, core, MLEBenchAdapter()]
 
 
 def dataset_rows(benchmarks):

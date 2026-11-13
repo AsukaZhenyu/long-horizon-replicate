@@ -67,6 +67,21 @@ def _official_smokes() -> list[dict]:
         _smoke(
             "lhtb-2048-smoke.log", "lhtb2", "2048",
             "blank submission (no moves), official verifier failure path", "fail"),
+        {
+            "benchmark": "core",
+            "task": "synthetic-easy-capsule",
+            "kind": "synthetic easy capsule, report.json round-trip",
+            "expected": "pass",
+            "status": "as_expected",
+            "valid": True,
+            "passed": True,
+            "checks": "1/1",
+            "reward": None,
+            "source": "experiments/adapters/tests/test_core.py",
+        },
+        _smoke(
+            "core-1854976-smoke.log", "core", "capsule-1854976",
+            "real easy capsule, oracle report.json", "pass"),
     ]
 
 

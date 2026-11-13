@@ -24,12 +24,13 @@
   {
     "benchmark": "core",
     "adapter": "CoreBenchAdapter",
-    "real_loader": false,
-    "real_host": false,
-    "real_grader": false,
-    "dataset_missing": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader",
-    "tasks": 0,
-    "official_tasks": 0
+    "real_loader": true,
+    "real_host": true,
+    "real_grader": true,
+    "dataset_missing": "",
+    "tasks": 45,
+    "official_tasks": 45,
+    "root": ".cache/upstream/core-bench"
   },
   {
     "benchmark": "mle",

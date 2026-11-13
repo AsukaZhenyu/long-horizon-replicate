@@ -7,13 +7,14 @@
 
 ## 1 本轮范围与结论
 
-在原有“统一 host 契约 + mock benchmark”之上，本轮完成了三件事：
+在原有“统一 host 契约 + mock benchmark”之上，本轮完成了四件事：
 
 1. **真实 benchmark 接入**：Terminal-Bench 2.1（89 题）和 LHTB 2.0（46 道原题 + 31 道新题）共用一套 Harbor 格式 loader、Docker host 和官方 `tests/test.sh` 评分。
 2. **真实官方评分链路**：评分阶段才把官方 `tests/` 复制进容器，运行 `test.sh`，读取 `/logs/verifier/reward.txt`；reward 缺失时记 invalid，不伪造通过。
-3. **四个原生 loop**：Base、Sentry、Recuris、RRSI 接到公共契约；Spine、openJiuwen、LHH、Opera 仍只有契约适配器。
+3. **CORE-Bench 接入**：公开 train split 45 题，支持 easy/medium/hard 提示模板；easy 级别已用 Docker host + 官方 `report.json` 容差评分跑通。
+4. **四个原生 loop**：Base、Sentry、Recuris、RRSI 接到公共契约；Spine、openJiuwen、LHH、Opera 仍只有契约适配器。
 
-本轮**没有**跑 9B 模型，因此没有方法完成率、token 成本或机制收益结论。CORE-Bench 和 MLE-bench 的数据不在本机，报告为缺失数据集，不用 mock 冒充。
+本轮**没有**跑 9B 模型，因此没有方法完成率、token 成本或机制收益结论。CORE-Bench 使用公开 train split，留出 test split 仍为 GPG 加密；MLE-bench 数据不在本机，报告为缺失数据集，不用 mock 冒充。
 
 ## 2 新增实现
 
@@ -22,8 +23,10 @@
 | `experiments/adapters/benchmarks/harbor.py` | 通用 Harbor loader、Docker host、`OfficialTestVerifier` |
 | `experiments/adapters/benchmarks/tb.py` | Terminal-Bench 2.1 adapter |
 | `experiments/adapters/benchmarks/lhtb.py` | LHTB 2.0 adapter（`tasks` / `tasks-2.0`） |
-| `experiments/adapters/benchmarks/core.py` | CORE-Bench loader 骨架（数据缺失） |
+| `experiments/adapters/benchmarks/core.py` | CORE-Bench 真实 adapter（train split，easy/medium/hard） |
+| `experiments/adapters/benchmarks/core_grading.py` | 官方 `eval_result_json` 的无 numpy/scipy 等价实现 |
 | `experiments/adapters/benchmarks/mle.py` | MLE-bench loader 骨架（数据缺失） |
+| `experiments/adapters/tests/test_core.py` | CORE-Bench loader、容差评分、Docker host 测试 |
 | `experiments/adapters/agents/sentry.py` | 官方 `SentryRunner` 原生 loop |
 | `experiments/adapters/agents/recuris.py` | Recuris Skill Memory + completion gate |
 | `experiments/adapters/agents/rrsi.py` | RRSI prompt-only candidate（Evaluate 半） |
@@ -40,10 +43,12 @@
 | Terminal-Bench 2.1 | `harbor-framework/terminal-bench-2-1` @ `12b75656` | Apache-2.0 | 89 | 89 |
 | LHTB 2.0 原题 | `zli12321/LHTB` @ `e037434a` | Apache-2.0 | 46 | 46 |
 | LHTB 2.0 新题 | 同上，`tasks-2.0` | Apache-2.0 | 31 | 31 |
-| CORE-Bench | 未取得 | — | 0 | 否 |
+| CORE-Bench | `siegelz/core-bench` @ `e32a2980` | MIT | 45（train） | 45 |
 | MLE-bench | 未取得 | — | 0 | 否 |
 
 LHTB `tasks-2.0` 的 `tests/private` 实际在公开快照中；适配器只在方法停止后复制 `tests/`，所以方法运行期间看不到私有 judge。此前报告写“官方 verifier 未接”是指未接入，不是文件不存在。
+
+CORE-Bench 的官方 test split 是 GPG 加密的，本轮使用公开的 `core_train.json`（45 题）做开发验证；capsule 代码按需从 `corebench.cs.princeton.edu` 下载，不把 13 GB 数据放进仓库。
 
 ## 4 官方评分链路
 
@@ -55,15 +60,19 @@ LHTB `tasks-2.0` 的 `tests/private` 实际在公开快照中；适配器只在�
 4. 读 `/logs/verifier/reward.txt`；有 CTRF 报告时同时记录 `passed/total`；
 5. reward ≥ 1.0 记通过，reward 缺失记 `valid=false`。
 
-已验证两条路径：
+已验证以下路径：
 
 | 验证 | 结果 |
 | --- | --- |
 | 合成 Harbor 任务（alpine，写对/写错） | 写对：valid=true，passed=true；写错：valid=true，passed=false |
 | TB 2.1 `regex-log` oracle | solve exit=0；官方测试 `1 passed`；valid=true，passed=true，checks=1/1，reward=1.0，80.6 s |
 | LHTB 2.0 `2048` 空提交 | 官方测试 `1 failed`；valid=true，passed=false，checks=0/1，reward=0.0；验证失败路径 |
+| CORE-Bench 合成 easy capsule | 写对 `report.json`：valid=true，passed=true，checks=1/1；缺失：valid=true，passed=false |
+| CORE-Bench 真实 easy capsule（`capsule-1854976`） | 写入 oracle `report.json`；valid=true，passed=true，checks=3/3 |
 
 `regex-log` 使用镜像 `alexgshaw/regex-log:20251031`，`2048` 使用 `zli12321/lhtb-2048:20260615`；完整日志在 `.cache/adapters/oracle-regex-log.log` 与 `.cache/adapters/lhtb-2048-smoke.log`（不入库）。
+
+CORE-Bench 的评分是 `report.json` 对三道 gold run 的比较：数值答案要求落在 95% t 预测区间内，字符串按大小写不敏感比较，列表要求完全相等；一题全部问题答对才算通过。`benchmarks/core_grading.py` 是官方 `benchmark/evaluations.py::eval_result_json` 的无 numpy/scipy 等价实现（t 分位数表覆盖 df ≤ 30）。
 
 **评分口径差异**：Harbor 对 `environment_mode="shared"` 的任务使用独立 verifier 容器；本轮在同一任务容器内复制 `tests/` 后运行，`/app` 文件系统与官方一致，但不构造独立 verifier 镜像。这是单容器近似。其次，对 `allow_internet=false` 的任务，评分阶段沿用无网络容器；如果官方 `test.sh` 需要联网安装依赖，会记环境失败。Harbor 的独立 verifier 容器路径未复现。
 
@@ -89,7 +98,7 @@ LHTB `tasks-2.0` 的 `tests/private` 实际在公开快照中；适配器只在�
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-结果：**22 项测试全部通过**（`Ran 22 tests, OK`）。新增 8 项：
+结果：**30 项测试全部通过**（`Ran 30 tests, OK`）。其中新增 8 项适配器测试（下表）和 8 项 CORE-Bench 测试。
 
 | 测试 | 验证内容 |
 | --- | --- |
@@ -101,6 +110,19 @@ LHTB `tasks-2.0` 的 `tests/private` 实际在公开快照中；适配器只在�
 | `test_recuris_completion_gate_runs` | m0-gate 的 bounce 上限与评分 |
 | `test_sentry_detector_runs_and_grades` | Sentry detector 被调用并评分 |
 | `test_rrsi_candidate_prompt_runs_and_grades` | RRSI 候选 prompt 加载并评分 |
+
+CORE-Bench 新增 8 项：
+
+| 测试 | 验证内容 |
+| --- | --- |
+| `test_train_split_loads` | 加载 45 道 train 题；gold 结果不在方法可见的 `TaskSpec.metadata` 中 |
+| `test_numeric_prediction_interval` | 数值落在 95% 预测区间内才算对 |
+| `test_numeric_outside_interval_fails` | 数值超出区间判错 |
+| `test_string_and_list` | 字符串大小写不敏感、列表精确比较 |
+| `test_all_correct_passes` | 全部问题正确才通过 |
+| `test_missing_answer_does_not_pass` | 缺答案不通过 |
+| `test_report_round_trip` | Docker host + 合成 capsule + `report.json` 通过 |
+| `test_missing_report_is_a_valid_failure` | 缺 `report.json` 记 valid=true/passed=false |
 
 原有 14 项契约/公平性/LocalHost/DockerHost 测试全部保留并通过。完整输出在 `.cache/adapters/test-output.txt`（不入库）。
 
@@ -117,20 +139,20 @@ LHTB `tasks-2.0` 的 `tests/private` 实际在公开快照中；适配器只在�
 | --- | --- | --- |
 | TB 2.1 | 已接（89 题） | Base/Sentry/Recuris/RRSI 只差 model endpoint；Spine/openJiuwen/LHH/Opera 还差原生 loop |
 | LHTB 2.0 | 已接（46 + 31 题） | 同上 |
-| CORE-Bench | 未接 | 数据缺失 |
+| CORE-Bench | 已接（train 45 题，easy） | test split 加密；medium/hard 未跑；Base/Sentry/Recuris/RRSI 只差 model endpoint |
 | MLE-bench | 未接 | 数据缺失 |
 
-所以现在可以说“TB 2.1 和 LHTB 2.0 的执行+官方评分链路已接”，不能说“所有方法 × 四个 benchmark 都能正常跑”。
+所以现在可以说“TB 2.1、LHTB 2.0 和 CORE-Bench train split 的执行+官方评分链路已接”，不能说“所有方法 × 四个 benchmark 都能正常跑”。
 
 ## 8 与上一版报告的差异
 
 | 项 | 上一版 | 本轮 |
 | --- | --- | --- |
-| 真实 benchmark 数据 | 0/4 | 2/4（TB 2.1、LHTB 2.0） |
-| 真实 host | 0/4 | 2/4 |
-| 官方评分 | 0/4 | 2/4，且 TB 2.1 真实 oracle 通过、LHTB 2048 真实失败路径正确 |
+| 真实 benchmark 数据 | 0/4 | 3/4（TB 2.1、LHTB 2.0、CORE-Bench train） |
+| 真实 host | 0/4 | 3/4 |
+| 官方评分 | 0/4 | 3/4，且 TB 2.1 真实 oracle 通过、LHTB 2048 真实失败路径正确、CORE-Bench 真实 capsule 通过 |
 | 原生方法 loop | 0/8 | 4/8（Base、Sentry、Recuris、RRSI） |
-| 测试数 | 14 | 22 |
+| 测试数 | 14 | 30 |
 | 方法分数 | 无 | 仍无（本轮离线） |
 
 ## 9 边界与未做
@@ -141,7 +163,9 @@ LHTB `tasks-2.0` 的 `tests/private` 实际在公开快照中；适配器只在�
 - RRSI 只跑 Evaluate 半，搜索环需要 Anthropic Vertex。
 - Spine 的原生 loop 是 Pi/Node 插件，尚未桥接到 Python 公共契约。
 - openJiuwen、LongHorizon-Harness、Opera 的上游没有接入。
-- CORE-Bench、MLE-bench 数据不在本机；报告为缺失，不用 mock 冒充。
+- CORE-Bench 本轮只用公开 train split（45 题），不是留出 test split；test split 需要 GPG 解密，未使用。
+- CORE-Bench 只跑 easy 级别（读 `results/`，不执行代码）；medium/hard 的 host 路径已实现（`--privileged`）但未跑，不能当研究复现成绩。
+- MLE-bench 数据不在本机；报告为缺失，不用 mock 冒充。
 - 官方评分是单容器近似；Harbor 的独立 verifier 容器路径未复现。
 - 真实 benchmark 的正式跑还需要冻结 4 个 benchmark 的共同 token 预算、模型服务和 3 次独立运行。
 
@@ -150,6 +174,9 @@ LHTB `tasks-2.0` 的 `tests/private` 实际在公开快照中；适配器只在�
 - 代码：`experiments/adapters/`
 - 契约：`experiments/adapters/contract/types.py`
 - 公平性：`experiments/adapters/contract/fairness.py`
+- CORE-Bench loader：`experiments/adapters/benchmarks/core.py`
+- CORE-Bench 官方评分等价实现：`experiments/adapters/benchmarks/core_grading.py`
+- CORE-Bench 测试：`experiments/adapters/tests/test_core.py`
 - 契约矩阵：`experiments/adapters/results/adapter-matrix.json`（32 行）
 - 就绪度：`experiments/adapters/results/adapter-readiness.json`（32 行）
 - 数据集清单：`experiments/adapters/results/adapter-datasets.json`

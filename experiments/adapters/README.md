@@ -15,7 +15,8 @@ benchmarks/
   harbor.py      generic Harbor loader + official tests/test.sh verifier
   tb.py          Terminal-Bench 2.1 (89 tasks)
   lhtb.py        LHTB 2.0 (46 original + 31 new tasks)
-  core.py        CORE-Bench skeleton (dataset missing)
+  core.py        CORE-Bench real adapter (train split, easy/medium/hard)
+  core_grading.py  official CORE-Bench answer grading (std-lib port)
   mle.py         MLE-bench skeleton (dataset missing)
   base.py        deterministic mock benchmarks for the contract tests
   manifest.py    real LocalHost task manifest
@@ -57,10 +58,18 @@ Both datasets use the same Harbor task layout (`task.toml`,
 | `TerminalBench21Adapter` | `.cache/upstream/terminal-bench-2-1/tasks` | 89 | 89 |
 | `LHTBBenchmarkAdapter(subdir="tasks")` | `.cache/upstream/lhtb/tasks` | 46 | 46 |
 | `LHTBBenchmarkAdapter(subdir="tasks-2.0")` | `.cache/upstream/lhtb/tasks-2.0` | 31 | 31 |
+| `CoreBenchAdapter` | `.cache/upstream/core-bench` (train split) | 45 | 45 |
 
 The LHTB `tasks-2.0` private verifier files are present in the public checkout;
 they are copied into the container only after the method stops, so the method
 never sees them.
+
+CORE-Bench uses the public **train** split (45 tasks); the held-out test split
+is GPG-encrypted. Capsules are downloaded lazily from
+`corebench.cs.princeton.edu` (the full set is ~13 GB) and are not committed.
+The first integration targets `codeocean_easy` (answer from `results/` without
+running code); medium/hard share the same host and official `report.json`
+grader.
 
 ## Official grading
 
@@ -91,7 +100,7 @@ The native loops import the upstream Sentry/Recuris checkouts, which need
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-Current result: **22 tests, all pass**. Coverage:
+Current result: **30 tests, all pass**. Coverage:
 
 - four mock benchmarks run the base agent;
 - seven method adapters run on all four mock benchmarks;
@@ -105,6 +114,9 @@ Current result: **22 tests, all pass**. Coverage:
 - TB 2.1 loads 89 official tasks; LHTB loads 46 + 31;
 - the official `tests/test.sh` reward path passes and fails correctly;
 - a method that plants `/logs/verifier/reward.txt` cannot keep it;
+- CORE-Bench loads the 45-task train split and does not leak gold answers;
+- CORE-Bench numeric (95% PI), string and list grading works, and a synthetic
+  capsule round-trips through Docker to a passing `report.json`;
 - Sentry, Recuris (m0/m0-gate) and RRSI run offline on a manifest task.
 
 ## Generate the evidence
@@ -128,9 +140,12 @@ are reported as missing datasets, not mocked.
 
 ## Status
 
-The contract layer and the TB 2.1 / LHTB 2.0 execution+grading paths are
-implemented and tested. A real TB 2.1 `regex-log` oracle run passed the
-official test 1/1 (reward 1.0) in 80.6 s; a real LHTB 2.0 `2048` blank submission was
-correctly scored 0/1 (reward 0.0). This round did **not** run the 9B model: all
-method smoke is deterministic and offline. CORE-Bench/MLE-bench data and the
-remaining four native loops are the next integration step.
+The contract layer, TB 2.1, LHTB 2.0 and the CORE-Bench train-split
+execution+grading paths are implemented and tested. A real TB 2.1 `regex-log`
+oracle run passed the official test 1/1 (reward 1.0) in 80.6 s; a real LHTB 2.0
+`2048` blank submission was correctly scored 0/1 (reward 0.0); a synthetic and
+a real CORE-Bench easy capsule (`capsule-1854976`) round-tripped through
+Docker to a passing `report.json` (3/3). This round did **not** run the 9B model: all method smoke is
+deterministic and offline. MLE-bench data, CORE-Bench medium/hard and the
+held-out test split, and the remaining four native loops are the next
+integration step.

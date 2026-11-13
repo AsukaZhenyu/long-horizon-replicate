@@ -28,12 +28,13 @@
     {
       "benchmark": "core",
       "adapter": "CoreBenchAdapter",
-      "real_loader": false,
-      "real_host": false,
-      "real_grader": false,
-      "dataset_missing": "CORE-Bench dataset/loader not present at .cache/upstream/core-bench; set HW_CORE_ROOT to a checkout to build the capsule loader",
-      "tasks": 0,
-      "official_tasks": 0
+      "real_loader": true,
+      "real_host": true,
+      "real_grader": true,
+      "dataset_missing": "",
+      "tasks": 45,
+      "official_tasks": 45,
+      "root": ".cache/upstream/core-bench"
     },
     {
       "benchmark": "mle",
@@ -118,7 +119,7 @@
   ],
   "offline_tests": {
     "status": "passed",
-    "tests": 22
+    "tests": 30
   },
   "official_grading_smoke": [
     {
@@ -145,6 +146,30 @@
       "passed": false,
       "checks": "0/1",
       "reward": 0.0
+    },
+    {
+      "benchmark": "core",
+      "task": "synthetic-easy-capsule",
+      "kind": "synthetic easy capsule, report.json round-trip",
+      "expected": "pass",
+      "status": "as_expected",
+      "valid": true,
+      "passed": true,
+      "checks": "1/1",
+      "reward": null,
+      "source": "experiments/adapters/tests/test_core.py"
+    },
+    {
+      "benchmark": "core",
+      "task": "capsule-1854976",
+      "kind": "real easy capsule, oracle report.json",
+      "expected": "pass",
+      "status": "as_expected",
+      "source": ".cache/adapters/core-1854976-smoke.log",
+      "valid": true,
+      "passed": true,
+      "checks": "3/3",
+      "reward": null
     }
   ]
 }
