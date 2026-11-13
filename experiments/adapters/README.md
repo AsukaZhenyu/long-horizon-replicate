@@ -42,6 +42,12 @@ tests/
   test_harbor.py         real TB 2.1 + LHTB loaders and official grading
   test_native_loops.py   Sentry/Recuris/RRSI offline loop smoke
   test_real_host.py      LocalHost / manifest / DockerHost / base ReAct
+  test_core.py           CORE-Bench loader/grading/Docker smoke
+  test_mle.py            MLE-bench loader/medal/synthetic submission
+  test_spine.py          Spine reimplementation protocol
+  test_submit_guard.py   agents continue after a rejected submit
+  test_non_interference.py  no gold/hidden data or strategy changes
+verify_adapters.py       adapter-only verification (no benchmark tests)
 ```
 
 ## Contract
@@ -54,6 +60,29 @@ method stops.
 An adapter translates the method's native action/observation schema to the
 common `Action`/`Observation`. It does not add, remove or reorder actions and
 does not change the token budget, tools or grading.
+
+## Reproduction fidelity
+
+The adapter layer is required to be transparent to the method:
+
+- only maps action/observation/submit schemas; no add/drop/reorder;
+- same model, token budget, tools and grading for every method;
+- `TaskSpec.metadata` carries no checks, answers, gold, tests or solutions;
+- `Host` exposes no checks, answers, gold or hidden tests;
+- `submit_guard` is **off by default**; strict submission is opt-in with
+  `enforce_submission=True` and is reported as a separate condition;
+- native and reimplemented loops are separate; the Spine reimplementation is
+  not the official Pi/Node plugin;
+- benchmark-specific environment deviations are documented in the report.
+
+Run the adapter verification without benchmark reproduction tests:
+
+```bash
+.cache/venv/Scripts/python.exe experiments/adapters/verify_adapters.py
+```
+
+It refreshes the 32-row matrix/readiness and writes
+`results/adapter-verification.json`.
 
 ## Real benchmarks
 
@@ -93,6 +122,11 @@ directory to `/tests` after the method stops, runs `tests/test.sh`, and reads
 file yields an invalid grade, never a fake pass. Shell scripts are staged with
 LF line endings so Windows checkouts behave like Linux checkouts.
 
+CORE and MLE support an optional `submit_guard`: when
+`enforce_submission=True`, `submit` is rejected until `report.json` /
+`submission.csv` exists. It is off by default because it adds host feedback;
+guard/no-guard runs are separate conditions.
+
 ## Native loops
 
 | Method | Loop | What runs | What does not run |
@@ -115,12 +149,16 @@ The native loops import the upstream Sentry/Recuris checkouts, which need
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-Current result: **43 tests, all pass**. Coverage:
+Current result: **53 tests, all pass**. Coverage:
 
 - four mock benchmarks run the base agent;
 - seven method adapters run on all four mock benchmarks;
 - native vs adapted action sequences are identical (workflow invariance);
 - methods do not access hidden checks and do not call `grade()`;
+- `submit_guard` is off by default; strict submission is opt-in, and agents
+  continue after a rejected submit;
+- the non-interference audit finds no gold/answers/checks in method-visible
+  metadata or Host, and adapter changes are schema mappings only;
 - all adapters use the same config/token budget;
 - base + adapter control delta is computed;
 - the 4 × 8 adapter matrix is complete;
@@ -147,6 +185,8 @@ python experiments/adapters/export_matrix.py
 python experiments/adapters/preflight.py
 ```
 
+- `results/adapter-verification.json` — adapter-only verification: test result,
+  32-row contract matrix, readiness and non-interference checklist.
 - `results/adapter-matrix.json` — 32 contract runs (4 benchmarks × 8 methods).
 - `results/adapter-readiness.json` — 32 combinations, missing items per row.
 - `results/adapter-datasets.json` — task counts and real-loader/host/grader flags.

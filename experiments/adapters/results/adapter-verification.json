@@ -1,0 +1,31 @@
+{
+  "tests": {
+    "returncode": 0,
+    "ok": true,
+    "tail": [
+      "----------------------------------------------------------------------",
+      "Ran 53 tests in 13.305s",
+      "OK"
+    ]
+  },
+  "contract_matrix": {
+    "rows": 32,
+    "ok": true
+  },
+  "readiness": {
+    "rows": 32,
+    "contract_ready": 32,
+    "real_ready": 0
+  },
+  "non_interference": [
+    "adapter maps actions/observations only; no add/drop/reorder",
+    "same model, token budget, tools and grading for every method",
+    "TaskSpec metadata has no checks/answers/gold/tests",
+    "Host exposes no checks/answers/gold/hidden_tests",
+    "submit guard is off by default; strict submission is opt-in",
+    "Spine reimplementation is separated from the official plugin"
+  ],
+  "benchmark_reproduction_tests": "not run; this milestone verifies adapter execution only",
+  "matrix_refresh_rc": 0,
+  "preflight_refresh_rc": 0
+}

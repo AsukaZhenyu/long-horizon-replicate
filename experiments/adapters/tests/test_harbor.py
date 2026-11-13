@@ -123,7 +123,7 @@ class OfficialGradingTests(unittest.TestCase):
                 Action("write", {"path": "answer.txt", "content": "hello\n"}),
                 Action("submit"),
             ]))
-            record, grade = run_task(adapter, good, task, config)
+            record, grade = run_task(adapter, good, task, config, cleanup=True)
             self.assertTrue(grade.valid, grade.detail)
             self.assertTrue(grade.passed, grade.detail)
             self.assertTrue(record.completion)
@@ -132,7 +132,7 @@ class OfficialGradingTests(unittest.TestCase):
                 Action("write", {"path": "answer.txt", "content": "nope\n"}),
                 Action("submit"),
             ]))
-            record, grade = run_task(adapter, bad, task, config)
+            record, grade = run_task(adapter, bad, task, config, cleanup=True)
             self.assertTrue(grade.valid, grade.detail)
             self.assertFalse(grade.passed, grade.detail)
             self.assertFalse(record.completion)
@@ -153,7 +153,7 @@ class OfficialGradingTests(unittest.TestCase):
                 Action("write", {"path": "answer.txt", "content": "nope\n"}),
                 Action("submit"),
             ]))
-            record, grade = run_task(adapter, plant, task, config)
+            record, grade = run_task(adapter, plant, task, config, cleanup=True)
             self.assertTrue(grade.valid, grade.detail)
             self.assertFalse(grade.passed, grade.detail)
             self.assertFalse(record.completion)

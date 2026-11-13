@@ -75,29 +75,35 @@ class MLEAdapter(MockBenchmarkAdapter):
 
 
 def run_task(benchmark: BenchmarkAdapter, method: MethodAdapter,
-             task: TaskSpec, config: ExperimentConfig):
+             task: TaskSpec, config: ExperimentConfig, cleanup: bool = False):
     host = benchmark.make_host(task, config)
-    before_actions = len(host.actions)
-    before_tokens = host.tokens_used
-    method.run(task, host)
-    grade_calls_during_run = host.grade_calls
-    grade = benchmark.grade(task, host)
-    actions = tuple(host.actions[before_actions:])
-    record = RunRecord(
-        method=method.name,
-        benchmark=benchmark.name,
-        task_id=task.task_id,
-        actions=actions,
-        tokens=host.tokens_used - before_tokens,
-        completion=bool(grade.valid and grade.passed),
-        grade=grade,
-        mechanism=tuple(method.mechanism),
-        adapter_changes=tuple(method.adapter_changes),
-        hidden_test_access=False,
-        grade_calls_during_run=grade_calls_during_run,
-        config=config,
-    )
-    return record, grade
+    try:
+        before_actions = len(host.actions)
+        before_tokens = host.tokens_used
+        method.run(task, host)
+        grade_calls_during_run = host.grade_calls
+        grade = benchmark.grade(task, host)
+        actions = tuple(host.actions[before_actions:])
+        record = RunRecord(
+            method=method.name,
+            benchmark=benchmark.name,
+            task_id=task.task_id,
+            actions=actions,
+            tokens=host.tokens_used - before_tokens,
+            completion=bool(grade.valid and grade.passed),
+            grade=grade,
+            mechanism=tuple(method.mechanism),
+            adapter_changes=tuple(method.adapter_changes),
+            hidden_test_access=False,
+            grade_calls_during_run=grade_calls_during_run,
+            config=config,
+        )
+        return record, grade
+    finally:
+        if cleanup:
+            cleanup_fn = getattr(host, "cleanup", None)
+            if callable(cleanup_fn):
+                cleanup_fn()
 
 
 def run_native(benchmark: BenchmarkAdapter, agent: NativeAgent,

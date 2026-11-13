@@ -15,9 +15,9 @@ OUT = ROOT / "results" / "real-smoke-9b.json"
 
 KEEP = (
     "method", "benchmark", "task", "label", "max_steps", "max_tokens",
-    "agent_seconds", "tokens", "actions", "turns", "grade_valid",
-    "grade_passed", "checks_passed", "checks_total", "phases", "bounces",
-    "action_log",
+    "enforce_submission", "agent_seconds", "tokens", "actions", "turns",
+    "grade_valid", "grade_passed", "checks_passed", "checks_total", "phases",
+    "bounces", "action_log",
 )
 
 
@@ -50,8 +50,9 @@ def main():
                 "D-apt environment failure and not used as a method result"),
             "core_task": "capsule-1854976, codeocean_easy, 3 questions",
             "submit_guard": (
-                "CORE/MLE hosts reject submit until the required artifact "
-                "exists; guard runs are separate conditions from no-guard runs"),
+                "guard is off by default.  Runs labelled 'guard' used "
+                "enforce_submission=True; they are separate conditions from "
+                "the default no-guard runs"),
             "interpretation": (
                 "single-task descriptions only; do not read as method benefit "
                 "or completion-rate evidence"),

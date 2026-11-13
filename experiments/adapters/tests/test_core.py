@@ -102,7 +102,8 @@ class CoreLoaderTests(unittest.TestCase):
 
 
 class CoreDockerTests(unittest.TestCase):
-    def _synthetic(self, tmp: str, image: str, level: str = "codeocean_easy"):
+    def _synthetic(self, tmp: str, image: str, level: str = "codeocean_easy",
+                   enforce_submission: bool = False):
         root = Path(tmp) / "core"
         prompts = root / "benchmark" / "benchmark_prompts.json"
         prompts.parent.mkdir(parents=True)
@@ -141,6 +142,7 @@ class CoreDockerTests(unittest.TestCase):
         adapter = CoreBenchAdapter(
             root=root, dataset=dataset, level=level,
             capsule_dir=capsules, image=image, download=False,
+            enforce_submission=enforce_submission,
         )
         return adapter, adapter.load_tasks()[0]
 
@@ -188,12 +190,29 @@ class CoreDockerTests(unittest.TestCase):
                 host.cleanup()
 
     @unittest.skipUnless(docker_available(), "docker daemon not available")
-    def test_submit_guard_requires_report(self):
+    def test_submit_guard_is_off_by_default(self):
         image = local_image()
         if image is None:
             self.skipTest("no local alpine/busybox image")
         with tempfile.TemporaryDirectory() as tmp:
             adapter, task = self._synthetic(tmp, image)
+            config = ExperimentConfig(token_budget=1000, max_actions=20)
+            host = adapter.make_host(task, config)
+            try:
+                self.assertIsNone(host.submit_guard)
+                accepted = host.step(Action("submit"))
+                self.assertEqual(accepted.exit_code, 0, accepted.error)
+                self.assertTrue(host.submitted)
+            finally:
+                host.cleanup()
+
+    @unittest.skipUnless(docker_available(), "docker daemon not available")
+    def test_submit_guard_requires_report(self):
+        image = local_image()
+        if image is None:
+            self.skipTest("no local alpine/busybox image")
+        with tempfile.TemporaryDirectory() as tmp:
+            adapter, task = self._synthetic(tmp, image, enforce_submission=True)
             config = ExperimentConfig(token_budget=1000, max_actions=20)
             host = adapter.make_host(task, config)
             try:

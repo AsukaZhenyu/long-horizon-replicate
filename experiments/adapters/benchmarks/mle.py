@@ -136,7 +136,8 @@ class MLEBenchAdapter(BenchmarkAdapter):
     def __init__(self, root: str | Path | None = None, split: str = DEFAULT_SPLIT,
                  data_dir: str | Path | None = None,
                  image: str | None = None,
-                 metric: Metric | None = None):
+                 metric: Metric | None = None,
+                 enforce_submission: bool = False):
         self.root = Path(root or os.environ.get("HW_MLE_ROOT") or DEFAULT_ROOT)
         competitions = self.root / "mlebench" / "competitions"
         if not competitions.is_dir():
@@ -146,6 +147,9 @@ class MLEBenchAdapter(BenchmarkAdapter):
             data_dir or os.environ.get("HW_MLE_DATA") or DEFAULT_DATA)
         self.image = image or os.environ.get("HW_MLE_IMAGE") or DEFAULT_IMAGE
         self.metric = metric
+        # Off by default: the guard adds host-side feedback and can change an
+        # agent's stopping behavior.  Enable it only for strict-submission runs.
+        self.enforce_submission = enforce_submission
         self._answers: Dict[str, Path] = {}
         self._leaderboards: Dict[str, Path] = {}
         self._configs: Dict[str, dict] = {}
@@ -270,10 +274,11 @@ class MLEBenchAdapter(BenchmarkAdapter):
             host, task, self.metric, self._answers[task.task_id],
             self._leaderboards[task.task_id], self.data_dir,
         )
-        host.submit_guard = lambda: (
-            None if host.read_container_file(SUBMISSION_PATH) is not None
-            else "submission.csv is required before submit; write it at "
-                 f"{SUBMISSION_PATH}")
+        if self.enforce_submission:
+            host.submit_guard = lambda: (
+                None if host.read_container_file(SUBMISSION_PATH) is not None
+                else "submission.csv is required before submit; write it at "
+                     f"{SUBMISSION_PATH}")
         return host
 
     def grade(self, task: TaskSpec, host: Host) -> Grade:

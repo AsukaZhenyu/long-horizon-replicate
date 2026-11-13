@@ -107,7 +107,7 @@ MLE-bench 的评分按官方 Kaggle leaderboard 阈值：读取 `score` 列，�
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-结果：**43 项测试全部通过**（`Ran 43 tests, OK`）。其中新增 8 项适配器测试（下表）、10 项 CORE-Bench 测试、4 项 Spine 重实现测试和 7 项 MLE-bench 测试。
+结果：**53 项测试全部通过**（`Ran 53 tests, OK`）。其中新增 8 项适配器测试（下表）、12 项 CORE-Bench 测试、4 项 Spine 重实现测试、9 项 MLE-bench 测试、2 项提交门继续逻辑测试和 4 项非干扰审计。
 
 | 测试 | 验证内容 |
 | --- | --- |
@@ -120,7 +120,7 @@ MLE-bench 的评分按官方 Kaggle leaderboard 阈值：读取 `score` 列，�
 | `test_sentry_detector_runs_and_grades` | Sentry detector 被调用并评分 |
 | `test_rrsi_candidate_prompt_runs_and_grades` | RRSI 候选 prompt 加载并评分 |
 
-CORE-Bench 新增 10 项：
+CORE-Bench 新增 12 项：
 
 | 测试 | 验证内容 |
 | --- | --- |
@@ -134,6 +134,8 @@ CORE-Bench 新增 10 项：
 | `test_missing_report_is_a_valid_failure` | 缺 `report.json` 记 valid=true/passed=false |
 | `test_medium_environment_keeps_reproducing_files` | medium 保留 `REPRODUCING.md`/`environment`/`code/run.sh`，清空 `results` |
 | `test_hard_environment_removes_hints_and_results` | hard 删除提示文件并清空 `results` |
+| `test_submit_guard_is_off_by_default` | 默认 `submit_guard=None`，submit 直接接受 |
+| `test_submit_guard_requires_report` | opt-in guard 拒绝缺 `report.json` 的 submit，补写后通过 |
 
 Spine 重实现新增 4 项（明确标注为非官方插件）：
 
@@ -155,6 +157,19 @@ MLE-bench 新增 7 项：
 | `test_perfect_submission_earns_medal` | Docker host + 合成提交 + medal |
 | `test_wrong_submission_has_no_medal` | 错误提交无 medal |
 | `test_missing_submission_is_a_valid_failure` | 缺 submission 记 valid=true/passed=false |
+| `test_submit_guard_is_off_by_default` | 默认 `submit_guard=None`，submit 直接接受 |
+| `test_submit_guard_requires_submission` | opt-in guard 拒绝缺 `submission.csv` 的 submit，补写后通过 |
+
+提交门继续逻辑 + 非干扰审计新增 6 项：
+
+| 测试 | 验证内容 |
+| --- | --- |
+| `test_base_react_continues_after_rejection` | Base 在 submit 被拒后继续并补写产物 |
+| `test_recuris_continues_after_rejection` | Recuris 在 submit 被拒后继续并补写产物 |
+| `test_core_metadata_has_no_gold_and_guard_is_off` | CORE metadata 无 gold/checks，guard 默认关闭 |
+| `test_mle_metadata_has_no_answers_and_guard_is_off` | MLE metadata 无 answers/gold，guard 默认关闭 |
+| `test_host_does_not_expose_checks` | Host 不暴露 checks/answers/gold/hidden_tests |
+| `test_adapter_changes_are_schema_mappings_only` | adapter_changes 只描述 schema 映射，不含 prompt/strategy/plan |
 
 原有 14 项契约/公平性/LocalHost/DockerHost 测试全部保留并通过。完整输出在 `.cache/adapters/test-output.txt`（不入库）。
 
@@ -182,7 +197,29 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 
 **读法**：这里证明的是“真实 9B → 公共 Host → 官方评分”链路可执行；6 步/512 token 远低于正式预算，失败不能当方法上限或收益结论。Base 的重复写和“读了结果但不写 report”是模型行为信号，不是适配器 bug。
 
-**提交门**：CORE/MLE host 在 `submit` 时检查任务要求的产物（`report.json` / `submission.csv`）；缺失时返回普通环境错误，agent 继续。它不暴露 hidden tests 或答案，且对所有方法一致。Base、Recuris m0、Recuris m0-gate 的 0/3 → 3/3 对照说明这是 host-level 提交校验 + agent 继续逻辑的作用，不是模型突然变强；Sentry/RRSI 本来就会写 report，guard 未改变它们的结果。
+### 6.2 非干扰保证
+
+适配器层的目标是**不改变方法**，只提供环境与 schema 映射。当前由测试和静态检查保证：
+
+| 保证 | 证据 |
+| --- | --- |
+| 只映射 action/observation/submit，不增删改序 | `workflow_preserved`、`test_workflow_invariance` |
+| 所有方法同一模型、token 预算、工具权限、评分 | `FairnessLedger`、`test_same_budget_and_config` |
+| `TaskSpec.metadata` 不含 checks/answers/gold/tests | `test_non_interference` |
+| `Host` 不暴露 checks/answers/gold/hidden_tests | `test_non_interference`、`test_no_hidden_test_access` |
+| 提交门默认关闭，严格提交需显式 opt-in | `test_submit_guard_is_off_by_default`（CORE/MLE） |
+| Spine 重实现与官方插件分开 | `SpineReimplementationAdapter`，不计入官方 8 方法 |
+| 方法不能提前评分、不能接触隐藏测试 | `grade_calls_during_run=0`、`hidden_test_access=false` |
+
+验证命令（**不跑 benchmark 复现测试**）：
+
+```bash
+.cache/venv/Scripts/python.exe experiments/adapters/verify_adapters.py
+```
+
+它刷新 32 行契约矩阵/就绪度，运行适配器测试，并写 `results/adapter-verification.json`。当前结果：**53 项测试通过、32/32 contract-ready**；真实 benchmark 成绩复现不在本里程碑内。
+
+**提交门（opt-in）**：默认关闭；只有显式 `enforce_submission=True` 时，CORE/MLE host 才在 `submit` 时检查任务要求的产物（`report.json` / `submission.csv`）。它不暴露 hidden tests 或答案，且对所有方法一致。表中的 guard 行是这个显式条件；默认 no-guard 行才是无额外反馈的执行。Base/Recuris m0/m0-gate 的 0/3 → 3/3 是 host-level 提交校验 + agent 继续逻辑的作用，不是模型收益；Sentry/RRSI 本来就会写 report，guard 未改变它们的结果。
 
 ## 7 就绪度
 
@@ -210,7 +247,7 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 | 真实 host | 0/4 | 3/4，另有 MLE-bench host 路径在合成数据下验证 |
 | 官方评分 | 0/4 | 3/4，且 TB 2.1 真实 oracle 通过、LHTB 2048 真实失败路径正确、CORE-Bench 真实 capsule 通过；MLE-bench 只有合成 metric |
 | 原生方法 loop | 0/8 | 4/8（Base、Sentry、Recuris、RRSI）；另有 Spine 重实现，不计入官方 8 方法 |
-| 测试数 | 14 | 43 |
+| 测试数 | 14 | 53 |
 | 真实 9B smoke | 未跑 | TB Base 0/1；LHTB 四方法 0/1（band 0）；CORE Sentry/RRSI 3/3；Base/Recuris 0/3 → 3/3（加提交门） |
 | 方法分数 | 无 | 仍无正式预算/收益结论 |
 
@@ -220,7 +257,7 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 - TB `regex-log` 第一次官方评分卡在 `apt-get update`，按 D-apt 环境失败处理；重跑后拿到 valid 0/1。
 - CORE 上 Sentry/RRSI 3/3；Base/Recuris 在未加提交门时 0/3，加提交门后 3/3。这是 host-level 提交校验的作用，必须作为不同条件分别报告，不能把 0/3 → 3/3 当模型收益。
 - LHTB `2048` 是长程游戏；6 步只能到 band 0，四个方法都是 0/1。这是预算描述，不是方法差异。
-- 提交门是 benchmark-side 的通用产物校验（CORE `report.json`、MLE `submission.csv`），对所有方法一致；它改变了 host 的反馈，因此有/无 guard 的结果不能直接合并。Recuris m0-gate 在没有 guard 时没有触发 bounce。
+- 提交门默认关闭；只有显式 `enforce_submission=True` 才启用（CORE `report.json`、MLE `submission.csv`）。它改变了 host 反馈，因此有/无 guard 的结果不能直接合并；默认 no-guard 行才是无额外反馈的执行。
 - Sentry 在 CORE 上 detector 触发 6 次并 3/3；verifier/updater 的 H=10 软恢复仍未触发。
 - Recuris 只跑 m0/m0-gate，没有 tta meta-agent patch loop；seed 记忆来自 TB2.1，不是 TB8 演化产物。
 - RRSI 只跑 Evaluate 半，搜索环需要 Anthropic Vertex。

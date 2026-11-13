@@ -88,7 +88,8 @@ class MLELoaderTests(unittest.TestCase):
 
 
 class MLEDockerTests(unittest.TestCase):
-    def _synthetic(self, tmp: str, image: str):
+    def _synthetic(self, tmp: str, image: str,
+                   enforce_submission: bool = False):
         root = Path(tmp) / "mle"
         (root / "environment").mkdir(parents=True)
         (root / "environment" / "instructions.txt").write_text(
@@ -127,7 +128,7 @@ class MLEDockerTests(unittest.TestCase):
             "id,answer\n1,a\n2,b\n", encoding="utf-8")
         adapter = MLEBenchAdapter(
             root=root, split="all", data_dir=data, image=image,
-            metric=accuracy_metric,
+            metric=accuracy_metric, enforce_submission=enforce_submission,
         )
         return adapter, adapter.load_tasks()[0]
 
@@ -178,12 +179,29 @@ class MLEDockerTests(unittest.TestCase):
                 host.cleanup()
 
     @unittest.skipUnless(docker_available(), "docker daemon not available")
-    def test_submit_guard_requires_submission(self):
+    def test_submit_guard_is_off_by_default(self):
         image = local_image()
         if image is None:
             self.skipTest("no local alpine/busybox image")
         with tempfile.TemporaryDirectory() as tmp:
             adapter, task = self._synthetic(tmp, image)
+            config = ExperimentConfig(token_budget=1000, max_actions=20)
+            host = adapter.make_host(task, config)
+            try:
+                self.assertIsNone(host.submit_guard)
+                accepted = host.step(Action("submit"))
+                self.assertEqual(accepted.exit_code, 0, accepted.error)
+                self.assertTrue(host.submitted)
+            finally:
+                host.cleanup()
+
+    @unittest.skipUnless(docker_available(), "docker daemon not available")
+    def test_submit_guard_requires_submission(self):
+        image = local_image()
+        if image is None:
+            self.skipTest("no local alpine/busybox image")
+        with tempfile.TemporaryDirectory() as tmp:
+            adapter, task = self._synthetic(tmp, image, enforce_submission=True)
             config = ExperimentConfig(token_budget=1000, max_actions=20)
             host = adapter.make_host(task, config)
             try:

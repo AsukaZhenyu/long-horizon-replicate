@@ -125,7 +125,8 @@ class CoreBenchAdapter(BenchmarkAdapter):
                  capsule_dir: str | Path | None = None,
                  image: str | None = None,
                  download: bool = True,
-                 timeout: int = 1800):
+                 timeout: int = 1800,
+                 enforce_submission: bool = False):
         if level not in LEVELS:
             raise ValueError(f"unknown CORE-Bench level: {level}")
         self.root = Path(root or os.environ.get("HW_CORE_ROOT") or DEFAULT_ROOT)
@@ -142,6 +143,9 @@ class CoreBenchAdapter(BenchmarkAdapter):
         self.image = image
         self.download = download
         self.timeout = timeout
+        # Off by default: the guard adds host-side feedback and can change an
+        # agent's stopping behavior.  Enable it only for strict-submission runs.
+        self.enforce_submission = enforce_submission
         self._prompts = _load_json(prompts_path)
         self._raw = _load_json(self.dataset_path)
         self._gold: Dict[str, List[Dict[str, Any]]] = {}
@@ -293,9 +297,10 @@ class CoreBenchAdapter(BenchmarkAdapter):
                 "find /app -name report.json -type f 2>/dev/null | head -n 1")
             return proc.returncode == 0 and bool(proc.stdout.strip())
 
-        host.submit_guard = lambda: (
-            None if _report_exists()
-            else "report.json is required before submit; write it in /app")
+        if self.enforce_submission:
+            host.submit_guard = lambda: (
+                None if _report_exists()
+                else "report.json is required before submit; write it in /app")
         return host
 
     def grade(self, task: TaskSpec, host: Host) -> Grade:
