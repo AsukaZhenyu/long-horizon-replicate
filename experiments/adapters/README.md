@@ -100,7 +100,7 @@ The native loops import the upstream Sentry/Recuris checkouts, which need
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-Current result: **30 tests, all pass**. Coverage:
+Current result: **32 tests, all pass**. Coverage:
 
 - four mock benchmarks run the base agent;
 - seven method adapters run on all four mock benchmarks;
@@ -117,6 +117,8 @@ Current result: **30 tests, all pass**. Coverage:
 - CORE-Bench loads the 45-task train split and does not leak gold answers;
 - CORE-Bench numeric (95% PI), string and list grading works, and a synthetic
   capsule round-trips through Docker to a passing `report.json`;
+- CORE-Bench medium/hard environment preparation keeps/removes the right files
+  and empties `results` before grading;
 - Sentry, Recuris (m0/m0-gate) and RRSI run offline on a manifest task.
 
 ## Generate the evidence
@@ -145,7 +147,8 @@ execution+grading paths are implemented and tested. A real TB 2.1 `regex-log`
 oracle run passed the official test 1/1 (reward 1.0) in 80.6 s; a real LHTB 2.0
 `2048` blank submission was correctly scored 0/1 (reward 0.0); a synthetic and
 a real CORE-Bench easy capsule (`capsule-1854976`) round-tripped through
-Docker to a passing `report.json` (3/3). This round did **not** run the 9B model: all method smoke is
+Docker to a passing `report.json` (3/3); medium/hard environment preparation is
+tested with a synthetic capsule. This round did **not** run the 9B model: all method smoke is
 deterministic and offline. MLE-bench data, CORE-Bench medium/hard and the
 held-out test split, and the remaining four native loops are the next
 integration step.

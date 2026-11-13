@@ -102,7 +102,7 @@ class CoreLoaderTests(unittest.TestCase):
 
 
 class CoreDockerTests(unittest.TestCase):
-    def _synthetic(self, tmp: str, image: str):
+    def _synthetic(self, tmp: str, image: str, level: str = "codeocean_easy"):
         root = Path(tmp) / "core"
         prompts = root / "benchmark" / "benchmark_prompts.json"
         prompts.parent.mkdir(parents=True)
@@ -139,7 +139,7 @@ class CoreDockerTests(unittest.TestCase):
         code.mkdir()
         (code / "run.sh").write_text("echo hi\n", encoding="utf-8")
         adapter = CoreBenchAdapter(
-            root=root, dataset=dataset, level="codeocean_easy",
+            root=root, dataset=dataset, level=level,
             capsule_dir=capsules, image=image, download=False,
         )
         return adapter, adapter.load_tasks()[0]
@@ -184,6 +184,62 @@ class CoreDockerTests(unittest.TestCase):
                 self.assertTrue(grade.valid, grade.detail)
                 self.assertFalse(grade.passed, grade.detail)
                 self.assertEqual(grade.checks_passed, 0)
+            finally:
+                host.cleanup()
+
+    @unittest.skipUnless(docker_available(), "docker daemon not available")
+    def test_medium_environment_keeps_reproducing_files(self):
+        image = local_image()
+        if image is None:
+            self.skipTest("no local alpine/busybox image")
+        with tempfile.TemporaryDirectory() as tmp:
+            adapter, task = self._synthetic(tmp, image, level="codeocean_medium")
+            config = ExperimentConfig(token_budget=1000, max_actions=20)
+            host = adapter.make_host(task, config)
+            try:
+                check = host.step(Action("shell", {"command":
+                    'test -f capsule-test/REPRODUCING.md '
+                    '&& test -f capsule-test/code/run.sh '
+                    '&& test -d capsule-test/environment '
+                    '&& [ -z "$(ls -A capsule-test/results)" ]'}))
+                self.assertEqual(check.exit_code, 0, check.output + check.error)
+                agent = BaseAgentAdapter(ScriptedAgent([
+                    Action("write", {"path": "report.json", "content": json.dumps(
+                        {"What is the answer?": 42})}),
+                    Action("submit"),
+                ]))
+                agent.run(task, host)
+                grade = adapter.grade(task, host)
+                self.assertTrue(grade.valid, grade.detail)
+                self.assertTrue(grade.passed, grade.detail)
+            finally:
+                host.cleanup()
+
+    @unittest.skipUnless(docker_available(), "docker daemon not available")
+    def test_hard_environment_removes_hints_and_results(self):
+        image = local_image()
+        if image is None:
+            self.skipTest("no local alpine/busybox image")
+        with tempfile.TemporaryDirectory() as tmp:
+            adapter, task = self._synthetic(tmp, image, level="codeocean_hard")
+            config = ExperimentConfig(token_budget=1000, max_actions=20)
+            host = adapter.make_host(task, config)
+            try:
+                check = host.step(Action("shell", {"command":
+                    'test ! -f capsule-test/REPRODUCING.md '
+                    '&& test ! -d capsule-test/environment '
+                    '&& test ! -f capsule-test/code/run.sh '
+                    '&& [ -z "$(ls -A capsule-test/results)" ]'}))
+                self.assertEqual(check.exit_code, 0, check.output + check.error)
+                agent = BaseAgentAdapter(ScriptedAgent([
+                    Action("write", {"path": "report.json", "content": json.dumps(
+                        {"What is the answer?": 42})}),
+                    Action("submit"),
+                ]))
+                agent.run(task, host)
+                grade = adapter.grade(task, host)
+                self.assertTrue(grade.valid, grade.detail)
+                self.assertTrue(grade.passed, grade.detail)
             finally:
                 host.cleanup()
 

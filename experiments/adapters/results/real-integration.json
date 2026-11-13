@@ -119,7 +119,7 @@
   ],
   "offline_tests": {
     "status": "passed",
-    "tests": 30
+    "tests": 32
   },
   "official_grading_smoke": [
     {

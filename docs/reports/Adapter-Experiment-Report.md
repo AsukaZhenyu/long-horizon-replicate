@@ -98,7 +98,7 @@ CORE-Bench 的评分是 `report.json` 对三道 gold run 的比较：数值答�
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-结果：**30 项测试全部通过**（`Ran 30 tests, OK`）。其中新增 8 项适配器测试（下表）和 8 项 CORE-Bench 测试。
+结果：**32 项测试全部通过**（`Ran 32 tests, OK`）。其中新增 8 项适配器测试（下表）和 10 项 CORE-Bench 测试。
 
 | 测试 | 验证内容 |
 | --- | --- |
@@ -111,7 +111,7 @@ CORE-Bench 的评分是 `report.json` 对三道 gold run 的比较：数值答�
 | `test_sentry_detector_runs_and_grades` | Sentry detector 被调用并评分 |
 | `test_rrsi_candidate_prompt_runs_and_grades` | RRSI 候选 prompt 加载并评分 |
 
-CORE-Bench 新增 8 项：
+CORE-Bench 新增 10 项：
 
 | 测试 | 验证内容 |
 | --- | --- |
@@ -123,6 +123,8 @@ CORE-Bench 新增 8 项：
 | `test_missing_answer_does_not_pass` | 缺答案不通过 |
 | `test_report_round_trip` | Docker host + 合成 capsule + `report.json` 通过 |
 | `test_missing_report_is_a_valid_failure` | 缺 `report.json` 记 valid=true/passed=false |
+| `test_medium_environment_keeps_reproducing_files` | medium 保留 `REPRODUCING.md`/`environment`/`code/run.sh`，清空 `results` |
+| `test_hard_environment_removes_hints_and_results` | hard 删除提示文件并清空 `results` |
 
 原有 14 项契约/公平性/LocalHost/DockerHost 测试全部保留并通过。完整输出在 `.cache/adapters/test-output.txt`（不入库）。
 
@@ -139,7 +141,7 @@ CORE-Bench 新增 8 项：
 | --- | --- | --- |
 | TB 2.1 | 已接（89 题） | Base/Sentry/Recuris/RRSI 只差 model endpoint；Spine/openJiuwen/LHH/Opera 还差原生 loop |
 | LHTB 2.0 | 已接（46 + 31 题） | 同上 |
-| CORE-Bench | 已接（train 45 题，easy） | test split 加密；medium/hard 未跑；Base/Sentry/Recuris/RRSI 只差 model endpoint |
+| CORE-Bench | 已接（train 45 题；easy 真实 capsule，medium/hard 合成环境） | test split 加密；真实 medium/hard 复现未跑；Base/Sentry/Recuris/RRSI 只差 model endpoint |
 | MLE-bench | 未接 | 数据缺失 |
 
 所以现在可以说“TB 2.1、LHTB 2.0 和 CORE-Bench train split 的执行+官方评分链路已接”，不能说“所有方法 × 四个 benchmark 都能正常跑”。
@@ -152,7 +154,7 @@ CORE-Bench 新增 8 项：
 | 真实 host | 0/4 | 3/4 |
 | 官方评分 | 0/4 | 3/4，且 TB 2.1 真实 oracle 通过、LHTB 2048 真实失败路径正确、CORE-Bench 真实 capsule 通过 |
 | 原生方法 loop | 0/8 | 4/8（Base、Sentry、Recuris、RRSI） |
-| 测试数 | 14 | 30 |
+| 测试数 | 14 | 32 |
 | 方法分数 | 无 | 仍无（本轮离线） |
 
 ## 9 边界与未做
@@ -164,7 +166,7 @@ CORE-Bench 新增 8 项：
 - Spine 的原生 loop 是 Pi/Node 插件，尚未桥接到 Python 公共契约。
 - openJiuwen、LongHorizon-Harness、Opera 的上游没有接入。
 - CORE-Bench 本轮只用公开 train split（45 题），不是留出 test split；test split 需要 GPG 解密，未使用。
-- CORE-Bench 只跑 easy 级别（读 `results/`，不执行代码）；medium/hard 的 host 路径已实现（`--privileged`）但未跑，不能当研究复现成绩。
+- CORE-Bench 真实 capsule 只跑 easy 级别（读 `results/`，不执行代码）；medium/hard 的环境准备（保留/删除哪些文件、清空 `results`）和 Docker host（`--privileged`）已用合成 capsule 验证，但没有真实 medium/hard 复现成绩。
 - MLE-bench 数据不在本机；报告为缺失，不用 mock 冒充。
 - 官方评分是单容器近似；Harbor 的独立 verifier 容器路径未复现。
 - 真实 benchmark 的正式跑还需要冻结 4 个 benchmark 的共同 token 预算、模型服务和 3 次独立运行。
