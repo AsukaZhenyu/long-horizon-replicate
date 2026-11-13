@@ -3,6 +3,11 @@
 Common host contract, real Harbor-format benchmark integrations, and the
 method-native loops that run through them.
 
+**Current milestone: adapter execution.** The requirement is that the
+loader → host → agent → grader chain runs normally. Reproducing the benchmark's
+own test scores is out of scope for this milestone; the real-smoke rows are
+execution evidence, not method results.
+
 ## Layout
 
 ```
@@ -167,7 +172,10 @@ Docker to a passing `report.json` (3/3); medium/hard environment preparation is
 tested with a synthetic capsule. A real 9B smoke (Qwen3.5-9B, 6 steps × 512
 tokens) produced valid official grades for Base on TB 2.1 `regex-log` (0/1) and
 CORE easy `capsule-1854976` (0/3); the model repeated a wrong regex and did not
-write the required `report.json`. On the same CORE capsule, Sentry passed 3/3
+write the required `report.json`. On LHTB 2.0 `2048`, Base made five moves and
+reached band 0 (largest tile 8, dense reward 0.0908), valid but below the band-1
+pass threshold; Sentry, Recuris m0 and RRSI also stopped at band 0 (0/1) within
+six steps. On the same CORE capsule, Sentry passed 3/3
 (detector triggered 6 times) and RRSI passed 3/3; Base, Recuris m0 and Recuris
 m0-gate all failed 0/3 because they submitted without writing `report.json`.
 With the benchmark-side submit guard (reject `submit` until the required

@@ -116,6 +116,59 @@
     },
     {
       "method": "base",
+      "benchmark": "lhtb",
+      "task": "2048",
+      "label": "lhtb",
+      "max_steps": 6,
+      "max_tokens": 512,
+      "agent_seconds": 15.0,
+      "tokens": 12568,
+      "actions": 6,
+      "grade_valid": true,
+      "grade_passed": false,
+      "checks_passed": 0,
+      "checks_total": 1,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 status"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move D"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move U"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        }
+      ]
+    },
+    {
+      "method": "base",
       "benchmark": "tb21",
       "task": "regex-log",
       "agent_seconds": 60.4,
@@ -371,6 +424,60 @@
       ]
     },
     {
+      "method": "recuris",
+      "benchmark": "lhtb",
+      "task": "2048",
+      "label": "lhtb",
+      "max_steps": 6,
+      "max_tokens": 512,
+      "agent_seconds": 17.9,
+      "tokens": 13488,
+      "actions": 6,
+      "turns": 6,
+      "grade_valid": true,
+      "grade_passed": false,
+      "checks_passed": 0,
+      "checks_total": 1,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 status"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move D"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move U"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        }
+      ]
+    },
+    {
       "method": "rrsi",
       "benchmark": "core",
       "task": "capsule-1854976",
@@ -416,6 +523,59 @@
           "kind": "shell",
           "payload": {
             "command": "cat /app/report.json"
+          }
+        }
+      ]
+    },
+    {
+      "method": "rrsi",
+      "benchmark": "lhtb",
+      "task": "2048",
+      "label": "lhtb",
+      "max_steps": 6,
+      "max_tokens": 512,
+      "agent_seconds": 14.2,
+      "tokens": 13024,
+      "actions": 6,
+      "grade_valid": true,
+      "grade_passed": false,
+      "checks_passed": 0,
+      "checks_total": 1,
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 status"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move D"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move U"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
           }
         }
       ]
@@ -469,6 +629,62 @@
           "kind": "shell",
           "payload": {
             "command": "cat report.json"
+          }
+        }
+      ]
+    },
+    {
+      "method": "sentry",
+      "benchmark": "lhtb",
+      "task": "2048",
+      "label": "lhtb",
+      "max_steps": 6,
+      "max_tokens": 512,
+      "agent_seconds": 203.5,
+      "tokens": 33639,
+      "actions": 6,
+      "grade_valid": true,
+      "grade_passed": false,
+      "checks_passed": 0,
+      "checks_total": 1,
+      "phases": {
+        "detector": 6
+      },
+      "action_log": [
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 status"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move D"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move L"
+          }
+        },
+        {
+          "kind": "shell",
+          "payload": {
+            "command": "g2048 move D"
           }
         }
       ]

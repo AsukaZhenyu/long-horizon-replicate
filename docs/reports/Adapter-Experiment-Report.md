@@ -2,8 +2,8 @@
 
 四个 benchmark、八个 Agent 架构的适配器契约层与真实接入
 
-> 本报告验证适配器层和 TB 2.1 / LHTB 2.0 的真实执行+评分链路，不给方法 benchmark 分数。
-> 本轮是**离线接线验证**：没有启动本地 9B 模型，方法 smoke 使用确定性 model client。
+> 当前里程碑：**适配器能正常执行**。要求 loader → host → agent → grader 链路跑通；复现 benchmark 自身的测试/成绩不在本阶段要求内。
+> 真实 smoke 的 0/1、0/3 是执行与预算描述，不作方法结论。
 
 ## 1 本轮范围与结论
 
@@ -165,6 +165,10 @@ MLE-bench 新增 7 项：
 | 方法 | Benchmark | 任务 | Agent 秒 | tokens | 动作 | 官方评分 | 观察 |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
 | Base | TB 2.1 | `regex-log` | 60.4 | 4524 | 6 | valid=true, passed=false, 0/1 | 5 次重复写同一个错误正则，随后提交 |
+| Base | LHTB 2.0 | `2048` | 15.0 | 12568 | 6 | valid=true, passed=false, 0/1 | 5 步 move；band 0、最大 tile 8、dense reward 0.0908 |
+| Sentry | LHTB 2.0 | `2048` | 203.5 | 33639 | 6 | valid=true, passed=false, 0/1 | 5 步 move；band 0；detector 触发 6 次 |
+| Recuris m0 | LHTB 2.0 | `2048` | 17.9 | 13488 | 6 | valid=true, passed=false, 0/1 | 5 步 move；band 0 |
+| RRSI | LHTB 2.0 | `2048` | 14.2 | 13024 | 6 | valid=true, passed=false, 0/1 | 5 步 move；band 0 |
 | Base | CORE easy | `capsule-1854976` | 20.2 | 4365 | 5 | valid=true, passed=false, 0/3 | 读了 `results/output`，但直接 submit，未写 `report.json` |
 | Base + submit guard | CORE easy | `capsule-1854976` | 33.4 | 9909 | 8 | valid=true, passed=true, 3/3 | 首次 submit 被拒（缺 `report.json`），随后补写正确 report |
 | Sentry | CORE easy | `capsule-1854976` | 158.5 | 21223 | 6 | valid=true, passed=true, 3/3 | detector 触发 6 次；读 output 后写入正确 `report.json` |
@@ -174,7 +178,7 @@ MLE-bench 新增 7 项：
 | Recuris m0-gate + submit guard | CORE easy | `capsule-1854976` | 44.7 | 12242 | 7 | valid=true, passed=true, 3/3 | 首次 submit 被拒后补写 report |
 | RRSI | CORE easy | `capsule-1854976` | 24.5 | 7171 | 6 | valid=true, passed=true, 3/3 | 读 output 后写入正确 `report.json` |
 
-TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按 D-apt 记为环境失败；上表是重跑后官方测试完整执行的 valid 评分。CORE 批次已完成：Sentry 和 RRSI 在 `capsule-1854976` 上 3/3，Base、Recuris m0、Recuris m0-gate 都是 0/3（读了 `results/output` 但未写 `report.json`）。
+TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按 D-apt 记为环境失败；上表是重跑后官方测试完整执行的 valid 评分。CORE 批次已完成：Sentry 和 RRSI 在 `capsule-1854976` 上 3/3，Base、Recuris m0、Recuris m0-gate 都是 0/3（读了 `results/output` 但未写 `report.json`）。LHTB `2048` 的评分是 dense reward：Base 5 步后 band 0、最大 tile 8、reward 0.0908，低于 band≥1，因此 valid 但 passed=false。LHTB `2048` 的 Base/Sentry/Recuris/RRSI 四个方法都停在 band 0、0/1；6 步预算远不足以到 band 1（64 tile），不能据此比较方法。
 
 **读法**：这里证明的是“真实 9B → 公共 Host → 官方评分”链路可执行；6 步/512 token 远低于正式预算，失败不能当方法上限或收益结论。Base 的重复写和“读了结果但不写 report”是模型行为信号，不是适配器 bug。
 
@@ -207,7 +211,7 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 | 官方评分 | 0/4 | 3/4，且 TB 2.1 真实 oracle 通过、LHTB 2048 真实失败路径正确、CORE-Bench 真实 capsule 通过；MLE-bench 只有合成 metric |
 | 原生方法 loop | 0/8 | 4/8（Base、Sentry、Recuris、RRSI）；另有 Spine 重实现，不计入官方 8 方法 |
 | 测试数 | 14 | 43 |
-| 真实 9B smoke | 未跑 | TB Base 0/1；CORE Sentry/RRSI 3/3；Base/Recuris 0/3 → 3/3（加提交门） |
+| 真实 9B smoke | 未跑 | TB Base 0/1；LHTB 四方法 0/1（band 0）；CORE Sentry/RRSI 3/3；Base/Recuris 0/3 → 3/3（加提交门） |
 | 方法分数 | 无 | 仍无正式预算/收益结论 |
 
 ## 9 边界与未做
@@ -215,6 +219,7 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 - 真实 9B smoke 是 6 步 × 512 token 的接线 smoke，不是正式预算；CORE 只有 1 道 easy 任务，不能当完成率或方法收益结论。
 - TB `regex-log` 第一次官方评分卡在 `apt-get update`，按 D-apt 环境失败处理；重跑后拿到 valid 0/1。
 - CORE 上 Sentry/RRSI 3/3；Base/Recuris 在未加提交门时 0/3，加提交门后 3/3。这是 host-level 提交校验的作用，必须作为不同条件分别报告，不能把 0/3 → 3/3 当模型收益。
+- LHTB `2048` 是长程游戏；6 步只能到 band 0，四个方法都是 0/1。这是预算描述，不是方法差异。
 - 提交门是 benchmark-side 的通用产物校验（CORE `report.json`、MLE `submission.csv`），对所有方法一致；它改变了 host 的反馈，因此有/无 guard 的结果不能直接合并。Recuris m0-gate 在没有 guard 时没有触发 bounce。
 - Sentry 在 CORE 上 detector 触发 6 次并 3/3；verifier/updater 的 H=10 软恢复仍未触发。
 - Recuris 只跑 m0/m0-gate，没有 tta meta-agent patch loop；seed 记忆来自 TB2.1，不是 TB8 演化产物。
