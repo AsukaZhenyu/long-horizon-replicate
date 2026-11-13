@@ -1,0 +1,123 @@
+{
+  "result.json": {
+    "task": "sqlite-db-truncate",
+    "exitCode": 0,
+    "deadlineReached": true,
+    "freezeElapsedSeconds": 300.107,
+    "deadlineFreezeOverrunSeconds": 0.10700000000002774,
+    "V": 0,
+    "A": 0,
+    "Y": 0,
+    "agentWallSeconds": 300.108,
+    "setupSeconds": 0.445,
+    "modelRequests": 11,
+    "apiAttempts": 11,
+    "completedHttpResponses": 10,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "toolCounts": {
+      "bash": 10
+    },
+    "toolErrors": 2,
+    "exactBashCommands": 10,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "Let me re-analyze the structure more carefully:",
+    "finalStopReason": "error",
+    "grading": {
+      "task": "sqlite-db-truncate",
+      "valid": true,
+      "A": 0,
+      "exitCode": 1,
+      "counts": {
+        "failed": 1
+      },
+      "expectedChecks": 1,
+      "gradingSeconds": 5,
+      "candidateImageId": "sha256:7b29587cdad8cc64e5a3742254b5f2dcf7f04cdcfee8e685a70f4ecc25c80af2",
+      "candidateArchiveSha256": "7e48af6fc8df92488cf6ca664ebeeb3c92d20980ebc6ba927b835a1f25189533",
+      "candidateRestoredExactly": true,
+      "bootstrapCandidateUnchanged": true,
+      "testHashes": {
+        "tests/test_outputs.py": "8f5bc11018687d8c5894ebf1b4ec6fad004828e5ce442d3cc04d925ef53ef881"
+      },
+      "copiedTestsHashMatched": true,
+      "newModelCalls": 0,
+      "newAgentActions": 0,
+      "dockerTransport": "Windows Docker CLI with explicit engine",
+      "pythonBootstrap": false,
+      "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+    },
+    "fullTrialSeconds": 308.088
+  },
+  "agent-result.json": {
+    "task": "sqlite-db-truncate",
+    "exitCode": 0,
+    "deadlineReached": true,
+    "freezeElapsedSeconds": 300.107,
+    "deadlineFreezeOverrunSeconds": 0.10700000000002774,
+    "V": 0,
+    "A": null,
+    "Y": null,
+    "agentWallSeconds": 300.108,
+    "setupSeconds": 0.445,
+    "modelRequests": 11,
+    "apiAttempts": 11,
+    "completedHttpResponses": 10,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "toolCounts": {
+      "bash": 10
+    },
+    "toolErrors": 2,
+    "exactBashCommands": 10,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "Let me re-analyze the structure more carefully:",
+    "finalStopReason": "error"
+  },
+  "grading/result.json": {
+    "task": "sqlite-db-truncate",
+    "valid": true,
+    "A": 0,
+    "exitCode": 1,
+    "counts": {
+      "failed": 1
+    },
+    "expectedChecks": 1,
+    "gradingSeconds": 5.0,
+    "candidateImageId": "sha256:7b29587cdad8cc64e5a3742254b5f2dcf7f04cdcfee8e685a70f4ecc25c80af2",
+    "candidateArchiveSha256": "7e48af6fc8df92488cf6ca664ebeeb3c92d20980ebc6ba927b835a1f25189533",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "8f5bc11018687d8c5894ebf1b4ec6fad004828e5ce442d3cc04d925ef53ef881"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  }
+}

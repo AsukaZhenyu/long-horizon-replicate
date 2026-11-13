@@ -1,0 +1,61 @@
+{
+  "task": "cancel-async-tasks",
+  "exitCode": 0,
+  "deadlineReached": true,
+  "freezeElapsedSeconds": 300.122,
+  "deadlineFreezeOverrunSeconds": 0.1220000000000141,
+  "V": 0,
+  "A": 0,
+  "Y": 0,
+  "agentWallSeconds": 300.122,
+  "setupSeconds": 0.412,
+  "modelRequests": 8,
+  "apiAttempts": 8,
+  "completedHttpResponses": 7,
+  "httpStatuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "toolCounts": {
+    "bash": 4,
+    "write": 3
+  },
+  "toolErrors": 3,
+  "exactBashCommands": 4,
+  "repeatedExactBashCommands": 1,
+  "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+  "finalAnswer": "The test is failing because the cleanup time is being counted. Let me adjust the test to account for cleanup time:",
+  "finalStopReason": "error",
+  "grading": {
+    "task": "cancel-async-tasks",
+    "valid": true,
+    "A": 0,
+    "exitCode": 1,
+    "counts": {
+      "passed": 1,
+      "failed": 5
+    },
+    "expectedChecks": 6,
+    "gradingSeconds": 6.9689999999973224,
+    "candidateImageId": "sha256:bd826cd53d3ca48aa558700cbf3583f36b49e3926143b4880e4d2f5ccbc221ae",
+    "candidateArchiveSha256": "a961743fde8eae87b7e3e91042e7cf18eeaaa22a612b8f2a4790a0c32721a295",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test.py": "f533c0a64db068f582b4733c5b81f2e66b8fa52fcd3efa65752e6bd6d24780aa",
+      "tests/test_outputs.py": "d6f510b51fafc81b4e9b5cc95535aa13491c8753e0e4171db42c45f4de460ee7"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  },
+  "fullTrialSeconds": 308.97
+}

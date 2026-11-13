@@ -8,7 +8,8 @@ import {fileURLToPath} from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const env = process.env;
-const repoRoot = resolve(here, '../../..');
+// here is <repo>/experiments/tb-eval/harness/spine; four levels up is <repo>.
+const repoRoot = resolve(here, '../../../..');
 const cache = resolve(env.HW_CACHE || resolve(repoRoot, '.cache'));
 
 export const paths = {

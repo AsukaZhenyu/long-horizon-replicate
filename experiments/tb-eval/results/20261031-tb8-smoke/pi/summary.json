@@ -1,0 +1,146 @@
+{
+  "round": "20261031-tb8-smoke",
+  "method": "pi",
+  "n": 8,
+  "attempted": 8,
+  "A": 3,
+  "AInvalid": 0,
+  "V": 4,
+  "Y": 3,
+  "totalModelRequests": 42,
+  "totalAgentWallSeconds": 954.334,
+  "rows": [
+    {
+      "task": "sqlite-db-truncate",
+      "attempted": true,
+      "A": 0,
+      "V": 0,
+      "Y": 0,
+      "modelRequests": 11,
+      "agentWallSeconds": 300.108,
+      "gradingCounts": {
+        "failed": 1
+      },
+      "toolCounts": {
+        "bash": 10
+      },
+      "finalStopReason": "error"
+    },
+    {
+      "task": "jq-data-processing",
+      "attempted": true,
+      "A": 0,
+      "V": 0,
+      "Y": 0,
+      "modelRequests": 4,
+      "agentWallSeconds": 26.753,
+      "gradingCounts": {
+        "passed": 1,
+        "failed": 13
+      },
+      "toolCounts": {
+        "read": 1
+      },
+      "finalStopReason": "error"
+    },
+    {
+      "task": "hello-world",
+      "attempted": true,
+      "A": 1,
+      "V": 1,
+      "Y": 1,
+      "modelRequests": 2,
+      "agentWallSeconds": 10.612,
+      "gradingCounts": {
+        "passed": 2
+      },
+      "toolCounts": {
+        "write": 1
+      },
+      "finalStopReason": "stop"
+    },
+    {
+      "task": "regex-log",
+      "attempted": true,
+      "A": 0,
+      "V": 0,
+      "Y": 0,
+      "modelRequests": 1,
+      "agentWallSeconds": 196.239,
+      "gradingCounts": {
+        "failed": 1
+      },
+      "toolCounts": {},
+      "finalStopReason": "length"
+    },
+    {
+      "task": "cprofiling-python",
+      "attempted": true,
+      "A": 0,
+      "V": 0,
+      "Y": 0,
+      "modelRequests": 10,
+      "agentWallSeconds": 300.083,
+      "gradingCounts": {
+        "passed": 1,
+        "failed": 1
+      },
+      "toolCounts": {
+        "bash": 5,
+        "write": 5
+      },
+      "finalStopReason": "toolUse"
+    },
+    {
+      "task": "fix-permissions",
+      "attempted": true,
+      "A": 1,
+      "V": 1,
+      "Y": 1,
+      "modelRequests": 6,
+      "agentWallSeconds": 36.228,
+      "gradingCounts": {
+        "passed": 1
+      },
+      "toolCounts": {
+        "read": 1,
+        "bash": 4
+      },
+      "finalStopReason": "stop"
+    },
+    {
+      "task": "log-summary",
+      "attempted": true,
+      "A": 1,
+      "V": 1,
+      "Y": 1,
+      "modelRequests": 6,
+      "agentWallSeconds": 31.018,
+      "gradingCounts": {
+        "passed": 3
+      },
+      "toolCounts": {
+        "bash": 4,
+        "write": 1
+      },
+      "finalStopReason": "stop"
+    },
+    {
+      "task": "cancel-async-tasks",
+      "attempted": true,
+      "A": 0,
+      "V": 1,
+      "Y": 0,
+      "modelRequests": 2,
+      "agentWallSeconds": 53.293,
+      "gradingCounts": {
+        "passed": 5,
+        "failed": 1
+      },
+      "toolCounts": {
+        "write": 1
+      },
+      "finalStopReason": "stop"
+    }
+  ]
+}

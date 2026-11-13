@@ -1,0 +1,224 @@
+{
+  "result.json": {
+    "task": "hello-world",
+    "method": "sentry",
+    "V": 1,
+    "A": 1,
+    "Y": 1,
+    "normalSubmission": true,
+    "stop_reason": "submitted",
+    "steps": [
+      {
+        "step_id": 0,
+        "raw": "{\"reasoning\":\"Create the file /app/hello.txt with the content 'Hello, world!' using echo and output redirection.\",\"command\":\"echo 'Hello, world!' > /app/hello.txt\",\"timeout_seconds\":30}",
+        "action": {
+          "reasoning": "Create the file /app/hello.txt with the content 'Hello, world!' using echo and output redirection.",
+          "command": "echo 'Hello, world!' > /app/hello.txt",
+          "timeout_seconds": 30
+        },
+        "parsed_ok": true,
+        "observation": "{\"code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"timed_out\": false}",
+        "accepted_by_environment": true,
+        "submission_requested": false,
+        "elapsed_seconds": 5.796068900000137
+      },
+      {
+        "step_id": 1,
+        "raw": "{\"reasoning\":\"Verify that the file /app/hello.txt was created correctly with the expected content.\",\"command\":\"cat /app/hello.txt\",\"timeout_seconds\":30}",
+        "action": {
+          "reasoning": "Verify that the file /app/hello.txt was created correctly with the expected content.",
+          "command": "cat /app/hello.txt",
+          "timeout_seconds": 30
+        },
+        "parsed_ok": true,
+        "observation": "{\"code\": 0, \"stdout\": \"Hello, world!\\n\", \"stderr\": \"\", \"timed_out\": false}",
+        "accepted_by_environment": true,
+        "submission_requested": false,
+        "elapsed_seconds": 20.984327699999994
+      },
+      {
+        "step_id": 2,
+        "raw": "{\"final\":\"The file /app/hello.txt has been successfully created with the content 'Hello, world!' as verified by the cat command.\",\"reasoning\":\"Task completed successfully.\"}",
+        "action": {
+          "final": "The file /app/hello.txt has been successfully created with the content 'Hello, world!' as verified by the cat command.",
+          "reasoning": "Task completed successfully."
+        },
+        "parsed_ok": true,
+        "observation": "Agent requested final submission. No hidden evaluation has been performed.",
+        "accepted_by_environment": true,
+        "submission_requested": true,
+        "elapsed_seconds": 36.14850649999971
+      }
+    ],
+    "initialPlaybookEntries": 0,
+    "finalAnswer": "The file /app/hello.txt has been successfully created with the content 'Hello, world!' as verified by the cat command.",
+    "agentWallSeconds": 48.83080519999976,
+    "modelInvocationAttempts": 6,
+    "modelRequests": 6,
+    "completedHttpResponses": 6,
+    "usage": {
+      "prompt_tokens": 3778,
+      "completion_tokens": 474,
+      "total_tokens": 4252
+    },
+    "unknownUsageRequests": 0,
+    "usageInterpretation": "Known reported usage only; interrupted or failed requests can have missing usage",
+    "phaseCounts": {
+      "actor": 3,
+      "detector": 3
+    },
+    "sentryEventCounts": {
+      "task_started": 1,
+      "agent_step": 3,
+      "sentry_diagnosis": 3,
+      "task_finalized": 1
+    },
+    "interventions": 0,
+    "verifiedRecoveries": 0,
+    "hardVerifiedRecoveries": 0,
+    "softVerifiedRecoveries": 0,
+    "learnedEntries": 0,
+    "invalidModelDiagnoses": 0,
+    "repeatedCommandObservationPairs": 0,
+    "repetitionDefinition": "Exact same command and truncated visible observation hash previously seen within task; diagnostic proxy, not all repetitions are invalid",
+    "candidatePaused": true,
+    "contextCompressionAddedByHost": false,
+    "externalApiCostUsd": 0,
+    "localEnergyCostUsd": null,
+    "grading": {
+      "task": "hello-world",
+      "valid": true,
+      "A": 1,
+      "exitCode": 0,
+      "counts": {
+        "passed": 2
+      },
+      "expectedChecks": 2,
+      "gradingSeconds": 5.311999999999898,
+      "candidateImageId": "sha256:ad55a3b07ef332607f9f8b2d39acf78ebf52be43f4260ec076db10aa4a0b05eb",
+      "candidateArchiveSha256": "fa120a7670c7944a4f09b57ac23418030a57686a8aad19151faebf4cef941c35",
+      "candidateRestoredExactly": true,
+      "bootstrapCandidateUnchanged": true,
+      "testHashes": {
+        "tests/test_outputs.py": "ae70869cb2179ea8d9c4834132c5d9675e371f4152094a3f199198e95958e165"
+      },
+      "copiedTestsHashMatched": true,
+      "newModelCalls": 0,
+      "newAgentActions": 0,
+      "dockerTransport": "Windows Docker CLI with explicit engine",
+      "pythonBootstrap": false,
+      "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+    }
+  },
+  "agent-result.json": {
+    "task": "hello-world",
+    "method": "sentry",
+    "V": 1,
+    "A": null,
+    "Y": null,
+    "normalSubmission": true,
+    "stop_reason": "submitted",
+    "steps": [
+      {
+        "step_id": 0,
+        "raw": "{\"reasoning\":\"Create the file /app/hello.txt with the content 'Hello, world!' using echo and output redirection.\",\"command\":\"echo 'Hello, world!' > /app/hello.txt\",\"timeout_seconds\":30}",
+        "action": {
+          "reasoning": "Create the file /app/hello.txt with the content 'Hello, world!' using echo and output redirection.",
+          "command": "echo 'Hello, world!' > /app/hello.txt",
+          "timeout_seconds": 30
+        },
+        "parsed_ok": true,
+        "observation": "{\"code\": 0, \"stdout\": \"\", \"stderr\": \"\", \"timed_out\": false}",
+        "accepted_by_environment": true,
+        "submission_requested": false,
+        "elapsed_seconds": 5.796068900000137
+      },
+      {
+        "step_id": 1,
+        "raw": "{\"reasoning\":\"Verify that the file /app/hello.txt was created correctly with the expected content.\",\"command\":\"cat /app/hello.txt\",\"timeout_seconds\":30}",
+        "action": {
+          "reasoning": "Verify that the file /app/hello.txt was created correctly with the expected content.",
+          "command": "cat /app/hello.txt",
+          "timeout_seconds": 30
+        },
+        "parsed_ok": true,
+        "observation": "{\"code\": 0, \"stdout\": \"Hello, world!\\n\", \"stderr\": \"\", \"timed_out\": false}",
+        "accepted_by_environment": true,
+        "submission_requested": false,
+        "elapsed_seconds": 20.984327699999994
+      },
+      {
+        "step_id": 2,
+        "raw": "{\"final\":\"The file /app/hello.txt has been successfully created with the content 'Hello, world!' as verified by the cat command.\",\"reasoning\":\"Task completed successfully.\"}",
+        "action": {
+          "final": "The file /app/hello.txt has been successfully created with the content 'Hello, world!' as verified by the cat command.",
+          "reasoning": "Task completed successfully."
+        },
+        "parsed_ok": true,
+        "observation": "Agent requested final submission. No hidden evaluation has been performed.",
+        "accepted_by_environment": true,
+        "submission_requested": true,
+        "elapsed_seconds": 36.14850649999971
+      }
+    ],
+    "initialPlaybookEntries": 0,
+    "finalAnswer": "The file /app/hello.txt has been successfully created with the content 'Hello, world!' as verified by the cat command.",
+    "agentWallSeconds": 48.83080519999976,
+    "modelInvocationAttempts": 6,
+    "modelRequests": 6,
+    "completedHttpResponses": 6,
+    "usage": {
+      "prompt_tokens": 3778,
+      "completion_tokens": 474,
+      "total_tokens": 4252
+    },
+    "unknownUsageRequests": 0,
+    "usageInterpretation": "Known reported usage only; interrupted or failed requests can have missing usage",
+    "phaseCounts": {
+      "actor": 3,
+      "detector": 3
+    },
+    "sentryEventCounts": {
+      "task_started": 1,
+      "agent_step": 3,
+      "sentry_diagnosis": 3,
+      "task_finalized": 1
+    },
+    "interventions": 0,
+    "verifiedRecoveries": 0,
+    "hardVerifiedRecoveries": 0,
+    "softVerifiedRecoveries": 0,
+    "learnedEntries": 0,
+    "invalidModelDiagnoses": 0,
+    "repeatedCommandObservationPairs": 0,
+    "repetitionDefinition": "Exact same command and truncated visible observation hash previously seen within task; diagnostic proxy, not all repetitions are invalid",
+    "candidatePaused": true,
+    "contextCompressionAddedByHost": false,
+    "externalApiCostUsd": 0,
+    "localEnergyCostUsd": null
+  },
+  "grading/result.json": {
+    "task": "hello-world",
+    "valid": true,
+    "A": 1,
+    "exitCode": 0,
+    "counts": {
+      "passed": 2
+    },
+    "expectedChecks": 2,
+    "gradingSeconds": 5.311999999999898,
+    "candidateImageId": "sha256:ad55a3b07ef332607f9f8b2d39acf78ebf52be43f4260ec076db10aa4a0b05eb",
+    "candidateArchiveSha256": "fa120a7670c7944a4f09b57ac23418030a57686a8aad19151faebf4cef941c35",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "ae70869cb2179ea8d9c4834132c5d9675e371f4152094a3f199198e95958e165"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  }
+}

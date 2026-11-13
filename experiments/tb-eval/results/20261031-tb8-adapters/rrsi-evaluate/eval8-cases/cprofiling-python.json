@@ -1,0 +1,67 @@
+{
+  "task": "cprofiling-python",
+  "exitCode": 0,
+  "deadlineReached": true,
+  "freezeElapsedSeconds": 300.115,
+  "deadlineFreezeOverrunSeconds": 0.1150000000000091,
+  "V": 0,
+  "A": 0,
+  "Y": 0,
+  "agentWallSeconds": 300.115,
+  "setupSeconds": 0.447,
+  "modelRequests": 15,
+  "apiAttempts": 15,
+  "completedHttpResponses": 14,
+  "httpStatuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "toolCounts": {
+    "bash": 11,
+    "write": 3
+  },
+  "toolErrors": 0,
+  "exactBashCommands": 11,
+  "repeatedExactBashCommands": 1,
+  "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+  "finalAnswer": "Now fast.py is taking 28 seconds. Let me update fastest.py with the optimized aiohttp approach:",
+  "finalStopReason": "error",
+  "grading": {
+    "task": "cprofiling-python",
+    "valid": true,
+    "A": 0,
+    "exitCode": 1,
+    "counts": {
+      "passed": 1,
+      "failed": 1
+    },
+    "expectedChecks": 2,
+    "gradingSeconds": 43.26599999998871,
+    "candidateImageId": "sha256:df642726978b5eed4ee8268843b681345f16e6f5ada6d718d595ebedcaf6d409",
+    "candidateArchiveSha256": "d86cbd2bf6658343aedc8fff97a4a599ba0743684550c1b2a69991d7f8f44774",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "9e715f88a20c5e2d8e42611ffa15acb37fabdf37c0930fa3fd62f0d27adff5ab"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  },
+  "fullTrialSeconds": 345.524
+}

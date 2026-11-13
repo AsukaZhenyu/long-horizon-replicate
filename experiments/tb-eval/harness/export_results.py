@@ -42,6 +42,11 @@ METHODS = {
         "summary": paths.RUNS / "sentry" / "summary.json",
         "title": "Sentry 0.11.0 core + controlled terminal host",
     },
+    "pi": {
+        "cases": paths.RUNS / "pi" / "cases",
+        "summary": paths.RUNS / "pi" / "summary.json",
+        "title": "Pi 1.1.0 (no Spine, base-agent control)",
+    },
 }
 MAX_CASE_BYTES = 512 * 1024
 

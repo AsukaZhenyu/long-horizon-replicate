@@ -31,7 +31,7 @@ ap.add_argument('--case-dir',required=True)
 ap.add_argument('--agent-container')
 ap.add_argument('--snapshot-only',action='store_true')
 ap.add_argument('--grade-only',action='store_true')
-ap.add_argument('--method',default='spine',choices=['spine','sentry'])
+ap.add_argument('--method',default='spine',choices=['spine','sentry','pi'])
 ap.add_argument('--namespace',help='Artifact/container name namespace only; does not change task or algorithm')
 ap.add_argument('--recovery-label')
 ap.add_argument('--wsl-transport',action='store_true')
@@ -40,7 +40,7 @@ args=ap.parse_args()
 namespace=args.namespace or args.method
 if not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,39}',namespace):raise SystemExit('Invalid artifact namespace')
 case=Path(args.case_dir).resolve()
-if HERE not in case.parents:raise SystemExit('case directory must stay inside this round workspace')
+if paths.RUNS not in case.parents:raise SystemExit('case directory must stay inside this round workspace')
 case.mkdir(parents=True,exist_ok=True)
 
 def sha(p):
@@ -117,9 +117,13 @@ def snapshot():
     save('candidate-archive.json',archived);require(archived,'archive /app')
     manifest=candidate_tar_manifest(archive);save('candidate-app-manifest.json',manifest)
     image='horizon-weaver-week8r3-'+namespace+'-candidate/'+args.task+':fixed'
-    commit=require(command(['commit','--pause=false',name,image],limit=180),'commit fixed candidate')
+    commit=require(command(['commit',name,image],limit=180),'commit fixed candidate')
     save('candidate-image-commit.json',commit)
-    record={'task':args.task,'method':args.method,'namespace':namespace,'initialImageId':info['Image'],'candidateImage':image,'candidateImageId':commit['stdout'].strip(),'appArchive':'candidate-app.tar','appArchiveSha256':sha(archive),'mounts':info.get('Mounts',[]),'scope':'container writable filesystem plus separate /app archive; excludes runtime mounts, process memory and sockets; read-only runtime mounts recreated for grading','pausedBeforeSnapshot':True,'newModelCalls':0,'newAgentActions':0}
+    # Docker 29 prints a deprecation notice on stdout before the image ID;
+    # keep the actual sha256 line instead of the whole stdout.
+    _ids=re.findall(r'sha256:[0-9a-f]{64}',commit['stdout'])
+    _candidate_id=_ids[-1] if _ids else commit['stdout'].strip()
+    record={'task':args.task,'method':args.method,'namespace':namespace,'initialImageId':info['Image'],'candidateImage':image,'candidateImageId':_candidate_id,'appArchive':'candidate-app.tar','appArchiveSha256':sha(archive),'mounts':info.get('Mounts',[]),'scope':'container writable filesystem plus separate /app archive; excludes runtime mounts, process memory and sockets; read-only runtime mounts recreated for grading','pausedBeforeSnapshot':True,'newModelCalls':0,'newAgentActions':0}
     save('snapshot.json',record)
     # This stops all candidate processes, including any background writers.
     save('agent-container-cleanup.json',command(['rm','-f',name]))

@@ -1,0 +1,60 @@
+{
+  "task": "sqlite-db-truncate",
+  "exitCode": 0,
+  "deadlineReached": true,
+  "freezeElapsedSeconds": 300.107,
+  "deadlineFreezeOverrunSeconds": 0.10700000000002774,
+  "V": 0,
+  "A": 0,
+  "Y": 0,
+  "agentWallSeconds": 300.108,
+  "setupSeconds": 0.47,
+  "modelRequests": 10,
+  "apiAttempts": 10,
+  "completedHttpResponses": 9,
+  "httpStatuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "toolCounts": {
+    "bash": 9
+  },
+  "toolErrors": 5,
+  "exactBashCommands": 9,
+  "repeatedExactBashCommands": 0,
+  "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+  "finalAnswer": "The header is corrupted. The page size at offset 16-17 shows `0f 49` which is 4012 in big-endian, but that's clearly wrong. The magic string is also corrupted - it should be \"SQLite format 3\\0\" but we see `0d 00 00 00 0a 0f 49 00...`.\n\nLet me look at the actual data in the file more carefully. The data I saw earlier at offset 0xf40 (4000) shows \"testword\" entries. Let me try to parse this as if it's a single page with the data directly.",
+  "finalStopReason": "error",
+  "grading": {
+    "task": "sqlite-db-truncate",
+    "valid": true,
+    "A": 0,
+    "exitCode": 1,
+    "counts": {
+      "failed": 1
+    },
+    "expectedChecks": 1,
+    "gradingSeconds": 4.937999999994645,
+    "candidateImageId": "sha256:2d2de5028c39fcb6e15990a57c86eafa8bac03b7dfc2178350684f355ac0c9f2",
+    "candidateArchiveSha256": "7e48af6fc8df92488cf6ca664ebeeb3c92d20980ebc6ba927b835a1f25189533",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "8f5bc11018687d8c5894ebf1b4ec6fad004828e5ce442d3cc04d925ef53ef881"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  },
+  "fullTrialSeconds": 307.967
+}

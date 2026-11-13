@@ -70,7 +70,7 @@ summary={
     'crossTaskExperience':'Disabled by resetting Runner and empty playbook for every task',
     'repetitionMetrics':{'exactRepeatedCommands':'For each task, trim outer whitespace then sum max(0,count(command)-1) across identical terminal command strings; common subset for cross-method reporting',
                          'repeatedCommandObservationPairs':'Same command plus same visible truncated observation hash; Sentry-specific diagnostic proxy, not all repetitions are invalid'},
-    'scope':'Round4 stratified 24-task development set (8 historical + 16 new), one fresh attempt each; not a native Sentry TB implementation, leaderboard result, or RSI learning-efficiency experiment',
+    'scope':protocol.get('scope','Round4 stratified 24-task development set (8 historical + 16 new), one fresh attempt each; not a native Sentry TB implementation, leaderboard result, or RSI learning-efficiency experiment'),
     'grading':'Full writable candidate filesystem and /app archive frozen before hidden tests; no model feedback or agent retries in grading',
 }
 _out=Path(_sys.argv[1]) if len(_sys.argv)>1 else paths.RUNS/'sentry'/'summary.json'

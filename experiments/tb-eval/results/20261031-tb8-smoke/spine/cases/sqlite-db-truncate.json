@@ -1,0 +1,133 @@
+{
+  "result.json": {
+    "task": "sqlite-db-truncate",
+    "exitCode": null,
+    "deadlineReached": true,
+    "freezeElapsedSeconds": 300.11,
+    "deadlineFreezeOverrunSeconds": 0.11000000000001364,
+    "V": 0,
+    "A": 0,
+    "Y": 0,
+    "agentWallSeconds": 300.114,
+    "setupSeconds": 0.487,
+    "modelRequests": 16,
+    "apiAttempts": 16,
+    "completedHttpResponses": 15,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "toolCounts": {
+      "bash": 15
+    },
+    "toolErrors": 4,
+    "exactBashCommands": 15,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "Now I can see the pattern more clearly. The structure seems to be:\n- `testwordXX` (where XX is the word number)\n- Followed by some bytes that include the value\n- Then `\\x0f\\xYY\\x04\\x00!\\xZZtestword` where YY is the word number and ZZ is the value\n\nLet me extract the data:",
+    "finalStopReason": "error",
+    "grading": {
+      "task": "sqlite-db-truncate",
+      "valid": true,
+      "A": 0,
+      "exitCode": 1,
+      "counts": {
+        "failed": 1
+      },
+      "expectedChecks": 1,
+      "gradingSeconds": 4.922000000005937,
+      "candidateImageId": "sha256:45bb92ae337ff3f5b73e1d1776b4437baed102d8c95098e04635676635ad9cfd",
+      "candidateArchiveSha256": "7e48af6fc8df92488cf6ca664ebeeb3c92d20980ebc6ba927b835a1f25189533",
+      "candidateRestoredExactly": true,
+      "bootstrapCandidateUnchanged": true,
+      "testHashes": {
+        "tests/test_outputs.py": "8f5bc11018687d8c5894ebf1b4ec6fad004828e5ce442d3cc04d925ef53ef881"
+      },
+      "copiedTestsHashMatched": true,
+      "newModelCalls": 0,
+      "newAgentActions": 0,
+      "dockerTransport": "Windows Docker CLI with explicit engine",
+      "pythonBootstrap": false,
+      "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+    },
+    "fullTrialSeconds": 308.228
+  },
+  "agent-result.json": {
+    "task": "sqlite-db-truncate",
+    "exitCode": null,
+    "deadlineReached": true,
+    "freezeElapsedSeconds": 300.11,
+    "deadlineFreezeOverrunSeconds": 0.11000000000001364,
+    "V": 0,
+    "A": null,
+    "Y": null,
+    "agentWallSeconds": 300.114,
+    "setupSeconds": 0.487,
+    "modelRequests": 16,
+    "apiAttempts": 16,
+    "completedHttpResponses": 15,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "toolCounts": {
+      "bash": 15
+    },
+    "toolErrors": 4,
+    "exactBashCommands": 15,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "Now I can see the pattern more clearly. The structure seems to be:\n- `testwordXX` (where XX is the word number)\n- Followed by some bytes that include the value\n- Then `\\x0f\\xYY\\x04\\x00!\\xZZtestword` where YY is the word number and ZZ is the value\n\nLet me extract the data:",
+    "finalStopReason": "error"
+  },
+  "grading/result.json": {
+    "task": "sqlite-db-truncate",
+    "valid": true,
+    "A": 0,
+    "exitCode": 1,
+    "counts": {
+      "failed": 1
+    },
+    "expectedChecks": 1,
+    "gradingSeconds": 4.922000000005937,
+    "candidateImageId": "sha256:45bb92ae337ff3f5b73e1d1776b4437baed102d8c95098e04635676635ad9cfd",
+    "candidateArchiveSha256": "7e48af6fc8df92488cf6ca664ebeeb3c92d20980ebc6ba927b835a1f25189533",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "8f5bc11018687d8c5894ebf1b4ec6fad004828e5ce442d3cc04d925ef53ef881"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  }
+}

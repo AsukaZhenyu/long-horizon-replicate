@@ -1,0 +1,55 @@
+{
+  "task": "hello-world",
+  "exitCode": 0,
+  "deadlineReached": false,
+  "freezeElapsedSeconds": 10.332,
+  "deadlineFreezeOverrunSeconds": 0,
+  "V": 1,
+  "A": 1,
+  "Y": 1,
+  "agentWallSeconds": 10.332,
+  "setupSeconds": 0.445,
+  "modelRequests": 3,
+  "apiAttempts": 3,
+  "completedHttpResponses": 3,
+  "httpStatuses": [
+    200,
+    200,
+    200
+  ],
+  "toolCounts": {
+    "write": 1,
+    "read": 1
+  },
+  "toolErrors": 0,
+  "exactBashCommands": 0,
+  "repeatedExactBashCommands": 0,
+  "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+  "finalAnswer": "Done. The file `/app/hello.txt` has been created with the content \"Hello, world!\".",
+  "finalStopReason": "stop",
+  "grading": {
+    "task": "hello-world",
+    "valid": true,
+    "A": 1,
+    "exitCode": 0,
+    "counts": {
+      "passed": 2
+    },
+    "expectedChecks": 2,
+    "gradingSeconds": 5.360000000000582,
+    "candidateImageId": "sha256:09116122b38d8fc10594fcf0d3df7b5c09336eb6fcf911dd9cdc60c0399d2ca6",
+    "candidateArchiveSha256": "0f9fb1fcf1241c1f4dfe5b66bb044af654ebedd7584a0be66aad62435f5e0231",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "ae70869cb2179ea8d9c4834132c5d9675e371f4152094a3f199198e95958e165"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  },
+  "fullTrialSeconds": 17.478
+}

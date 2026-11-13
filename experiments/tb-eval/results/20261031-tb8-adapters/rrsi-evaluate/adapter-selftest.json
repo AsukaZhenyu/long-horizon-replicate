@@ -1,0 +1,36 @@
+{
+  "adapter": "rrsi-tb8-prompt-only",
+  "status": "evaluate-half-validated",
+  "smoke": {
+    "ok": true,
+    "images": 8,
+    "harness": "domains/tb8/harness/system_prompt.txt"
+  },
+  "smoke_run": {
+    "tasks": [
+      "hello-world",
+      "fix-permissions"
+    ],
+    "A": 2,
+    "V": 2,
+    "Y": 2,
+    "n": 2,
+    "job": ".cache/rrsi-adapter-test3/jobs/smoke"
+  },
+  "score_selftest_on_pi_only_results": {
+    "A": 3,
+    "V": 4,
+    "Y": 3,
+    "n": 8
+  },
+  "search_loop": "not run: rrsi/llm.py requires AnthropicVertex (RRSI_VERTEX_PROJECTS)",
+  "note": "smoke_run exercises Domain.run through the Pi host with the candidate system prompt. The score selftest reuses the completed Pi-only TB8 results to validate score/load_trial/render_trace. Neither is an RRSI search-loop run.",
+  "eval8": {
+    "tasks": 8,
+    "A": 3,
+    "V": 3,
+    "Y": 3,
+    "job": ".cache/rrsi-adapter-eval8/jobs/eval8",
+    "note": "Domain Evaluate half with the prompt-only candidate; not the RRSI search loop"
+  }
+}

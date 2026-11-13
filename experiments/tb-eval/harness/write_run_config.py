@@ -39,7 +39,8 @@ launch = json.loads(LAUNCH.read_text(encoding="utf-8")) if LAUNCH.is_file() else
 record = {
     "run_id": protocol["round"],
     "created_at": datetime.datetime.now().astimezone().isoformat(),
-    "purpose": "L0 local stratified development run: 24 of 241 TB 0.2.18 tasks, Spine and Sentry, one seed",
+    "purpose": protocol.get("purpose", "L0 local stratified development run"),
+    "scope": protocol.get("scope"),
     "state": "created",
     "tasks": protocol["tasks"],
     "task_count": len(protocol["tasks"]),

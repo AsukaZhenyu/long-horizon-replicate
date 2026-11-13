@@ -1,0 +1,67 @@
+{
+  "task": "cprofiling-python",
+  "exitCode": null,
+  "deadlineReached": true,
+  "freezeElapsedSeconds": 300.129,
+  "deadlineFreezeOverrunSeconds": 0.1290000000000191,
+  "V": 0,
+  "A": 0,
+  "Y": 0,
+  "agentWallSeconds": 300.133,
+  "setupSeconds": 0.439,
+  "modelRequests": 13,
+  "apiAttempts": 13,
+  "completedHttpResponses": 13,
+  "httpStatuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "toolCounts": {
+    "bash": 7,
+    "write": 4,
+    "edit": 2
+  },
+  "toolErrors": 3,
+  "exactBashCommands": 7,
+  "repeatedExactBashCommands": 2,
+  "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+  "finalAnswer": "Now let me test both implementations:",
+  "finalStopReason": "toolUse",
+  "grading": {
+    "task": "cprofiling-python",
+    "valid": true,
+    "A": 0,
+    "exitCode": 1,
+    "counts": {
+      "passed": 1,
+      "failed": 1
+    },
+    "expectedChecks": 2,
+    "gradingSeconds": 38.53199999999197,
+    "candidateImageId": "sha256:f77fceae9e55965c0bb3588c313e855a5186791324fe0555cc514cd6b6fbcfb5",
+    "candidateArchiveSha256": "8647fa8b065d658bb933295baca25b311d2ff3b37b10dde9649d29f23d171d7f",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "9e715f88a20c5e2d8e42611ffa15acb37fabdf37c0930fa3fd62f0d27adff5ab"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  },
+  "fullTrialSeconds": 348.958
+}

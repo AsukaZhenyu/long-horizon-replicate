@@ -1,0 +1,113 @@
+{
+  "result.json": {
+    "task": "jq-data-processing",
+    "exitCode": 0,
+    "deadlineReached": false,
+    "freezeElapsedSeconds": 6.979,
+    "deadlineFreezeOverrunSeconds": 0,
+    "V": 0,
+    "A": 0,
+    "Y": 0,
+    "agentWallSeconds": 6.98,
+    "setupSeconds": 0.439,
+    "modelRequests": 4,
+    "apiAttempts": 4,
+    "completedHttpResponses": 4,
+    "httpStatuses": [
+      200,
+      400,
+      400,
+      400
+    ],
+    "toolCounts": {
+      "read": 1
+    },
+    "toolErrors": 0,
+    "exactBashCommands": 0,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "",
+    "finalStopReason": "error",
+    "grading": {
+      "task": "jq-data-processing",
+      "valid": true,
+      "A": 0,
+      "exitCode": 1,
+      "counts": {
+        "passed": 1,
+        "failed": 13
+      },
+      "expectedChecks": 14,
+      "gradingSeconds": 9.702999999994063,
+      "candidateImageId": "sha256:a47e12fad4ba34c6e0d8c14bb60ec0651df8ed56c9196dd7faf024af998dcc24",
+      "candidateArchiveSha256": "03e57b29a8181eb9fdd7b8ffb5c5a6c37f32c03832cdb74bc3ac719f73145ac2",
+      "candidateRestoredExactly": true,
+      "bootstrapCandidateUnchanged": true,
+      "testHashes": {
+        "tests/test_outputs.py": "c4efc9c9f530aaa405e9c63d6340c2c36e13f87722fd0615fe1cd353060b687c"
+      },
+      "copiedTestsHashMatched": true,
+      "newModelCalls": 0,
+      "newAgentActions": 0,
+      "dockerTransport": "Windows Docker CLI with explicit engine",
+      "pythonBootstrap": false,
+      "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+    },
+    "fullTrialSeconds": 19.985
+  },
+  "agent-result.json": {
+    "task": "jq-data-processing",
+    "exitCode": 0,
+    "deadlineReached": false,
+    "freezeElapsedSeconds": 6.979,
+    "deadlineFreezeOverrunSeconds": 0,
+    "V": 0,
+    "A": null,
+    "Y": null,
+    "agentWallSeconds": 6.98,
+    "setupSeconds": 0.439,
+    "modelRequests": 4,
+    "apiAttempts": 4,
+    "completedHttpResponses": 4,
+    "httpStatuses": [
+      200,
+      400,
+      400,
+      400
+    ],
+    "toolCounts": {
+      "read": 1
+    },
+    "toolErrors": 0,
+    "exactBashCommands": 0,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "",
+    "finalStopReason": "error"
+  },
+  "grading/result.json": {
+    "task": "jq-data-processing",
+    "valid": true,
+    "A": 0,
+    "exitCode": 1,
+    "counts": {
+      "passed": 1,
+      "failed": 13
+    },
+    "expectedChecks": 14,
+    "gradingSeconds": 9.702999999994063,
+    "candidateImageId": "sha256:a47e12fad4ba34c6e0d8c14bb60ec0651df8ed56c9196dd7faf024af998dcc24",
+    "candidateArchiveSha256": "03e57b29a8181eb9fdd7b8ffb5c5a6c37f32c03832cdb74bc3ac719f73145ac2",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "c4efc9c9f530aaa405e9c63d6340c2c36e13f87722fd0615fe1cd353060b687c"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  }
+}

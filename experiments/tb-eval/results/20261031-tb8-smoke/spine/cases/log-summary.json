@@ -1,0 +1,121 @@
+{
+  "result.json": {
+    "task": "log-summary",
+    "exitCode": 0,
+    "deadlineReached": false,
+    "freezeElapsedSeconds": 37.454,
+    "deadlineFreezeOverrunSeconds": 0,
+    "V": 1,
+    "A": 1,
+    "Y": 1,
+    "agentWallSeconds": 37.454,
+    "setupSeconds": 0.395,
+    "modelRequests": 7,
+    "apiAttempts": 7,
+    "completedHttpResponses": 7,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "toolCounts": {
+      "bash": 4,
+      "write": 1,
+      "read": 1
+    },
+    "toolErrors": 0,
+    "exactBashCommands": 4,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "Done. I've scanned all `.log` files in `/app/logs` and created `/app/summary.csv` with the counts:\n- **ERROR**: 4 lines\n- **WARNING**: 3 lines  \n- **INFO**: 8 lines",
+    "finalStopReason": "stop",
+    "grading": {
+      "task": "log-summary",
+      "valid": true,
+      "A": 1,
+      "exitCode": 0,
+      "counts": {
+        "passed": 3
+      },
+      "expectedChecks": 3,
+      "gradingSeconds": 4.8439999999973224,
+      "candidateImageId": "sha256:f588a0f3f52b1f7054b680a7c72a6e9a6dd4621c4fbba48778dea1ab0c769890",
+      "candidateArchiveSha256": "906ff078659cef724b85b08d3e76c81619276b52096d6ae7d00caf3a72ba2ec3",
+      "candidateRestoredExactly": true,
+      "bootstrapCandidateUnchanged": true,
+      "testHashes": {
+        "tests/test_outputs.py": "7c52fddb5a24456ff6a2c9033b1177b57dffacb2768dc51ffdd6e7be4388aeca"
+      },
+      "copiedTestsHashMatched": true,
+      "newModelCalls": 0,
+      "newAgentActions": 0,
+      "dockerTransport": "Windows Docker CLI with explicit engine",
+      "pythonBootstrap": false,
+      "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+    },
+    "fullTrialSeconds": 44.111
+  },
+  "agent-result.json": {
+    "task": "log-summary",
+    "exitCode": 0,
+    "deadlineReached": false,
+    "freezeElapsedSeconds": 37.454,
+    "deadlineFreezeOverrunSeconds": 0,
+    "V": 1,
+    "A": null,
+    "Y": null,
+    "agentWallSeconds": 37.454,
+    "setupSeconds": 0.395,
+    "modelRequests": 7,
+    "apiAttempts": 7,
+    "completedHttpResponses": 7,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "toolCounts": {
+      "bash": 4,
+      "write": 1,
+      "read": 1
+    },
+    "toolErrors": 0,
+    "exactBashCommands": 4,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "Done. I've scanned all `.log` files in `/app/logs` and created `/app/summary.csv` with the counts:\n- **ERROR**: 4 lines\n- **WARNING**: 3 lines  \n- **INFO**: 8 lines",
+    "finalStopReason": "stop"
+  },
+  "grading/result.json": {
+    "task": "log-summary",
+    "valid": true,
+    "A": 1,
+    "exitCode": 0,
+    "counts": {
+      "passed": 3
+    },
+    "expectedChecks": 3,
+    "gradingSeconds": 4.8439999999973224,
+    "candidateImageId": "sha256:f588a0f3f52b1f7054b680a7c72a6e9a6dd4621c4fbba48778dea1ab0c769890",
+    "candidateArchiveSha256": "906ff078659cef724b85b08d3e76c81619276b52096d6ae7d00caf3a72ba2ec3",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "7c52fddb5a24456ff6a2c9033b1177b57dffacb2768dc51ffdd6e7be4388aeca"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  }
+}

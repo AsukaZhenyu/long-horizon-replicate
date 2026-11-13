@@ -1,0 +1,117 @@
+{
+  "result.json": {
+    "task": "log-summary",
+    "exitCode": 0,
+    "deadlineReached": false,
+    "freezeElapsedSeconds": 31.018,
+    "deadlineFreezeOverrunSeconds": 0,
+    "V": 1,
+    "A": 1,
+    "Y": 1,
+    "agentWallSeconds": 31.018,
+    "setupSeconds": 0.398,
+    "modelRequests": 6,
+    "apiAttempts": 6,
+    "completedHttpResponses": 6,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "toolCounts": {
+      "bash": 4,
+      "write": 1
+    },
+    "toolErrors": 0,
+    "exactBashCommands": 4,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "Done! I've scanned all `.log` files in `/app/logs` and created `/app/summary.csv` with the counts:\n- **ERROR**: 4 lines\n- **WARNING**: 3 lines\n- **INFO**: 8 lines",
+    "finalStopReason": "stop",
+    "grading": {
+      "task": "log-summary",
+      "valid": true,
+      "A": 1,
+      "exitCode": 0,
+      "counts": {
+        "passed": 3
+      },
+      "expectedChecks": 3,
+      "gradingSeconds": 4.796999999991385,
+      "candidateImageId": "sha256:6e5746d829415465ac596e01cf818ea1e89cbbf138159e4c79edeec99d212bd5",
+      "candidateArchiveSha256": "af32c26954ce84c1fc3a0e47e923f7413cf5d11e68d04e1ce8c8c5ac549962dc",
+      "candidateRestoredExactly": true,
+      "bootstrapCandidateUnchanged": true,
+      "testHashes": {
+        "tests/test_outputs.py": "7c52fddb5a24456ff6a2c9033b1177b57dffacb2768dc51ffdd6e7be4388aeca"
+      },
+      "copiedTestsHashMatched": true,
+      "newModelCalls": 0,
+      "newAgentActions": 0,
+      "dockerTransport": "Windows Docker CLI with explicit engine",
+      "pythonBootstrap": false,
+      "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+    },
+    "fullTrialSeconds": 37.413
+  },
+  "agent-result.json": {
+    "task": "log-summary",
+    "exitCode": 0,
+    "deadlineReached": false,
+    "freezeElapsedSeconds": 31.018,
+    "deadlineFreezeOverrunSeconds": 0,
+    "V": 1,
+    "A": null,
+    "Y": null,
+    "agentWallSeconds": 31.018,
+    "setupSeconds": 0.398,
+    "modelRequests": 6,
+    "apiAttempts": 6,
+    "completedHttpResponses": 6,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "toolCounts": {
+      "bash": 4,
+      "write": 1
+    },
+    "toolErrors": 0,
+    "exactBashCommands": 4,
+    "repeatedExactBashCommands": 0,
+    "repeatMeaning": "exact proposed Bash strings only; does not establish semantic waste",
+    "finalAnswer": "Done! I've scanned all `.log` files in `/app/logs` and created `/app/summary.csv` with the counts:\n- **ERROR**: 4 lines\n- **WARNING**: 3 lines\n- **INFO**: 8 lines",
+    "finalStopReason": "stop"
+  },
+  "grading/result.json": {
+    "task": "log-summary",
+    "valid": true,
+    "A": 1,
+    "exitCode": 0,
+    "counts": {
+      "passed": 3
+    },
+    "expectedChecks": 3,
+    "gradingSeconds": 4.796999999991385,
+    "candidateImageId": "sha256:6e5746d829415465ac596e01cf818ea1e89cbbf138159e4c79edeec99d212bd5",
+    "candidateArchiveSha256": "af32c26954ce84c1fc3a0e47e923f7413cf5d11e68d04e1ce8c8c5ac549962dc",
+    "candidateRestoredExactly": true,
+    "bootstrapCandidateUnchanged": true,
+    "testHashes": {
+      "tests/test_outputs.py": "7c52fddb5a24456ff6a2c9033b1177b57dffacb2768dc51ffdd6e7be4388aeca"
+    },
+    "copiedTestsHashMatched": true,
+    "newModelCalls": 0,
+    "newAgentActions": 0,
+    "dockerTransport": "Windows Docker CLI with explicit engine",
+    "pythonBootstrap": false,
+    "protocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state"
+  }
+}

@@ -1,0 +1,427 @@
+{
+  "round": "20261031-tb8-smoke",
+  "method": "spine",
+  "tasksAttempted": 8,
+  "n": 8,
+  "attempted": 8,
+  "A": 2,
+  "AInvalid": 0,
+  "V": 4,
+  "Y": 2,
+  "strata": {
+    "H": {
+      "n": 8,
+      "attempted": 8,
+      "A": 2,
+      "AInvalid": 0,
+      "V": 4,
+      "Y": 2
+    }
+  },
+  "groups": {
+    "data": {
+      "n": 2,
+      "attempted": 2,
+      "A": 0,
+      "AInvalid": 0,
+      "V": 0,
+      "Y": 0
+    },
+    "debugging": {
+      "n": 2,
+      "attempted": 2,
+      "A": 0,
+      "AInvalid": 0,
+      "V": 0,
+      "Y": 0
+    },
+    "file-operations": {
+      "n": 1,
+      "attempted": 1,
+      "A": 1,
+      "AInvalid": 0,
+      "V": 1,
+      "Y": 1
+    },
+    "software-engineering": {
+      "n": 1,
+      "attempted": 1,
+      "A": 0,
+      "AInvalid": 0,
+      "V": 1,
+      "Y": 0
+    },
+    "system-administration": {
+      "n": 2,
+      "attempted": 2,
+      "A": 1,
+      "AInvalid": 0,
+      "V": 2,
+      "Y": 1
+    }
+  },
+  "totalModelRequests": 48,
+  "totalPromptTokens": 197093,
+  "totalCompletionTokens": 7529,
+  "totalTokens": 204622,
+  "totalAgentWallSeconds": 929.657,
+  "totalTrialSeconds": 1043.148,
+  "totalRepeatedExactBashCommands": 1,
+  "deviations": [],
+  "rows": [
+    {
+      "task": "sqlite-db-truncate",
+      "case": "sqlite-db-truncate",
+      "attempted": true,
+      "stratum": "H",
+      "group": "debugging",
+      "A": 0,
+      "V": 0,
+      "Y": 0,
+      "gradingValid": true,
+      "gradingCounts": {
+        "failed": 1
+      },
+      "expectedChecks": 1,
+      "gradingProtocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state",
+      "gradingSeconds": 4.922000000005937,
+      "agentWallSeconds": 300.114,
+      "fullTrialSeconds": 308.228,
+      "modelRequests": 16,
+      "apiAttempts": 16,
+      "httpStatuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "toolCounts": {
+        "bash": 15
+      },
+      "toolErrors": 4,
+      "exactBashCommands": 15,
+      "repeatedExactBashCommands": 0,
+      "finalStopReason": "error",
+      "deadlineReached": true,
+      "tokens": {
+        "promptTokens": 76966,
+        "completionTokens": 2156,
+        "totalTokens": 79122,
+        "cachedPromptTokens": 72297,
+        "responsesWithUsage": 15
+      }
+    },
+    {
+      "task": "jq-data-processing",
+      "case": "jq-data-processing",
+      "attempted": true,
+      "stratum": "H",
+      "group": "data",
+      "A": 0,
+      "V": 0,
+      "Y": 0,
+      "gradingValid": true,
+      "gradingCounts": {
+        "passed": 1,
+        "failed": 13
+      },
+      "expectedChecks": 14,
+      "gradingProtocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state",
+      "gradingSeconds": 9.702999999994063,
+      "agentWallSeconds": 6.98,
+      "fullTrialSeconds": 19.985,
+      "modelRequests": 4,
+      "apiAttempts": 4,
+      "httpStatuses": [
+        200,
+        400,
+        400,
+        400
+      ],
+      "toolCounts": {
+        "read": 1
+      },
+      "toolErrors": 0,
+      "exactBashCommands": 0,
+      "repeatedExactBashCommands": 0,
+      "finalStopReason": "error",
+      "deadlineReached": false,
+      "tokens": {
+        "promptTokens": 4674,
+        "completionTokens": 26,
+        "totalTokens": 4700,
+        "cachedPromptTokens": 2852,
+        "responsesWithUsage": 1
+      }
+    },
+    {
+      "task": "hello-world",
+      "case": "hello-world",
+      "attempted": true,
+      "stratum": "H",
+      "group": "file-operations",
+      "A": 1,
+      "V": 1,
+      "Y": 1,
+      "gradingValid": true,
+      "gradingCounts": {
+        "passed": 2
+      },
+      "expectedChecks": 2,
+      "gradingProtocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state",
+      "gradingSeconds": 5.5,
+      "agentWallSeconds": 14.178,
+      "fullTrialSeconds": 23.725,
+      "modelRequests": 2,
+      "apiAttempts": 2,
+      "httpStatuses": [
+        200,
+        200
+      ],
+      "toolCounts": {
+        "write": 1
+      },
+      "toolErrors": 0,
+      "exactBashCommands": 0,
+      "repeatedExactBashCommands": 0,
+      "finalStopReason": "stop",
+      "deadlineReached": false,
+      "tokens": {
+        "promptTokens": 6804,
+        "completionTokens": 63,
+        "totalTokens": 6867,
+        "cachedPromptTokens": 3410,
+        "responsesWithUsage": 2
+      }
+    },
+    {
+      "task": "regex-log",
+      "case": "regex-log",
+      "attempted": true,
+      "stratum": "H",
+      "group": "data",
+      "A": 0,
+      "V": 0,
+      "Y": 0,
+      "gradingValid": true,
+      "gradingCounts": {
+        "failed": 1
+      },
+      "expectedChecks": 1,
+      "gradingProtocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state",
+      "gradingSeconds": 4.890999999988708,
+      "agentWallSeconds": 203.202,
+      "fullTrialSeconds": 210.019,
+      "modelRequests": 1,
+      "apiAttempts": 1,
+      "httpStatuses": [
+        200
+      ],
+      "toolCounts": {},
+      "toolErrors": 0,
+      "exactBashCommands": 0,
+      "repeatedExactBashCommands": 0,
+      "finalStopReason": "length",
+      "deadlineReached": false,
+      "tokens": {
+        "promptTokens": 3594,
+        "completionTokens": 2048,
+        "totalTokens": 5642,
+        "cachedPromptTokens": 3333,
+        "responsesWithUsage": 1
+      }
+    },
+    {
+      "task": "cprofiling-python",
+      "case": "cprofiling-python",
+      "attempted": true,
+      "stratum": "H",
+      "group": "debugging",
+      "A": 0,
+      "V": 0,
+      "Y": 0,
+      "gradingValid": true,
+      "gradingCounts": {
+        "failed": 2
+      },
+      "expectedChecks": 2,
+      "gradingProtocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state",
+      "gradingSeconds": 40.437000000005355,
+      "agentWallSeconds": 300.087,
+      "fullTrialSeconds": 342.689,
+      "modelRequests": 13,
+      "apiAttempts": 13,
+      "httpStatuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "toolCounts": {
+        "bash": 7,
+        "write": 5
+      },
+      "toolErrors": 1,
+      "exactBashCommands": 7,
+      "repeatedExactBashCommands": 1,
+      "finalStopReason": "error",
+      "deadlineReached": true,
+      "tokens": {
+        "promptTokens": 61648,
+        "completionTokens": 2231,
+        "totalTokens": 63879,
+        "cachedPromptTokens": 59473,
+        "responsesWithUsage": 12
+      }
+    },
+    {
+      "task": "fix-permissions",
+      "case": "fix-permissions",
+      "attempted": true,
+      "stratum": "H",
+      "group": "system-administration",
+      "A": 0,
+      "V": 1,
+      "Y": 0,
+      "gradingValid": true,
+      "gradingCounts": {
+        "failed": 1
+      },
+      "expectedChecks": 1,
+      "gradingProtocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state",
+      "gradingSeconds": 4.98399999999674,
+      "agentWallSeconds": 23.964,
+      "fullTrialSeconds": 30.763,
+      "modelRequests": 3,
+      "apiAttempts": 3,
+      "httpStatuses": [
+        200,
+        200,
+        200
+      ],
+      "toolCounts": {
+        "read": 1,
+        "bash": 1
+      },
+      "toolErrors": 0,
+      "exactBashCommands": 1,
+      "repeatedExactBashCommands": 0,
+      "finalStopReason": "stop",
+      "deadlineReached": false,
+      "tokens": {
+        "promptTokens": 10291,
+        "completionTokens": 218,
+        "totalTokens": 10509,
+        "cachedPromptTokens": 10197,
+        "responsesWithUsage": 3
+      }
+    },
+    {
+      "task": "log-summary",
+      "case": "log-summary",
+      "attempted": true,
+      "stratum": "H",
+      "group": "system-administration",
+      "A": 1,
+      "V": 1,
+      "Y": 1,
+      "gradingValid": true,
+      "gradingCounts": {
+        "passed": 3
+      },
+      "expectedChecks": 3,
+      "gradingProtocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state",
+      "gradingSeconds": 4.8439999999973224,
+      "agentWallSeconds": 37.454,
+      "fullTrialSeconds": 44.111,
+      "modelRequests": 7,
+      "apiAttempts": 7,
+      "httpStatuses": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "toolCounts": {
+        "bash": 4,
+        "write": 1,
+        "read": 1
+      },
+      "toolErrors": 0,
+      "exactBashCommands": 4,
+      "repeatedExactBashCommands": 0,
+      "finalStopReason": "stop",
+      "deadlineReached": false,
+      "tokens": {
+        "promptTokens": 25914,
+        "completionTokens": 351,
+        "totalTokens": 26265,
+        "cachedPromptTokens": 25615,
+        "responsesWithUsage": 7
+      }
+    },
+    {
+      "task": "cancel-async-tasks",
+      "case": "cancel-async-tasks",
+      "attempted": true,
+      "stratum": "H",
+      "group": "software-engineering",
+      "A": 0,
+      "V": 1,
+      "Y": 0,
+      "gradingValid": true,
+      "gradingCounts": {
+        "passed": 5,
+        "failed": 1
+      },
+      "expectedChecks": 6,
+      "gradingProtocol": "fixed cached uv0.7.13 and original pinned dependencies; unchanged original pytest file and command plus JUnit reporting; bootstrap in /tmp outside candidate; writable filesystem restored without process state",
+      "gradingSeconds": 18.047000000005937,
+      "agentWallSeconds": 43.678,
+      "fullTrialSeconds": 63.628,
+      "modelRequests": 2,
+      "apiAttempts": 2,
+      "httpStatuses": [
+        200,
+        200
+      ],
+      "toolCounts": {
+        "write": 1
+      },
+      "toolErrors": 0,
+      "exactBashCommands": 0,
+      "repeatedExactBashCommands": 0,
+      "finalStopReason": "stop",
+      "deadlineReached": false,
+      "tokens": {
+        "promptTokens": 7202,
+        "completionTokens": 436,
+        "totalTokens": 7638,
+        "cachedPromptTokens": 7038,
+        "responsesWithUsage": 2
+      }
+    }
+  ]
+}
