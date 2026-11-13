@@ -31,14 +31,15 @@ reproductions/
   tb8/        历史 TB8 开发集上的 Terminus2 与 mini-swe-agent
 experiments/
   tb-eval/    24 题分层评测装置（Pi+Spine 插件 vs Sentry 核心）
+  adapters/   跨 benchmark 的 host 契约、TB 2.1/LHTB 2.0 接入与原生 loop
 docs/
-  plan/      按编写日期命名（`YYYY-MM-DD.docx`），只放规划与实验设计
-  reports/   成稿的 Word 报告
+  plan/      当前实验设计（Motivation and Experimental Design）
+  reports/   成稿的 Word 报告与 Markdown 源
 ```
 
-`docs/plan/` 里按日期排序就是演进顺序。当前有效的两份是
-[`2026-10-29.docx`](docs/plan/2026-10-29.docx)（规划：要验证什么）与
-[`2026-10-31.docx`](docs/plan/2026-10-31.docx)（实验设计：和谁比、拿什么测、怎么判输赢）。
+实验设计见
+[`Motivation-and-Experimental-Design.docx`](docs/plan/Motivation-and-Experimental-Design.docx)。
+旧版按日期命名的 plan 已移出仓库；历史保留在 git 记录里。
 
 一份方法一张表，见 [`REPRODUCTIONS.md`](REPRODUCTIONS.md)。
 
