@@ -231,7 +231,10 @@ def resolve_lean_bin(explicit: str | Path | None = None) -> Optional[Path]:
     for base in (
         REPO / ".cache" / "tools" / "lean4-4.33.1"
         / "lean-4.33.1-windows" / "bin",
+        REPO / ".cache" / "tools" / "lean4-4.33.1"
+        / "lean-4.33.1-linux" / "bin",
         REPO / ".cache" / "tools" / "lean4-4.33.1-windows" / "bin",
+        REPO / ".cache" / "tools" / "lean4-4.33.1-linux" / "bin",
     ):
         candidate = base / name
         if candidate.is_file():
@@ -1219,8 +1222,9 @@ class MATH500Adapter(BenchmarkAdapter):
             answer = str(item.get("answer", item.get("final_answer", "")))
             if not problem or not answer:
                 continue
-            task_id = str(item.get("unique_id") or item.get("id")
-                          or f"{self.kind}-{index}")
+            raw_id = str(item.get("unique_id") or item.get("id")
+                         or f"{self.kind}-{index}")
+            task_id = re.sub(r"[^A-Za-z0-9_.-]+", "-", raw_id).strip("-")
             instruction = (
                 "Solve the following mathematics problem. Work in the current "
                 "directory and show your reasoning, then write only the final "

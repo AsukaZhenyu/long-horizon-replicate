@@ -377,6 +377,8 @@ pilot 第一轮还暴露了适配器编码 bug：R capsule 的 `results/output` 
 - miniF2F / ProofNet：`experiments/adapters/benchmarks/formal_math.py`、`prepare_formal_math.py`
 - 两阶段 runner：`experiments/adapters/repro_math_batch.py`、`protocols/math-batch-smoke.json`、`results/math-batch-smoke/summary.json`
 - 形式化数据来源与预检：`.cache/upstream/putnambench/lean4/formal/README.json`、`precheck.json`（本机缓存）
+- 非形式数学真实数据：`experiments/adapters/prepare_informal_data.py`、`protocols/math-informal-real.json`
+- 5090 环境：`docs/reports/5090-Setup.md`、`experiments/adapters/start_llama_text.sh`
 - PutnamBench pilot：`experiments/adapters/repro_math_pilot.py`、`protocols/math-smoke.json`、`results/math-smoke/summary.json`
 - 非形式数学 smoke：`experiments/adapters/protocols/math-informal-smoke.json`、`results/math-informal-smoke/summary.json`
 - 数学适配器测试：`experiments/adapters/tests/test_content_adapters.py`（Lean 编译测试需 `RUN_LEAN_TESTS=1`）

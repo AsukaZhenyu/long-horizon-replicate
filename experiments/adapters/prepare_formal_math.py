@@ -105,7 +105,7 @@ def _lean_files(only: str = "all") -> list[Path]:
     return files
 
 
-def precheck(limit: int = 0, only: str = "all") -> dict:
+def precheck(limit: int = 0, only: str = "all", workers: int = 1) -> dict:
     lake = resolve_lean_bin()
     if lake is None:
         raise SystemExit("Lean toolchain not found")
@@ -119,8 +119,8 @@ def precheck(limit: int = 0, only: str = "all") -> dict:
     files = _lean_files(only)
     if limit:
         files = files[:limit]
-    results = []
-    for index, source in enumerate(files, 1):
+
+    def check(source: Path) -> dict:
         rel = source.relative_to(PROJECT).as_posix()
         proc = subprocess.run(
             [str(lake), "env", "lean", rel], cwd=str(PROJECT),
@@ -132,10 +132,24 @@ def precheck(limit: int = 0, only: str = "all") -> dict:
             lines = [line for line in output.splitlines()
                      if "error" in line.lower()]
             errors = "\n".join(lines[:20])[:2000] if lines else output[:2000]
-        results.append({
-            "file": rel, "ok": proc.returncode == 0, "errors": errors,
-        })
-        print(f"[{index}/{len(files)}] {rel} rc={proc.returncode}", flush=True)
+        return {"file": rel, "ok": proc.returncode == 0, "errors": errors}
+
+    results = []
+    if workers <= 1:
+        for index, source in enumerate(files, 1):
+            item = check(source)
+            results.append(item)
+            print(f"[{index}/{len(files)}] {item['file']} "
+                  f"rc={0 if item['ok'] else 1}", flush=True)
+    else:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {pool.submit(check, source): source for source in files}
+            for index, future in enumerate(as_completed(futures), 1):
+                item = future.result()
+                results.append(item)
+                print(f"[{index}/{len(files)}] {item['file']} "
+                      f"rc={0 if item['ok'] else 1}", flush=True)
     # Merge with earlier partial prechecks so an --only/--limit run does not
     # discard results already collected.
     merged = {}
@@ -171,11 +185,17 @@ def main() -> int:
                         help="precheck only the first N files (0 = all)")
     parser.add_argument("--only", choices=("all", "minif2f", "proofnet"),
                         default="all", help="restrict the precheck")
+    parser.add_argument("--workers", type=int, default=1,
+                        help="parallel Lean processes; use 8 on a 62 GB host")
+    parser.add_argument("--no-copy", action="store_true",
+                        help="skip copying the upstream checkouts; precheck the "
+                             "existing formal/ tree (useful on the 5090 host)")
     args = parser.parse_args()
-    record = copy_sources()
-    print(json.dumps(record, ensure_ascii=False, indent=2))
+    if not args.no_copy:
+        record = copy_sources()
+        print(json.dumps(record, ensure_ascii=False, indent=2))
     if args.precheck:
-        precheck(limit=args.limit, only=args.only)
+        precheck(limit=args.limit, only=args.only, workers=args.workers)
     return 0
 
 

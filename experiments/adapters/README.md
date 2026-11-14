@@ -63,6 +63,7 @@ protocols/
   content-smoke.json     OfficeEditBench/ChartQA/ChartMimic/PPTEval smoke
   math-smoke.json        PutnamBench Lean task with model release for grading
   math-informal-smoke.json  MATH-500 + AIME fixture wire-up smoke
+  math-informal-real.json   20 MATH-500 + 10 AIME 2024 real-data pilot
   math-batch-smoke.json  two-phase Putnam/miniF2F/ProofNet collect+grade smoke
   coverage-smoke.json    four-benchmark runner wire-up smoke
   coverage-compaction-smoke.json  tiny-window end-to-end compaction smoke
@@ -78,6 +79,8 @@ repro_math_batch.py      two-phase formal runner: collect solutions with the
                          server up, release it once, grade the whole batch
 prepare_formal_math.py   copies miniF2F/ProofNet statements into the pinned
                          project; optional --precheck compatibility run
+prepare_informal_data.py downloads MATH-500 and AIME 2024 real data
+start_llama_text.sh      Linux/5090 text-mode llama-server launcher
 coverage_matrix.py       summarizes the 4 x 4 coverage matrix
 ```
 
@@ -461,6 +464,13 @@ full 90 s because Docker was also running), graded all four, and restarted the
 server in 8.1 s. Closing Docker Desktop raises the post-release headroom to
 about 8 GB and avoids that wait.
 
+On the Linux 5090 host (62 GB RAM) the model server and Lean can coexist, so
+the batch runner can grade with the server up (omit `--release-model`). Build
+`llama-server` with CUDA 12.9 and `-DCMAKE_CUDA_ARCHITECTURES=120`; start it
+with `start_llama_text.sh` (`-ngl 99`). Put the Linux Lean toolchain under
+`.cache/tools/lean4-4.33.1/lean-4.33.1-linux/bin`; the resolver checks that
+path on Linux.
+
 ### Informal math (MATH-500 / AIME)
 
 `math500` and `aime` load a local JSON/JSONL file (fields `problem` and
@@ -474,6 +484,11 @@ in the 2026-11-14 smoke the AIME task wrote it and passed (1/1, 603 tokens),
 while the MATH-500 task put the correct `5` only in the final channel and was
 recorded as 0/1 (`answer.txt` missing), which is an instruction-following
 failure rather than a grading bug.
+
+Real data is ready in the ignored cache: MATH-500 `test.jsonl` (500 problems)
+at `.cache/upstream/math500/test.jsonl` and AIME 2024 (30 problems) at
+`.cache/upstream/aime/aime_2024.jsonl`. `protocols/math-informal-real.json`
+uses `"discover": true` to take the first 20 MATH-500 and 10 AIME tasks.
 
 ## Real benchmarks
 

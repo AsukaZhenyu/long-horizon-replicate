@@ -28,7 +28,10 @@ import re
 import shutil
 import subprocess
 import tempfile
-import tomllib
+try:  # Python 3.11+
+    import tomllib
+except ModuleNotFoundError:  # Python 3.10 without the tomli backport
+    tomllib = None
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
@@ -69,6 +72,10 @@ def _as_float(value) -> float | None:
 
 
 def _read_toml(path: Path) -> dict:
+    if tomllib is None:
+        raise RuntimeError(
+            "tomllib (Python 3.11+) or the tomli backport is required for "
+            "Harbor task.toml files")
     with path.open("rb") as handle:
         return tomllib.load(handle)
 

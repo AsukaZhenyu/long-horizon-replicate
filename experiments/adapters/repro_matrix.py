@@ -612,6 +612,13 @@ def main() -> int:
         name: {task.task_id: task for task in adapter.load_tasks()}
         for name, adapter in adapters.items()
     }
+    if not protocol.get("tasks") and protocol.get("discover", False):
+        protocol["tasks"] = [
+            {"benchmark": name, "task_id": task_id}
+            for name, task_map in task_maps.items()
+            for task_id in task_map
+        ]
+        print(f"discovered {len(protocol['tasks'])} tasks")
     jobs = []
     for item in protocol["tasks"]:
         benchmark = item["benchmark"]
