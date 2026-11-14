@@ -1,0 +1,27 @@
+{
+  "round": "20261114-cowthello-smoke",
+  "purpose": "wire-up smoke for the METR cowthello adapter: Base, 20k budget, 6 steps, official smooth score",
+  "model": "qwen3.5-9b",
+  "token_budget": 20000,
+  "context_management": "shared",
+  "methods": [
+    "base"
+  ],
+  "rows": [
+    {
+      "benchmark": "cowthello",
+      "task_id": "main_smooth",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 15182,
+      "actions": 6,
+      "checks": "0/1",
+      "passed": false,
+      "official_score": 0.08,
+      "compactions": 0,
+      "max_prompt_tokens": 3741,
+      "agent_seconds": 17.5
+    }
+  ]
+}

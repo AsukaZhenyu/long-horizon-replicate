@@ -13,7 +13,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Dict, List
 
-from agents.base_react import SYSTEM, ModelClient, parse_action
+from agents.base_react import SYSTEM, ModelClient, ModelRequestError, parse_action
 from contract.types import Action, Host, NativeAgent, Observation, TaskSpec
 
 REPO = Path(__file__).resolve().parents[3]
@@ -57,6 +57,7 @@ class RecurisAgent(NativeAgent):
         self.counters: Dict[str, int] = {}
         self.bounces = 0
         self.turns = 0
+        self.last_error = ""
 
     def run(self, task: TaskSpec, host: Host) -> None:
         if not self.memory.is_dir():
@@ -71,8 +72,16 @@ class RecurisAgent(NativeAgent):
         for _ in range(self.max_steps):
             prefix = SYSTEM + (("\n\n" + correction) if correction else "")
             messages[0]["content"] = bridge.prepare_prompt(prefix)
-            response = self.client.complete(messages)
-            self._charge(host, response.total_tokens)
+            try:
+                response = self.client.complete(messages)
+            except ModelRequestError as exc:
+                self.last_error = str(exc)
+                return
+            try:
+                self._charge(host, response.total_tokens)
+            except RuntimeError as exc:
+                self.last_error = str(exc)
+                return
             self.turns += 1
             messages.append({"role": "assistant", "content": response.content})
             try:

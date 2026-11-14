@@ -1,0 +1,80 @@
+{
+  "round": "20261114-content-smoke",
+  "purpose": "wire-up smoke for text+image content adapters: OfficeEditBench easy, ChartQA, ChartMimic fixture, PPTEval fixture",
+  "model": "qwen3.5-9b",
+  "token_budget": 20000,
+  "context_management": "shared",
+  "methods": [
+    "base"
+  ],
+  "rows": [
+    {
+      "benchmark": "office_edit",
+      "task_id": "E2-001_order_date",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 3226,
+      "generated_tokens": 128,
+      "equivalent_tokens": 175.7,
+      "actions": 6,
+      "checks": "0/1",
+      "passed": false,
+      "official_score": 0.0,
+      "compactions": 0,
+      "max_prompt_tokens": 824,
+      "agent_seconds": 66.3
+    },
+    {
+      "benchmark": "chartqa",
+      "task_id": "chartqa-0",
+      "method": "base",
+      "status": "ok",
+      "termination": "submitted",
+      "tokens": 2307,
+      "generated_tokens": 63,
+      "equivalent_tokens": 79.3,
+      "actions": 4,
+      "checks": "1/1",
+      "passed": true,
+      "official_score": 1.0,
+      "compactions": 0,
+      "max_prompt_tokens": 333,
+      "agent_seconds": 29.7
+    },
+    {
+      "benchmark": "chartmimic",
+      "task_id": "bar-fixture",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 10411,
+      "generated_tokens": 129,
+      "equivalent_tokens": 173.8,
+      "actions": 6,
+      "checks": "0/2",
+      "passed": false,
+      "official_score": 0.0,
+      "compactions": 0,
+      "max_prompt_tokens": 829,
+      "agent_seconds": 143.5
+    },
+    {
+      "benchmark": "ppteval",
+      "task_id": "ppteval-fixture",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 3259,
+      "generated_tokens": 105,
+      "equivalent_tokens": 153.5,
+      "actions": 6,
+      "checks": "0/1",
+      "passed": false,
+      "official_score": null,
+      "compactions": 0,
+      "max_prompt_tokens": 1012,
+      "agent_seconds": 19.3
+    }
+  ]
+}

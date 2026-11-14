@@ -124,6 +124,32 @@ def _parse_ctrf(text: str | None) -> tuple[int, int] | None:
     return None
 
 
+def _parse_pytest_summary(text: str | None) -> tuple[int, int] | None:
+    """Return (passed, total) from the last pytest summary line, if any.
+
+    Some official ``test.sh`` files (notably LHTB 2048) run pytest but do not
+    propagate its exit code, so ``returncode == 0`` alone would mark a failed
+    test as a pass.  The pytest summary is a trustworthy fallback when no CTRF
+    report is written.
+    """
+    if not text:
+        return None
+    outcome = None
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not (stripped.startswith("=") and stripped.endswith("=")):
+            continue
+        if " in " not in stripped or not re.search(r"\d+\.\d+s", stripped):
+            continue
+        counts = re.findall(r"(\d+) (passed|failed|error)", stripped)
+        if not counts:
+            continue
+        passed = sum(int(n) for n, kind in counts if kind == "passed")
+        failed = sum(int(n) for n, kind in counts if kind in ("failed", "error"))
+        outcome = (passed, passed + failed)
+    return outcome
+
+
 class OfficialTestVerifier:
     """Run the task's official ``tests/test.sh`` inside the task container.
 
@@ -158,6 +184,15 @@ class OfficialTestVerifier:
         return staging, target
 
     def grade(self) -> Grade:
+        try:
+            return self._grade_impl()
+        except (subprocess.TimeoutExpired, subprocess.CalledProcessError,
+                OSError) as exc:
+            return Grade(valid=False, passed=False, checks_passed=0,
+                         checks_total=0,
+                         detail=f"official verifier error: {type(exc).__name__}: {exc}")
+
+    def _grade_impl(self) -> Grade:
         # The agent ran in this container.  Remove any /tests or reward file it
         # could have planted before copying the official tests in.  This is the
         # single-container approximation; Harbor uses a separate verifier
@@ -198,6 +233,10 @@ class OfficialTestVerifier:
         ctrf_text = self.host.read_container_file("/logs/verifier/ctrf.json")
         checks = _parse_ctrf(ctrf_text)
         raw = (proc.stdout or "") + (proc.stderr or "")
+        if not checks:
+            # LHTB 2048 runs pytest but always exits 0; without this fallback a
+            # failing test would be recorded as a pass.
+            checks = _parse_pytest_summary(raw)
         detail = f"official tests exit={proc.returncode}"
         if reward is not None:
             detail += f" reward={reward}"
@@ -209,7 +248,14 @@ class OfficialTestVerifier:
                          checks_passed=checks[0] if checks else 0,
                          checks_total=checks[1] if checks else 0,
                          detail="official reward missing; " + detail)
-        passed = reward >= 1.0
+        # The reward file is a dense score for some tasks (e.g. LHTB 2048), so
+        # pass/fail comes from the official test result, not a reward threshold.
+        # CTRF or the pytest summary is authoritative; the exit code is only a
+        # last resort for scripts that propagate it.
+        if checks:
+            passed = checks[1] > 0 and checks[0] >= checks[1]
+        else:
+            passed = proc.returncode == 0
         return Grade(valid=True, passed=passed,
                      checks_passed=checks[0] if checks else (1 if passed else 0),
                      checks_total=checks[1] if checks else 1,

@@ -1,0 +1,56 @@
+{
+  "benchmark": "mle",
+  "dataset": "synthetic",
+  "method": "base",
+  "task": "synthetic",
+  "agent_seconds": 16.2,
+  "tokens": 2739,
+  "actions": 7,
+  "grade_valid": true,
+  "grade_passed": true,
+  "checks_passed": 1,
+  "checks_total": 1,
+  "detail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+  "action_log": [
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la /home/data/"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat /home/data/test.csv"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat /home/data/sample_submission.csv"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "mkdir -p /home/submission"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat > /home/submission/submission.csv << 'EOF'\nid,prediction\n1,a\n2,b\nEOF"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat /home/submission/submission.csv"
+      }
+    },
+    {
+      "kind": "submit",
+      "payload": {}
+    }
+  ]
+}

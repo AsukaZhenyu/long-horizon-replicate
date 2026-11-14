@@ -1,0 +1,74 @@
+{
+  "round": "20261114-content-smoke",
+  "purpose": "wire-up smoke for text+image content adapters: OfficeEditBench easy, ChartQA, ChartMimic fixture, PPTEval fixture",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 256,
+  "max_steps": 6,
+  "token_budget": 20000,
+  "wall_clock_sec": 900,
+  "submit_guard": false,
+  "log_full_messages": false,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 16384,
+    "trigger_ratio": 0.72,
+    "target_ratio": 0.55,
+    "keep_recent_messages": 8,
+    "max_messages_before_compact": 24,
+    "max_message_chars": 4000,
+    "max_system_chars": 16000,
+    "max_task_chars": 16000,
+    "summary_chars": 2400,
+    "min_messages_to_compact": 6,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base"
+  ],
+  "benchmarks": [
+    "office_edit",
+    "chartqa",
+    "chartmimic",
+    "ppteval"
+  ],
+  "tasks": [
+    {
+      "benchmark": "office_edit",
+      "task_id": "E2-001_order_date",
+      "wall_clock_sec": 900
+    },
+    {
+      "benchmark": "chartqa",
+      "task_id": "chartqa-0",
+      "wall_clock_sec": 900
+    },
+    {
+      "benchmark": "chartmimic",
+      "task_id": "bar-fixture",
+      "wall_clock_sec": 900
+    },
+    {
+      "benchmark": "ppteval",
+      "task_id": "ppteval-fixture",
+      "wall_clock_sec": 900
+    }
+  ],
+  "office_edit": {
+    "root": ".cache/upstream/officeeditbench",
+    "level": "easy",
+    "limit": 4
+  },
+  "chartqa": {
+    "root": ".cache/upstream/chartqa/ChartQA Dataset",
+    "split": "test",
+    "source": "test_human",
+    "limit": 4
+  },
+  "chartmimic": {
+    "limit": 1
+  },
+  "output_dir": "experiments/adapters/results/content-smoke",
+  "raw_dir": ".cache/adapters/content-smoke"
+}

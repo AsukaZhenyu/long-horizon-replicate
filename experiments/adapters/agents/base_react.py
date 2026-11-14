@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import re
+import urllib.error
 import urllib.request
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
@@ -23,10 +24,16 @@ artifact, verify it, and then submit."""
 SYSTEM = "You are a terminal coding agent. Work in the current directory.\n" + ACTION_PROTOCOL
 
 
+class ModelRequestError(RuntimeError):
+    """A model endpoint failure (HTTP error, context overflow, timeout)."""
+
+
 @dataclass(frozen=True)
 class ModelResponse:
     content: str
     total_tokens: int = 0
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
 
 
 class ModelClient(ABC):
@@ -57,13 +64,21 @@ class HTTPModelClient(ModelClient):
             self.base_url + "/v1/chat/completions", data=payload,
             headers={"Content-Type": "application/json"}, method="POST",
         )
-        with urllib.request.urlopen(request, timeout=self.timeout) as response:
-            data = json.loads(response.read().decode("utf-8"))
+        try:
+            with urllib.request.urlopen(request, timeout=self.timeout) as response:
+                data = json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", "replace")[:2000]
+            raise ModelRequestError(f"HTTP {exc.code}: {body}") from exc
+        except (urllib.error.URLError, TimeoutError) as exc:
+            raise ModelRequestError(f"model request failed: {exc}") from exc
         message = data["choices"][0]["message"]
         usage = data.get("usage") or {}
         return ModelResponse(
             content=message.get("content") or "",
             total_tokens=int(usage.get("total_tokens") or 0),
+            prompt_tokens=int(usage.get("prompt_tokens") or 0),
+            completion_tokens=int(usage.get("completion_tokens") or 0),
         )
 
 
@@ -97,6 +112,7 @@ class BaseReactAgent(NativeAgent):
         self.client = client
         self.max_steps = max_steps
         self.system_prompt = system_prompt or SYSTEM
+        self.last_error = ""
 
     def run(self, task: TaskSpec, host: Host) -> None:
         messages = [
@@ -104,10 +120,15 @@ class BaseReactAgent(NativeAgent):
             {"role": "user", "content": task.instruction},
         ]
         for _ in range(self.max_steps):
-            response = self.client.complete(messages)
+            try:
+                response = self.client.complete(messages)
+            except ModelRequestError as exc:
+                self.last_error = str(exc)
+                return
             try:
                 host.charge_tokens(response.total_tokens)  # type: ignore[attr-defined]
-            except RuntimeError:
+            except RuntimeError as exc:
+                self.last_error = str(exc)
                 return
             messages.append({"role": "assistant", "content": response.content})
             try:

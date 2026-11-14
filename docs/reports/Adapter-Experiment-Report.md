@@ -27,6 +27,10 @@
 | `experiments/adapters/benchmarks/core_grading.py` | 官方 `eval_result_json` 的无 numpy/scipy 等价实现 |
 | `experiments/adapters/benchmarks/mle.py` | MLE-bench loader/host/medal adapter（low split，Kaggle 数据条件式） |
 | `experiments/adapters/benchmarks/mle_grading.py` | 官方 medal 阈值 + 合成 accuracy 指标 |
+| `experiments/adapters/benchmarks/content.py` | PutnamBench / MATH-500 / AIME 与文本+图像内容 adapter |
+| `experiments/adapters/benchmarks/formal_math.py` | miniF2F（文件级）与 ProofNet（逐定理） |
+| `experiments/adapters/prepare_formal_math.py` | 复制 miniF2F/ProofNet 到统一 v4.33.1 工程 + 可选 precheck |
+| `experiments/adapters/repro_math_batch.py` | 两阶段 collect/grade runner |
 | `experiments/adapters/tests/test_core.py` | CORE-Bench loader、容差评分、Docker host 测试 |
 | `experiments/adapters/tests/test_mle.py` | MLE-bench loader、medal 阈值、合成提交评分测试 |
 | `experiments/adapters/agents/sentry.py` | 官方 `SentryRunner` 原生 loop |
@@ -107,7 +111,7 @@ MLE-bench 的评分按官方 Kaggle leaderboard 阈值：读取 `score` 列，�
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-结果：**53 项测试全部通过**（`Ran 53 tests, OK`）。其中新增 8 项适配器测试（下表）、12 项 CORE-Bench 测试、4 项 Spine 重实现测试、9 项 MLE-bench 测试、2 项提交门继续逻辑测试和 4 项非干扰审计。
+结果：**107 项测试通过**（`Ran 107 tests, OK (skipped=2)`；两个跳过项都是需先停 model server 的 Lean 编译集成测试：Putnam 平凡定理、miniF2F+ProofNet 平凡定理）。覆盖此前的新增 8 项适配器测试（下表）、12 项 CORE-Bench、4 项 Spine 重实现、10 项 MLE-bench、2 项提交门、4 项非干扰审计、2 项非 UTF-8 输出回归、3 项模型请求错误、3 项轨迹记录，以及本轮内容/数学适配器新增的 MATH-500/AIME fixture、答案匹配、Putnam cheat 检测、miniF2F/ProofNet loader、逐定理解析与 precheck 过滤等测试。
 
 | 测试 | 验证内容 |
 | --- | --- |
@@ -160,7 +164,7 @@ MLE-bench 新增 7 项：
 | `test_submit_guard_is_off_by_default` | 默认 `submit_guard=None`，submit 直接接受 |
 | `test_submit_guard_requires_submission` | opt-in guard 拒绝缺 `submission.csv` 的 submit，补写后通过 |
 
-提交门继续逻辑 + 非干扰审计新增 6 项：
+提交门继续逻辑 + 非干扰审计 + 编码回归新增 8 项：
 
 | 测试 | 验证内容 |
 | --- | --- |
@@ -170,6 +174,8 @@ MLE-bench 新增 7 项：
 | `test_mle_metadata_has_no_answers_and_guard_is_off` | MLE metadata 无 answers/gold，guard 默认关闭 |
 | `test_host_does_not_expose_checks` | Host 不暴露 checks/answers/gold/hidden_tests |
 | `test_adapter_changes_are_schema_mappings_only` | adapter_changes 只描述 schema 映射，不含 prompt/strategy/plan |
+| `test_docker_host_replaces_non_utf8_output` | Docker 输出非 UTF-8 字节不崩溃 |
+| `test_local_host_replaces_non_utf8_output` | Local 输出非 UTF-8 字节不崩溃 |
 
 原有 14 项契约/公平性/LocalHost/DockerHost 测试全部保留并通过。完整输出在 `.cache/adapters/test-output.txt`（不入库）。
 
@@ -217,9 +223,84 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 .cache/venv/Scripts/python.exe experiments/adapters/verify_adapters.py
 ```
 
-它刷新 32 行契约矩阵/就绪度，运行适配器测试，并写 `results/adapter-verification.json`。当前结果：**53 项测试通过、32/32 contract-ready**；真实 benchmark 成绩复现不在本里程碑内。
+它刷新 32 行契约矩阵/就绪度，运行适配器测试，并写 `results/adapter-verification.json`。当前结果：**107 项测试通过（2 项 Lean 集成测试因需停 model server 而跳过）、32/32 contract-ready**；真实 benchmark 成绩复现不在本里程碑内。
+
+### 6.3 方法复现 pilot（CORE test split）
+
+协议冻结在 `protocols/core-test-pilot.json`：官方 CORE test split（GPG 解密，passphrase 公开）、3 个最小题、Base/Sentry/Recuris m0-gate/RRSI、1 次、8 步 × 512 tokens、默认无提交门、官方 `report.json` 评分。
+
+| 方法 | capsule-4180912 | capsule-1175539 | capsule-0921079 |
+| --- | --- | --- | --- |
+| Base | valid, 0/2 | valid, 0/1 | valid, 0/1 |
+| Sentry | valid, 2/2 | valid, 0/1 | valid, 0/1 |
+| Recuris m0-gate | valid, 0/2 | valid, 0/1 | valid, 0/1 |
+| RRSI | valid, 0/2 | valid, 0/1 | valid, 0/1 |
+
+pilot 结果：12 次运行中 **1 次通过**（Sentry `capsule-4180912`，2/2 checks）；总 checks 2/16。失败分类：
+
+- **10/12：`report.json` missing** —— 模型读了结果后直接 submit，没有写任务要求的产物；默认无提交门，这是模型的停止行为，不是适配器 bug。
+- **1/12：Sentry `capsule-0921079` 答错** —— 该题含 vision question（检查键带 `fig`），文本模型没有可用的图像答案。
+- **1/12：通过** —— Sentry 在 `capsule-4180912` 上写了正确 report。
+
+pilot 第一轮还暴露了适配器编码 bug：R capsule 的 `results/output` 含非 UTF-8 字节，旧 `subprocess` 用 GBK 解码导致 `proc.stdout=None`。已改为 UTF-8 + `errors="replace"`，并加 Docker/LocalHost 回归测试；当时 62 项测试通过。逐次结果在 `results/core-test-pilot/`。
+
+**边界**：8 步 × 512 tokens、1 次、3 题只是 pilot；不能当完成率或方法收益。下一步应扩大预算/题量并做 3 次独立运行；vision 题需要单独处理（文本模型不可答）。
 
 **提交门（opt-in）**：默认关闭；只有显式 `enforce_submission=True` 时，CORE/MLE host 才在 `submit` 时检查任务要求的产物（`report.json` / `submission.csv`）。它不暴露 hidden tests 或答案，且对所有方法一致。表中的 guard 行是这个显式条件；默认 no-guard 行才是无额外反馈的执行。Base/Recuris m0/m0-gate 的 0/3 → 3/3 是 host-level 提交校验 + agent 继续逻辑的作用，不是模型收益；Sentry/RRSI 本来就会写 report，guard 未改变它们的结果。
+
+### 6.4 四 benchmark × 四方法覆盖 pilot
+
+目标不是分数，而是每个已实现方法在每个 benchmark 上都能产生有效评分。`results/method-benchmark-coverage.json` 记录 16 个组合，**16/16 valid**：
+
+| Benchmark | 任务 | Base | Sentry | Recuris m0-gate | RRSI |
+| --- | --- | ---: | ---: | ---: | ---: |
+| TB 2.1 | `regex-log` | 0/1 | 0/1 | 0/1 | 0/1 |
+| LHTB 2.0 | `2048` | 0/1 | 0/1 | 0/1 | 0/1 |
+| CORE test split | `capsule-4180912` | 0/2 | **2/2** | 0/2 | 0/2 |
+| MLE synthetic | `synthetic` | 1/1 | 1/1 | 1/1 | 1/1 |
+
+- “valid”只表示 Agent 执行 + 官方评分链路跑通；passed 是另一列，不能混。
+- 预算很短：TB Base 8 步，其余 4 步；LHTB 4 步；CORE/MLE 8 步；每步 512 tokens。不是正式复现。
+- MLE 是**合成 competition**（真实 Kaggle 数据缺失）；真实 MLE 分数未跑。
+- 官方 Spine Pi/Node、openJiuwen、LHH、Opera 仍是 contract-only，只在 32 行契约矩阵里覆盖，不在这次真实覆盖中。
+- TB Sentry 8 步时上下文超过 16k，llama-server 返回 400；已把模型请求错误降级为 `agent_error` 并继续评分，4 步重跑得到 valid 结果，不再崩溃。
+
+### 6.5 轨迹记录 pilot
+
+`protocols/tb-recorder-pilot.json` 用 `repro_runner.py` 跑 Base × TB `regex-log` + LHTB `2048`。记录 `trajectory.jsonl`（model_request / model_response / action / observation / submit）、`agent-result.json`、`grading/result.json`；原始文件在 `.cache/adapters/tb-recorder-pilot/`，汇总在 `experiments/adapters/results/tb-recorder-pilot/summary.json`。
+
+| 任务 | 终止 | tokens | valid | checks |
+| --- | --- | ---: | --- | --- |
+| TB 2.1 `regex-log` | `timeout_wall`（300 s） | 15,895 | true | 0/1 |
+| LHTB `2048` | `timeout_tokens`（50k） | 50,555 | true | 0/1 |
+
+50k token 上限在 LHTB 上已经触到；正式 corpus 的 token 上限应高于 pilot P90。这是 recorder smoke，不是 50 题 corpus。
+
+### 6.6 100k token pilot
+
+`protocols/tb-pilot-100k.json`：Base × 3 题，100k token 预算，`max_steps=100`，wall 900/900/5400 s，loop 检测 5 次。
+
+| 任务 | 终止 | tokens | Agent 秒 | 动作 | valid | checks |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| TB `regex-log` | `timeout_tokens` | 105,500 | 704.5 | 9 | true | 0/1 |
+| TB `sqlite-db-truncate` | `timeout_tokens` | 108,404 | 386.0 | 9 | true | 0/1 |
+| LHTB `2048` | `timeout_tokens` | 103,358 | 53.0 | 24 | true | 0/1 |
+
+- 三题都先触到 100k token 预算，而不是 wall；TB 900s、LHTB 5400s 都没有走完。
+- 总量略高于 100k（103k–108k），因为最后一次调用先记账、再触发预算上限。
+- 100k 大致等于本轮 pilot 的 P90；如果正式 corpus 要减少预算截断，应把上限提高到 120k 以上。当前按你的要求保留 100k。
+- 三题 valid 但 0/1：链路正常，任务没完成；不能当方法分数。
+
+### 6.7 数学适配器（PutnamBench / MATH-500 / AIME）
+
+- **PutnamBench**：672 道 Lean 4 题，`loader → Lean 工程 host → agent → grade` 已接。评分前拒绝 `sorry`/`admit` 和新增的 `axiom`/`constant`/`opaque`/`unsafe` 声明，再调用固定版本的 Lean 4.33.1 + Mathlib 做内核检查。
+- **工具链**：优先使用 `.cache/tools/lean4-4.33.1/.../bin`，跳过 `~/.elan/bin` 的 shim；elan 在 v4.33.1 已安装时仍可能尝试联网更新并挂起。
+- **内存条件**：本机 16 GB，`import Mathlib` 约需 5.5 GB commit。9B server 常驻时只剩约 1 GB，Lean 会在随机 `.olean.private` 上报读取失败。`repro_math_pilot.py --release-model` 在评分前停 server、等 commit 余量、评分后按协议重启并 health check。
+- **smoke**：`protocols/math-smoke.json`，Base × `putnam_1962_a1`，6 步上限。终止 `max_steps`，1 action，9,942 tokens，243.8 s；评分 valid、0/1（`proof uses sorry`）。释放前 commit 2.10 GB，释放后 8.12 GB（2 s），重启 8.1 s 后 `/health` OK。首个 action 直接读取 `src/putnam_1962_a1.lean`，不再误用 `lean4/src` 前缀。
+- **Lean 编译链路**：`RUN_LEAN_TESTS=1` 写入一个平凡已证定理，`lake env lean` 实际编译通过（178.7 s）。默认测试跳过，因为必须先停掉 model server。
+- **MATH-500 / AIME**：本地 JSON/JSONL（`problem`/`answer`）或两题 fixture；agent 写 `answer.txt`，评分取最后一个 `\boxed{}` 或末行，支持字符串、数值相对容差和分数交叉相乘；AIME 限 0–999。`protocols/math-informal-smoke.json` 的 2026-11-14 Base smoke：AIME 1/1（603 tokens，3 actions），MATH-500 0/1（模型把正确答案 `5` 只写进 final 通道，没有生成 `answer.txt`；这是指令遵循失败，不是评分错误）。
+- **miniF2F / ProofNet**：`prepare_formal_math.py` 把 `yangky11/miniF2F-lean4`（488 个单定理文件）和 `rahul3613/ProofNet-lean4`（11 个文件、360 个定理）复制进统一的 v4.33.1 工程。上游分别 pin v4.24.0 / v4.20.0；为了跨 benchmark 同一 Lean/Mathlib 版本，统一用 v4.33.1，`--precheck` 负责剔除不兼容文件。2026-11-14 干净环境 precheck（8 GB commit）：miniF2F 抽样 20/20 通过；ProofNet 5/11 文件通过（Cambridge-Tripos、Ireland-Rosen、Pugh、Putnam、Shakarchi，共 66 个定理），其余 6 个文件（Artin、Axler、Dummit-Foote、Herstein、Munkres、Rudin）依赖 v4.33 之前的 Mathlib API，由 `precheck.json` 过滤。miniF2F 以文件为任务；ProofNet 以单个定理为任务，评分时把 Lean 的 `declaration uses 'sorry'` 警告行映射回目标定理块。`RUN_LEAN_TESTS=1` 的实际编译测试（168.9 s）验证了：miniF2F 平凡定理通过；ProofNet 同一文件中已证的定理通过、仍为 `sorry` 的定理被拒绝。
+- **两阶段 runner**：`repro_math_batch.py --phase all --release-model` 先在 server 运行时收集所有解答（`solution.lean` + `pristine.lean`），然后只停一次 server 批量评分并恢复。可断点续跑，`--status` 查看已收集/已评分数量。2026-11-14 smoke：2 Putnam + 1 miniF2F + 1 ProofNet，4/4 收集、4/4 评分 valid 0/1（解答仍为 `sorry`）；评分阶段只停一次 server（commit 4.27 → 5.8 GB，因 Docker 也在运行，6.0 GB 阈值等满 90 s），8.1 s 后恢复 `/health`。
 
 ## 7 就绪度
 
@@ -247,13 +328,13 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 | 真实 host | 0/4 | 3/4，另有 MLE-bench host 路径在合成数据下验证 |
 | 官方评分 | 0/4 | 3/4，且 TB 2.1 真实 oracle 通过、LHTB 2048 真实失败路径正确、CORE-Bench 真实 capsule 通过；MLE-bench 只有合成 metric |
 | 原生方法 loop | 0/8 | 4/8（Base、Sentry、Recuris、RRSI）；另有 Spine 重实现，不计入官方 8 方法 |
-| 测试数 | 14 | 53 |
+| 测试数 | 14 | 107 |
 | 真实 9B smoke | 未跑 | TB Base 0/1；LHTB 四方法 0/1（band 0）；CORE Sentry/RRSI 3/3；Base/Recuris 0/3 → 3/3（加提交门） |
 | 方法分数 | 无 | 仍无正式预算/收益结论 |
 
 ## 9 边界与未做
 
-- 真实 9B smoke 是 6 步 × 512 token 的接线 smoke，不是正式预算；CORE 只有 1 道 easy 任务，不能当完成率或方法收益结论。
+- 真实 9B smoke/pilot 是 4–8 步 × 512 token 的接线 smoke，不是正式预算；CORE pilot 只有 3 道 test 题，不能当完成率或方法收益结论。
 - TB `regex-log` 第一次官方评分卡在 `apt-get update`，按 D-apt 环境失败处理；重跑后拿到 valid 0/1。
 - CORE 上 Sentry/RRSI 3/3；Base/Recuris 在未加提交门时 0/3，加提交门后 3/3。这是 host-level 提交校验的作用，必须作为不同条件分别报告，不能把 0/3 → 3/3 当模型收益。
 - LHTB `2048` 是长程游戏；6 步只能到 band 0，四个方法都是 0/1。这是预算描述，不是方法差异。
@@ -263,7 +344,11 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 - RRSI 只跑 Evaluate 半，搜索环需要 Anthropic Vertex。
 - Spine 的官方原生 loop 是 Pi/Node 插件，尚未桥接到 Python 公共契约；`agents/spine.py` 是明确标注的 Python 重实现，只验证 `spine_open/close/next` 协议和 memory 折叠，`spine_spawn` 未执行，上下文折叠是简化版，不能当官方插件成绩。
 - openJiuwen、LongHorizon-Harness、Opera 的上游没有接入。
-- CORE-Bench 本轮只用公开 train split（45 题），不是留出 test split；test split 需要 GPG 解密，未使用。
+- CORE-Bench 方法 pilot 使用官方 **test split**（GPG 解密，passphrase 公开）；train split 只用于早期适配器验证。test split 的 3 道题是开发 pilot，不是完整 45 题。
+- 4×4 覆盖（16/16 valid）只证明每个已实现方法在每个 benchmark 上能执行并得到官方评分；TB Base 8 步、其余 4 步，MLE 是合成 competition，不能当方法分数。
+- TB Sentry 8 步时上下文超过 16k，llama-server 返回 400；已把模型请求错误降级为 `agent_error` 并继续评分，4 步重跑得到 valid 结果，不再崩溃。
+- 轨迹记录 pilot 只有 2 题、300s/50k 上限；LHTB 已触 token 上限。它是 recorder smoke，不是 50 题 corpus，也不能直接定正式 token 预算。
+- 100k pilot 三题都在 token 预算处停止（103k–108k），wall 未到；100k 是绑定上限，正式 corpus 若想减少截断需提高到 120k+。
 - CORE-Bench 真实 capsule 只跑 easy 级别（读 `results/`，不执行代码）；medium/hard 的环境准备（保留/删除哪些文件、清空 `results`）和 Docker host（`--privileged`）已用合成 capsule 验证，但没有真实 medium/hard 复现成绩。
 - MLE-bench 真实 Kaggle 数据/凭据不在本机；loader/host/medal 用合成 competition 验证，官方 metric 需要 `mlebench`/pandas，未跑真实分数，不能当 MLE-bench 成绩。
 - 官方评分是单容器近似；Harbor 的独立 verifier 容器路径未复现。
@@ -283,6 +368,19 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 - MLE-bench medal 阈值：`experiments/adapters/benchmarks/mle_grading.py`
 - MLE-bench 测试：`experiments/adapters/tests/test_mle.py`
 - 9B 真实 smoke 汇总：`experiments/adapters/results/real-smoke-9b.json`
+- 4×4 覆盖矩阵：`experiments/adapters/results/method-benchmark-coverage.json`（16/16 valid）
+- 轨迹记录 pilot：`experiments/adapters/results/tb-recorder-pilot/summary.json`
+- 轨迹记录代码：`experiments/adapters/recording.py`、`repro_runner.py`、`protocols/tb-recorder-pilot.json`
+- CORE test pilot：`experiments/adapters/results/core-test-pilot/summary.json`
+- MLE 合成 pilot：`experiments/adapters/results/mle-synthetic-pilot/summary.json`
+- 数学适配器：`experiments/adapters/benchmarks/content.py`（PutnamBench、MATH-500、AIME）
+- miniF2F / ProofNet：`experiments/adapters/benchmarks/formal_math.py`、`prepare_formal_math.py`
+- 两阶段 runner：`experiments/adapters/repro_math_batch.py`、`protocols/math-batch-smoke.json`、`results/math-batch-smoke/summary.json`
+- 形式化数据来源与预检：`.cache/upstream/putnambench/lean4/formal/README.json`、`precheck.json`（本机缓存）
+- PutnamBench pilot：`experiments/adapters/repro_math_pilot.py`、`protocols/math-smoke.json`、`results/math-smoke/summary.json`
+- 非形式数学 smoke：`experiments/adapters/protocols/math-informal-smoke.json`、`results/math-informal-smoke/summary.json`
+- 数学适配器测试：`experiments/adapters/tests/test_content_adapters.py`（Lean 编译测试需 `RUN_LEAN_TESTS=1`）
+- 适配器验证：`experiments/adapters/results/adapter-verification.json`
 - 9B 逐次原始记录：`.cache/adapters/real-smoke/*.json`（本机，不入库）
 - 模型启动记录：`.cache/server/launch-smoke.json`（本机，不入库）
 - 契约矩阵：`experiments/adapters/results/adapter-matrix.json`（32 行）

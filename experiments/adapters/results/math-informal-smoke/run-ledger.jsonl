@@ -1,0 +1,4 @@
+{"key": "20261114-math-informal-smoke|math500|fixture-1|base", "status": "started", "at": 1794661400.905525}
+{"key": "20261114-math-informal-smoke|math500|fixture-1|base", "status": "done", "at": 1794661415.6115599, "termination": "submitted", "tokens": 303, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/math-informal-smoke/20261114-math-informal-smoke/math500/fixture-1/base"}
+{"key": "20261114-math-informal-smoke|aime|fixture-1|base", "status": "started", "at": 1794661415.6115599}
+{"key": "20261114-math-informal-smoke|aime|fixture-1|base", "status": "done", "at": 1794661421.316999, "termination": "submitted", "tokens": 603, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/math-informal-smoke/20261114-math-informal-smoke/aime/fixture-1/base"}

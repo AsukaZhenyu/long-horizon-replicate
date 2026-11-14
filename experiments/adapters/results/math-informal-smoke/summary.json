@@ -1,0 +1,60 @@
+[
+  {
+    "key": "20261114-math-informal-smoke|math500|fixture-1|base",
+    "benchmark": "math500",
+    "task_id": "fixture-1",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 303,
+    "actions": 1,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 159,
+      "prompt_tokens_total": 159,
+      "completion_tokens": 144,
+      "equivalent_tokens": 146.4,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 14.7,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-smoke/20261114-math-informal-smoke/math500/fixture-1/base"
+  },
+  {
+    "key": "20261114-math-informal-smoke|aime|fixture-1|base",
+    "benchmark": "aime",
+    "task_id": "fixture-1",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 603,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 215,
+      "prompt_tokens_total": 559,
+      "completion_tokens": 44,
+      "equivalent_tokens": 52.6,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 5.7,
+    "last_error": "",
+    "detail_tail": "answer='2' expected='2'",
+    "run_dir": ".cache/adapters/math-informal-smoke/20261114-math-informal-smoke/aime/fixture-1/base"
+  }
+]

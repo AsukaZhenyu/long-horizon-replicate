@@ -1,0 +1,25 @@
+[
+  {
+    "key": "20261113-compaction-smoke|lhtb2|2048|base",
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 17326,
+    "actions": 10,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "context": {
+      "compactions": 5,
+      "max_prompt_tokens": 2099
+    },
+    "agent_seconds": 24.0,
+    "last_error": "",
+    "detail_tail": "-------------------------------------------------------\n----------------------------- Captured stderr call -----------------------------\n[ERROR:0@0.182] global cap_ffmpeg_impl.hpp:3133 open Could not find encoder for codec_id=27, error: Encoder not found\n[ERROR:0@0.182] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_2048_progress - AssertionError: Band 0 < pass th...\n============================== 1 failed in 0.40s ===============================\n",
+    "run_dir": ".cache/adapters/coverage-compaction-smoke/20261113-compaction-smoke/lhtb2/2048/base"
+  }
+]

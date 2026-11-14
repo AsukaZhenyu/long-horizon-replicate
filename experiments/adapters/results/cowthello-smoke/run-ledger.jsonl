@@ -1,0 +1,2 @@
+{"key": "20261114-cowthello-smoke|cowthello|main_smooth|base", "status": "started", "at": 1794640729.95864}
+{"key": "20261114-cowthello-smoke|cowthello|main_smooth|base", "status": "done", "at": 1794640749.5046496, "termination": "max_steps", "tokens": 15182, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/cowthello-smoke/20261114-cowthello-smoke/cowthello/main_smooth/base"}

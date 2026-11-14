@@ -14,6 +14,7 @@ from benchmarks.lhtb import LHTBBenchmarkAdapter
 from benchmarks.manifest import ManifestBenchmarkAdapter
 from contract.types import Action, ExperimentConfig, ScriptedAgent, TaskSpec
 from hosts.docker import DockerHost
+from hosts.local import FileCheckVerifier, LocalHost
 from methods.adapters import BaseAgentAdapter
 
 
@@ -92,6 +93,35 @@ class RealHostTests(unittest.TestCase):
             grade = host.grade()
             self.assertTrue(grade.valid)
             self.assertTrue(grade.passed, grade.detail)
+        finally:
+            host.cleanup()
+
+    @unittest.skipUnless(
+        shutil.which("docker") and subprocess.run(
+            ["docker", "info"], capture_output=True).returncode == 0,
+        "docker daemon not available",
+    )
+    def test_docker_host_replaces_non_utf8_output(self):
+        task = TaskSpec("binary", "docker", "emit a byte", initial_files={})
+        host = DockerHost(task, self.config, "alpine:latest", "true")
+        try:
+            obs = host.step(Action("shell", {"command": "printf '\\200'"}))
+            self.assertEqual(obs.exit_code, 0, obs.error)
+            self.assertIsNotNone(obs.output)
+            self.assertIn("�", obs.output)
+        finally:
+            host.cleanup()
+
+    def test_local_host_replaces_non_utf8_output(self):
+        task = TaskSpec("binary", "local", "emit a byte", initial_files={})
+        host = LocalHost(task, FileCheckVerifier({}), self.config)
+        try:
+            obs = host.step(Action("shell", {
+                "command": 'python -c "import sys; sys.stdout.buffer.write(bytes([128]))"',
+            }))
+            self.assertEqual(obs.exit_code, 0, obs.error)
+            self.assertIsNotNone(obs.output)
+            self.assertIn("�", obs.output)
         finally:
             host.cleanup()
 

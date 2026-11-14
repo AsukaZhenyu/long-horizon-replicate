@@ -1,0 +1,212 @@
+[
+  {
+    "benchmark": "mle",
+    "dataset": "synthetic",
+    "method": "base",
+    "task": "synthetic",
+    "agent_seconds": 16.2,
+    "tokens": 2739,
+    "actions": 7,
+    "grade_valid": true,
+    "grade_passed": true,
+    "checks_passed": 1,
+    "checks_total": 1,
+    "detail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "action_log": [
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "ls -la /home/data/"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/data/test.csv"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/data/sample_submission.csv"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "mkdir -p /home/submission"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat > /home/submission/submission.csv << 'EOF'\nid,prediction\n1,a\n2,b\nEOF"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/submission/submission.csv"
+        }
+      },
+      {
+        "kind": "submit",
+        "payload": {}
+      }
+    ]
+  },
+  {
+    "benchmark": "mle",
+    "dataset": "synthetic",
+    "method": "sentry",
+    "task": "synthetic",
+    "agent_seconds": 135.8,
+    "tokens": 11178,
+    "actions": 6,
+    "grade_valid": true,
+    "grade_passed": true,
+    "checks_passed": 1,
+    "checks_total": 1,
+    "detail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "action_log": [
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "ls -la /home/data/"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/data/test.csv && echo '---' && cat /home/data/sample_submission.csv"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "wc -l /home/data/test.csv && head -20 /home/data/test.csv"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "mkdir -p /home/submission && cat > /home/submission/submission.csv << 'EOF'\nid,prediction\n1,a\n2,b\nEOF"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/submission/submission.csv"
+        }
+      },
+      {
+        "kind": "submit",
+        "payload": {}
+      }
+    ],
+    "phases": {
+      "detector": 5
+    }
+  },
+  {
+    "benchmark": "mle",
+    "dataset": "synthetic",
+    "method": "recuris-gate",
+    "task": "synthetic",
+    "agent_seconds": 14.9,
+    "tokens": 2625,
+    "actions": 6,
+    "grade_valid": true,
+    "grade_passed": true,
+    "checks_passed": 1,
+    "checks_total": 1,
+    "detail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "action_log": [
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "ls -la /home/data/"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/data/test.csv"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/data/sample_submission.csv"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "mkdir -p /home/submission && cat > /home/submission/submission.csv << 'EOF'\nid,prediction\n1,a\n2,b\nEOF"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/submission/submission.csv"
+        }
+      },
+      {
+        "kind": "submit",
+        "payload": {}
+      }
+    ],
+    "turns": 6
+  },
+  {
+    "benchmark": "mle",
+    "dataset": "synthetic",
+    "method": "rrsi",
+    "task": "synthetic",
+    "agent_seconds": 14.3,
+    "tokens": 2738,
+    "actions": 6,
+    "grade_valid": true,
+    "grade_passed": true,
+    "checks_passed": 1,
+    "checks_total": 1,
+    "detail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "action_log": [
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "ls -la /home/data/"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/data/sample_submission.csv"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/data/test.csv"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "mkdir -p /home/submission && cat > /home/submission/submission.csv << 'EOF'\nid,prediction\n1,a\n2,b\nEOF"
+        }
+      },
+      {
+        "kind": "shell",
+        "payload": {
+          "command": "cat /home/submission/submission.csv"
+        }
+      },
+      {
+        "kind": "submit",
+        "payload": {}
+      }
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "benchmark": "core",
+  "dataset": ".cache/upstream/core-bench/benchmark/dataset/core_test.json",
+  "level": "codeocean_easy",
+  "image": "alpine:latest",
+  "tasks": [
+    "capsule-4180912",
+    "capsule-1175539",
+    "capsule-0921079"
+  ],
+  "methods": [
+    "base",
+    "sentry",
+    "recuris-gate",
+    "rrsi"
+  ],
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "context": 16384,
+  "temperature": 0.2,
+  "reasoning": "off",
+  "max_tokens_per_step": 512,
+  "max_steps": 8,
+  "token_budget": 50000,
+  "attempts": 1,
+  "submit_guard": false,
+  "grading": "official CORE report.json",
+  "purpose": "method reproduction pilot on the official CORE test split; not a formal 3-run result"
+}

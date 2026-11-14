@@ -1,0 +1,67 @@
+{
+  "benchmark": "core",
+  "dataset": "core_test",
+  "level": "codeocean_easy",
+  "method": "sentry",
+  "task": "capsule-0921079",
+  "attempt": 1,
+  "agent_seconds": 164.7,
+  "tokens": 18908,
+  "actions": 8,
+  "grade_valid": true,
+  "grade_passed": false,
+  "checks_passed": 0,
+  "checks_total": 1,
+  "detail": "correct_questions=0/1 written=0/0 vision=0/1",
+  "action_log": [
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la capsule-0921079"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la capsule-0921079/results"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat capsule-0921079/results/output"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat capsule-0921079/results/Table_A2.tex"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "echo '{\"fig Report a Python list of three elements with the three Type-1 error rates (alpha values) measured in the estimate-comparison test and the sign-comparison test. Sort the list in descending order.\": [0.961, \"< 0.001\", \"< 0.001\"]}' > report.json"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat report.json"
+      }
+    },
+    {
+      "kind": "submit",
+      "payload": {}
+    }
+  ],
+  "phases": {
+    "detector": 5
+  }
+}

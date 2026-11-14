@@ -32,6 +32,7 @@ class RRSIPromptAgent(NativeAgent):
         self.max_steps = max_steps
         self.prompt_sha256 = ""
         self.system_prompt = ""
+        self.last_error = ""
 
     def run(self, task: TaskSpec, host: Host) -> None:
         if not self.prompt_path.is_file():
@@ -41,7 +42,9 @@ class RRSIPromptAgent(NativeAgent):
         self.prompt_sha256 = hashlib.sha256(data).hexdigest()
         # The candidate prompt shapes planning; the host still needs the
         # common terminal action protocol, which is not part of the candidate.
-        BaseReactAgent(
+        runner = BaseReactAgent(
             self.client, max_steps=self.max_steps,
             system_prompt=self.system_prompt + "\n\n" + ACTION_PROTOCOL,
-        ).run(task, host)
+        )
+        runner.run(task, host)
+        self.last_error = runner.last_error

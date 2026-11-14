@@ -1,0 +1,56 @@
+{
+  "round": "20261114-math-smoke",
+  "purpose": "wire-up smoke for the PutnamBench Lean adapter: one task, Base, small budget; the local model server is released before Lean grading and restored afterwards",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 512,
+  "max_steps": 6,
+  "token_budget": 20000,
+  "wall_clock_sec": 1800,
+  "submit_guard": false,
+  "log_full_messages": false,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 16384,
+    "trigger_ratio": 0.72,
+    "target_ratio": 0.55,
+    "keep_recent_messages": 8,
+    "max_messages_before_compact": 24,
+    "max_message_chars": 4000,
+    "max_system_chars": 16000,
+    "max_task_chars": 16000,
+    "summary_chars": 2400,
+    "min_messages_to_compact": 6,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base"
+  ],
+  "benchmarks": [
+    "putnam"
+  ],
+  "tasks": [
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1962_a1",
+      "wall_clock_sec": 1800
+    }
+  ],
+  "putnam": {
+    "root": ".cache/upstream/putnambench",
+    "limit": 4
+  },
+  "grading_model_release": {
+    "min_free_commit_gb": 6.0,
+    "wait_sec": 90,
+    "restart_script": "experiments/adapters/start_llama_text.ps1",
+    "restart_args": [
+      "-Ngl",
+      "26"
+    ],
+    "health_timeout_sec": 240
+  },
+  "output_dir": "experiments/adapters/results/math-smoke",
+  "raw_dir": ".cache/adapters/math-smoke"
+}

@@ -64,6 +64,14 @@ class CoreReportVerifier:
         return None
 
     def grade(self) -> Grade:
+        try:
+            return self._grade_impl()
+        except Exception as exc:
+            return Grade(valid=False, passed=False, checks_passed=0,
+                         checks_total=0,
+                         detail=f"CORE grading error: {type(exc).__name__}: {exc}")
+
+    def _grade_impl(self) -> Grade:
         empty = eval_result_json(self.gold, {})
         text = self._find_report()
         if text is None:

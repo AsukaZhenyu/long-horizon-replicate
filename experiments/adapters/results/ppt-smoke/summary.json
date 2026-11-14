@@ -1,0 +1,42 @@
+{
+  "purpose": "PPT chain smoke: python-pptx deck -> WPS COM PNG render -> Qwen3.5-9B VLM PPTEval review",
+  "status": "ok",
+  "deck": ".cache/ppt-smoke/smoke.pptx",
+  "rendered": [
+    ".cache/ppt-smoke/render/幻灯片1.PNG",
+    ".cache/ppt-smoke/render/幻灯片2.PNG"
+  ],
+  "renderer": "experiments/adapters/render_pptx_wps.ps1 (WPS Presentation COM; no LibreOffice/PowerPoint)",
+  "image_size": [1600, 900],
+  "vlm": {
+    "model": "qwen3.5-9b",
+    "mmproj": ".cache/models/mmproj-F16.gguf",
+    "gpu_layers": 22,
+    "image_min_tokens": 1024,
+    "image_max_tokens": 1024,
+    "prompt_tokens": 1095,
+    "completion_tokens": 432,
+    "total_tokens": 1527
+  },
+  "scores": {
+    "content": 3,
+    "design": 2,
+    "coherence": 4
+  },
+  "issues_found": [
+    "Dense first paragraph with no visual hierarchy or bullets.",
+    "Inconsistent body font sizes without clear rationale.",
+    "6pt low-contrast footer text.",
+    "Text overflow / awkward line breaks.",
+    "No visual separation between metrics."
+  ],
+  "fixes_proposed": [
+    "Split metrics into bullets with bolded key figures.",
+    "Standardize body font size and line height.",
+    "Increase footer size to >=10pt with better contrast.",
+    "Reflow text to avoid mid-sentence breaks.",
+    "Add separators or icons to distinguish metrics."
+  ],
+  "note": "The deliberate issues in slide 2 (alternating 11/24pt body text, long dense paragraph, 6pt footer) were all identified by the VLM from the 1600x900 render. Raw VLM response: .cache/ppt-smoke/vlm_review.json.",
+  "date": "2026-11-14"
+}

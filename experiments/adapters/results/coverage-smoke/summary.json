@@ -1,0 +1,94 @@
+[
+  {
+    "key": "20261113-coverage-smoke|tb21|regex-log|base",
+    "benchmark": "tb21",
+    "task_id": "regex-log",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 2699,
+    "actions": 2,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 795
+    },
+    "agent_seconds": 60.3,
+    "last_error": "",
+    "detail_tail": "\ntest_outputs.py:90: AssertionError\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_regex_matches_dates - AssertionError: Expected [...\n============================== 1 failed in 0.05s ===============================\ndebconf: delaying package configuration, since apt-utils is not installed\ndownloading uv 0.9.5 x86_64-unknown-linux-gnu\nDownloading cpython-3.13.9-linux-x86_64-gnu (download) (32.0MiB)\n Downloading cpython-3.13.9-linux-x86_64-gnu (download)\nDownloading pygments (1.2MiB)\n Downloading pygments\nInstalled 6 packages in 9ms\n",
+    "run_dir": ".cache/adapters/coverage-smoke/20261113-coverage-smoke/tb21/regex-log/base"
+  },
+  {
+    "key": "20261113-coverage-smoke|lhtb2|2048|base",
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 7540,
+    "actions": 4,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2184
+    },
+    "agent_seconds": 10.4,
+    "last_error": "",
+    "detail_tail": "-------------------------------------------------------\n----------------------------- Captured stderr call -----------------------------\n[ERROR:0@0.226] global cap_ffmpeg_impl.hpp:3133 open Could not find encoder for codec_id=27, error: Encoder not found\n[ERROR:0@0.226] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_2048_progress - AssertionError: Band 0 < pass th...\n============================== 1 failed in 0.83s ===============================\n",
+    "run_dir": ".cache/adapters/coverage-smoke/20261113-coverage-smoke/lhtb2/2048/base"
+  },
+  {
+    "key": "20261113-coverage-smoke|core|capsule-4180912|base",
+    "benchmark": "core",
+    "task_id": "capsule-4180912",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 2037,
+    "actions": 4,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/2"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 765
+    },
+    "agent_seconds": 9.0,
+    "last_error": "",
+    "detail_tail": "report.json missing; method did not answer",
+    "run_dir": ".cache/adapters/coverage-smoke/20261113-coverage-smoke/core/capsule-4180912/base"
+  },
+  {
+    "key": "20261113-coverage-smoke|mle|synthetic|base",
+    "benchmark": "mle",
+    "task_id": "synthetic",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 1323,
+    "actions": 4,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 393
+    },
+    "agent_seconds": 9.7,
+    "last_error": "",
+    "detail_tail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "run_dir": ".cache/adapters/coverage-smoke/20261113-coverage-smoke/mle/synthetic/base"
+  }
+]

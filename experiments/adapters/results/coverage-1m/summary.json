@@ -1,0 +1,370 @@
+[
+  {
+    "key": "20261113-coverage-1m|tb21|regex-log|base",
+    "benchmark": "tb21",
+    "task_id": "regex-log",
+    "method": "base",
+    "termination": "loop",
+    "tokens": 76980,
+    "actions": 11,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 7661
+    },
+    "agent_seconds": 593.4,
+    "last_error": "",
+    "detail_tail": "\ntest_outputs.py:90: AssertionError\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_regex_matches_dates - AssertionError: Expected [...\n============================== 1 failed in 0.04s ===============================\ndebconf: delaying package configuration, since apt-utils is not installed\ndownloading uv 0.9.5 x86_64-unknown-linux-gnu\nDownloading cpython-3.13.9-linux-x86_64-gnu (download) (32.0MiB)\n Downloading cpython-3.13.9-linux-x86_64-gnu (download)\nDownloading pygments (1.2MiB)\n Downloading pygments\nInstalled 6 packages in 8ms\n",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/tb21/regex-log/base"
+  },
+  {
+    "key": "20261113-coverage-1m|tb21|regex-log|sentry",
+    "benchmark": "tb21",
+    "task_id": "regex-log",
+    "method": "sentry",
+    "termination": "loop",
+    "tokens": 16473,
+    "actions": 6,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 3469
+    },
+    "agent_seconds": 240.8,
+    "last_error": "",
+    "detail_tail": "\ntest_outputs.py:90: AssertionError\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_regex_matches_dates - AssertionError: Expected [...\n============================== 1 failed in 0.05s ===============================\ndebconf: delaying package configuration, since apt-utils is not installed\ndownloading uv 0.9.5 x86_64-unknown-linux-gnu\nDownloading cpython-3.13.9-linux-x86_64-gnu (download) (32.0MiB)\n Downloading cpython-3.13.9-linux-x86_64-gnu (download)\nDownloading pygments (1.2MiB)\n Downloading pygments\nInstalled 6 packages in 8ms\n",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/tb21/regex-log/sentry"
+  },
+  {
+    "key": "20261113-coverage-1m|tb21|regex-log|recuris-gate",
+    "benchmark": "tb21",
+    "task_id": "regex-log",
+    "method": "recuris-gate",
+    "termination": "submitted",
+    "tokens": 248566,
+    "actions": 23,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "context": {
+      "compactions": 40,
+      "max_prompt_tokens": 11227
+    },
+    "agent_seconds": 2180.4,
+    "last_error": "",
+    "detail_tail": "\ntest_outputs.py:90: AssertionError\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_regex_matches_dates - AssertionError: Expected [...\n============================== 1 failed in 0.04s ===============================\ndebconf: delaying package configuration, since apt-utils is not installed\ndownloading uv 0.9.5 x86_64-unknown-linux-gnu\nDownloading cpython-3.13.9-linux-x86_64-gnu (download) (32.0MiB)\n Downloading cpython-3.13.9-linux-x86_64-gnu (download)\nDownloading pygments (1.2MiB)\n Downloading pygments\nInstalled 6 packages in 9ms\n",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/tb21/regex-log/recuris-gate"
+  },
+  {
+    "key": "20261113-coverage-1m|tb21|regex-log|rrsi",
+    "benchmark": "tb21",
+    "task_id": "regex-log",
+    "method": "rrsi",
+    "termination": "context_overflow",
+    "tokens": 264963,
+    "actions": 9,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "context": {
+      "compactions": 9,
+      "max_prompt_tokens": 16082
+    },
+    "agent_seconds": 1860.6,
+    "last_error": "HTTP 400: {\"error\":{\"code\":400,\"message\":\"request (16928 tokens) exceeds the available context size (16384 tokens), try increasing it\",\"type\":\"exceed_context_size_error\",\"n_prompt_tokens\":16928,\"n_ctx\":16384}}",
+    "detail_tail": "\ntest_outputs.py:90: AssertionError\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_regex_matches_dates - AssertionError: Expected [...\n============================== 1 failed in 0.05s ===============================\ndebconf: delaying package configuration, since apt-utils is not installed\ndownloading uv 0.9.5 x86_64-unknown-linux-gnu\nDownloading cpython-3.13.9-linux-x86_64-gnu (download) (32.0MiB)\n Downloading cpython-3.13.9-linux-x86_64-gnu (download)\nDownloading pygments (1.2MiB)\n Downloading pygments\nInstalled 6 packages in 8ms\n",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/tb21/regex-log/rrsi"
+  },
+  {
+    "key": "20261113-coverage-1m|lhtb2|2048|base",
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "base",
+    "termination": "timeout_tokens",
+    "tokens": 1003429,
+    "actions": 232,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 186,
+      "max_prompt_tokens": 11865
+    },
+    "agent_seconds": 1360.4,
+    "last_error": "token budget exceeded: 1003429",
+    "detail_tail": "reward.txt as verifier/moves.log\n------------------------------------------------------------\n----------------------------- Captured stderr call -----------------------------\n[ERROR:0@3.396] global cap_ffmpeg_impl.hpp:3133 open Could not find encoder for codec_id=27, error: Encoder not found\n[ERROR:0@3.396] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter\n=========================== short test summary info ============================\nPASSED test_outputs.py::test_2048_progress\n============================== 1 passed in 4.18s ===============================\n",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/lhtb2/2048/base"
+  },
+  {
+    "key": "20261113-coverage-1m|lhtb2|2048|sentry",
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "sentry",
+    "termination": "timeout_wall",
+    "tokens": 516697,
+    "actions": 13,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "context": {
+      "compactions": 48,
+      "max_prompt_tokens": 11172
+    },
+    "agent_seconds": 3629.7,
+    "last_error": "wall-clock deadline reached",
+    "detail_tail": "-------------------------------------------------------\n----------------------------- Captured stderr call -----------------------------\n[ERROR:0@0.338] global cap_ffmpeg_impl.hpp:3133 open Could not find encoder for codec_id=27, error: Encoder not found\n[ERROR:0@0.338] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_2048_progress - AssertionError: Band 0 < pass th...\n============================== 1 failed in 0.95s ===============================\n",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/lhtb2/2048/sentry"
+  },
+  {
+    "key": "20261113-coverage-1m|lhtb2|2048|recuris-gate",
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "recuris-gate",
+    "termination": "timeout_tokens",
+    "tokens": 1002469,
+    "actions": 232,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 186,
+      "max_prompt_tokens": 11843
+    },
+    "agent_seconds": 1376.0,
+    "last_error": "token budget exceeded: 1002469",
+    "detail_tail": "reward.txt as verifier/moves.log\n------------------------------------------------------------\n----------------------------- Captured stderr call -----------------------------\n[ERROR:0@3.340] global cap_ffmpeg_impl.hpp:3133 open Could not find encoder for codec_id=27, error: Encoder not found\n[ERROR:0@3.340] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter\n=========================== short test summary info ============================\nPASSED test_outputs.py::test_2048_progress\n============================== 1 passed in 4.10s ===============================\n",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/lhtb2/2048/recuris-gate"
+  },
+  {
+    "key": "20261113-coverage-1m|lhtb2|2048|rrsi",
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "rrsi",
+    "termination": "timeout_tokens",
+    "tokens": 1000191,
+    "actions": 226,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 180,
+      "max_prompt_tokens": 12178
+    },
+    "agent_seconds": 1326.9,
+    "last_error": "token budget exceeded: 1000191",
+    "detail_tail": "reward.txt as verifier/moves.log\n------------------------------------------------------------\n----------------------------- Captured stderr call -----------------------------\n[ERROR:0@3.238] global cap_ffmpeg_impl.hpp:3133 open Could not find encoder for codec_id=27, error: Encoder not found\n[ERROR:0@3.238] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter\n=========================== short test summary info ============================\nPASSED test_outputs.py::test_2048_progress\n============================== 1 passed in 3.96s ===============================\n",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/lhtb2/2048/rrsi"
+  },
+  {
+    "key": "20261113-coverage-1m|core|capsule-4180912|base",
+    "benchmark": "core",
+    "task_id": "capsule-4180912",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 24748,
+    "actions": 11,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "2/2"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 3150
+    },
+    "agent_seconds": 52.2,
+    "last_error": "",
+    "detail_tail": "correct_questions=2/2 written=2/2 vision=0/0",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/core/capsule-4180912/base"
+  },
+  {
+    "key": "20261113-coverage-1m|core|capsule-4180912|sentry",
+    "benchmark": "core",
+    "task_id": "capsule-4180912",
+    "method": "sentry",
+    "termination": "timeout_tokens",
+    "tokens": 1001293,
+    "actions": 178,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "2/2"
+    },
+    "context": {
+      "compactions": 59,
+      "max_prompt_tokens": 12485
+    },
+    "agent_seconds": 1516.1,
+    "last_error": "token budget exceeded: 1001293",
+    "detail_tail": "correct_questions=2/2 written=2/2 vision=0/0",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/core/capsule-4180912/sentry"
+  },
+  {
+    "key": "20261113-coverage-1m|core|capsule-4180912|recuris-gate",
+    "benchmark": "core",
+    "task_id": "capsule-4180912",
+    "method": "recuris-gate",
+    "termination": "submitted",
+    "tokens": 18804,
+    "actions": 8,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "2/2"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 3484
+    },
+    "agent_seconds": 44.7,
+    "last_error": "",
+    "detail_tail": "correct_questions=2/2 written=2/2 vision=0/0",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/core/capsule-4180912/recuris-gate"
+  },
+  {
+    "key": "20261113-coverage-1m|core|capsule-4180912|rrsi",
+    "benchmark": "core",
+    "task_id": "capsule-4180912",
+    "method": "rrsi",
+    "termination": "submitted",
+    "tokens": 48191,
+    "actions": 17,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "2/2"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 4361
+    },
+    "agent_seconds": 80.6,
+    "last_error": "",
+    "detail_tail": "correct_questions=2/2 written=2/2 vision=0/0",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/core/capsule-4180912/rrsi"
+  },
+  {
+    "key": "20261113-coverage-1m|mle|synthetic|base",
+    "benchmark": "mle",
+    "task_id": "synthetic",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 2282,
+    "actions": 6,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 481
+    },
+    "agent_seconds": 14.3,
+    "last_error": "",
+    "detail_tail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/mle/synthetic/base"
+  },
+  {
+    "key": "20261113-coverage-1m|mle|synthetic|sentry",
+    "benchmark": "mle",
+    "task_id": "synthetic",
+    "method": "sentry",
+    "termination": "timeout_tokens",
+    "tokens": 1003164,
+    "actions": 266,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 6792
+    },
+    "agent_seconds": 492.2,
+    "last_error": "token budget exceeded: 1003164",
+    "detail_tail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/mle/synthetic/sentry"
+  },
+  {
+    "key": "20261113-coverage-1m|mle|synthetic|recuris-gate",
+    "benchmark": "mle",
+    "task_id": "synthetic",
+    "method": "recuris-gate",
+    "termination": "submitted",
+    "tokens": 2633,
+    "actions": 6,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 508
+    },
+    "agent_seconds": 15.6,
+    "last_error": "",
+    "detail_tail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/mle/synthetic/recuris-gate"
+  },
+  {
+    "key": "20261113-coverage-1m|mle|synthetic|rrsi",
+    "benchmark": "mle",
+    "task_id": "synthetic",
+    "method": "rrsi",
+    "termination": "submitted",
+    "tokens": 3277,
+    "actions": 7,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 562
+    },
+    "agent_seconds": 18.0,
+    "last_error": "",
+    "detail_tail": "source=synthetic metric score=1.0 any_medal=True gold=True silver=False bronze=False above_median=True lower_is_better=False thresholds=gold:1.0,silver:1.0,bronze:0.8,median:0.6",
+    "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/mle/synthetic/rrsi"
+  }
+]

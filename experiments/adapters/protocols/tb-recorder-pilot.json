@@ -1,0 +1,27 @@
+{
+  "round": "20261113-recorder-pilot",
+  "purpose": "trajectory-recorder smoke; not the 50-task corpus",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 512,
+  "max_steps": 20,
+  "token_budget": 50000,
+  "wall_clock_sec": 300,
+  "submit_guard": false,
+  "methods": [
+    "base"
+  ],
+  "tasks": [
+    {
+      "benchmark": "tb21",
+      "task_id": "regex-log"
+    },
+    {
+      "benchmark": "lhtb2",
+      "task_id": "2048"
+    }
+  ],
+  "output_dir": "experiments/adapters/results/tb-recorder-pilot",
+  "raw_dir": ".cache/adapters/tb-recorder-pilot"
+}

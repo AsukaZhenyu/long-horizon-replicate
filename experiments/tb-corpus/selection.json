@@ -1,0 +1,916 @@
+{
+  "seed": 20261113,
+  "purpose": "two-TB trajectory corpus; see docs/plan/2026-11-13-two-tb-trajectory-design.md",
+  "benchmarks": {
+    "tb21": {
+      "total": 89,
+      "selected": 25,
+      "excluded": [
+        {
+          "task_id": "adaptive-rejection-sampler",
+          "difficulty": "medium",
+          "category": "scientific-computing",
+          "expert_min": 180.0,
+          "agent_timeout": 900.0,
+          "instruction": "Your task is to implement an adaptive-rejection sampler as described in Gilks et al. (1992). \n\n1. Your solution should allow the user to provide reasonable inputs, including the number of points\nto sa",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "bn-fit-modify",
+          "difficulty": "hard",
+          "category": "scientific-computing",
+          "expert_min": 480.0,
+          "agent_timeout": 3600.0,
+          "instruction": "You are provided with a dataset sample from a Bayesian Network in /app/bn_sample_10k.csv. \nYour first task is to recover the underlying DAG using the provided data.\n\nHere is some information about the",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "build-pov-ray",
+          "difficulty": "medium",
+          "category": "software-engineering",
+          "expert_min": 60.0,
+          "agent_timeout": 12000.0,
+          "instruction": "Build POV-Ray 2.2. Find and download the source archives, extract them to `/app/povray-2.2`, then compile and install to `/usr/local/bin/povray`.\n  \nWe will test your build by rendering `/app/deps/ill",
+          "reason": "agent_timeout > 3600"
+        },
+        {
+          "task_id": "circuit-fibsqrt",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 960.0,
+          "agent_timeout": 3600.0,
+          "instruction": "The file /app/sim.c is a logic-gate simulator: each line of the file /app/gates.txt should contain a line of the form\n  outX = outY\n  outX = 0/1\n  outX = ~outY\n  outX = outY & outZ\n  outX = outY | out",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "feal-differential-cryptanalysis",
+          "difficulty": "hard",
+          "category": "mathematics",
+          "expert_min": 480.0,
+          "agent_timeout": 1800.0,
+          "instruction": "The file /app/feal.py implements a FEAL-like encryption function. Implement a chosen plaintext attack that recovers the value of key[5].\n\nYour attack should be implemented in /app/attack.py, and shoul",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "feal-linear-cryptanalysis",
+          "difficulty": "hard",
+          "category": "mathematics",
+          "expert_min": 960.0,
+          "agent_timeout": 1800.0,
+          "instruction": "The file /app/feal.c implements a FEAL-like encryption function,\nwith /app/decrypt.c being the corresponding decryption function,\nand the file /app/pairs.txt contain 32 plaintext-ciphertext pairs.\n(Ea",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "fix-ocaml-gc",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 1440.0,
+          "agent_timeout": 3600.0,
+          "instruction": "I have been making some changes to the OCaml garbage collector, improving the sweeping performance by run-length compressing the free space in the major heap. I seem to have broken things though, as t",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "git-multibranch",
+          "difficulty": "medium",
+          "category": "system-administration",
+          "expert_min": 180.0,
+          "agent_timeout": 900.0,
+          "instruction": "Set up a Git server that hosts a project over SSH at git@localhost:/git/project.\nThe server should accept password authentication with the password \"password\".\n\nIt should deploy contents from two bran",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "gpt2-codegolf",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 2400.0,
+          "agent_timeout": 900.0,
+          "instruction": "I have downloaded the gpt-2 weights stored as a TF .ckpt. Write me a dependency-free C file that samples from the model with arg-max sampling. Call your program /app/gpt2.c, I will compile with gcc -O",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "install-windows-3.11",
+          "difficulty": "hard",
+          "category": "system-administration",
+          "expert_min": 300.0,
+          "agent_timeout": 3600.0,
+          "instruction": "Run Windows 3.11 for Workgroups in a virtual machine using qemu. You image is in `/app/isos/win311.img`. This image is known to be compatible with QEMU 5.2.0\n\nVNC Configuration Requirements:\n- Configu",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "make-doom-for-mips",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 480.0,
+          "agent_timeout": 900.0,
+          "instruction": "I have provided /app/doomgeneric/, the source code to doom. I've also wrote a special doomgeneric_img.c that I want you to use which will write each drawn frame to /tmp/frame.bmp. I've finally provide",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "make-mips-interpreter",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 480.0,
+          "agent_timeout": 1800.0,
+          "instruction": "I have provided /app/doomgeneric_mips, a MIPS elf file, along with doomgeneric/, the corresponding source code. Please implement a MIPS interpreter complete with handling system calls called vm.js so ",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "mcmc-sampling-stan",
+          "difficulty": "hard",
+          "category": "data-science",
+          "expert_min": 180.0,
+          "agent_timeout": 1800.0,
+          "instruction": "Sample from a hierarchical Bayesian model using R and Stan, and estimate the posterior means of the parameters.\n\nYour task:\n1. Install the RStan package (version 2.32.7) for R and the required depende",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "model-extraction-relu-logits",
+          "difficulty": "hard",
+          "category": "mathematics",
+          "expert_min": 480.0,
+          "agent_timeout": 900.0,
+          "instruction": "I have a ReLU neural network that you can query by importing `forward.py` and calling forward(x) which returns a single floating point number as output. The input dimension is 10. The neural network i",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "path-tracing",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 360.0,
+          "agent_timeout": 1800.0,
+          "instruction": "I've put an image at /app/image.ppm that I rendered programmatically. Write a c program image.c that I can run and compile and will generate an image that's as close as possible to the image I put her",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "polyglot-rust-c",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 180.0,
+          "agent_timeout": 900.0,
+          "instruction": "Write me a single file in /app/polyglot/main.rs which is a polyglot, that is, I can run\n\n`rustc /app/polyglot/main.rs && /app/polyglot/main N`\nor\n`g++ -x c++ /app/polyglot/main.rs -o /app/polyglot/cma",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "regex-chess",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 1440.0,
+          "agent_timeout": 3600.0,
+          "instruction": "Write a JSON file called /app/re.json that is a list of [regex, replacement] pairs. When executed in order with the Python code\n```\ndef all_legal_next_positions(fen):\n  for pattern, repl in json.load(",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "rstan-to-pystan",
+          "difficulty": "medium",
+          "category": "data-science",
+          "expert_min": 180.0,
+          "agent_timeout": 1800.0,
+          "instruction": "You are given datasets /app/train_X.csv, /app/train_y.csv, /app/test_X.csv, /app/meta_public.json; and a R script /app/gp_rstan.R.\nConvert the R script to python script using PyStan 3.10.0 for posteri",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "sam-cell-seg",
+          "difficulty": "hard",
+          "category": "data-science",
+          "expert_min": 600.0,
+          "agent_timeout": 7200.0,
+          "instruction": "I have annotated histopathology slides with cell masks. The problem is that some of the masks \nare rectangles, while the rest are polylines. I want to convert all of the masks to polylines.\nYou must u",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "schemelike-metacircular-eval",
+          "difficulty": "medium",
+          "category": "software-engineering",
+          "expert_min": 300.0,
+          "agent_timeout": 2400.0,
+          "instruction": "Write a file eval.scm that is a metacircular evaluator capable of interpreting the scheme-like language implemented by interp.py.\nThe eval.scm file should read exactly one line from STDIN, this will b",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "sparql-university",
+          "difficulty": "hard",
+          "category": "data-querying",
+          "expert_min": 800.0,
+          "agent_timeout": 900.0,
+          "instruction": "You are provided with a Turtle file at `/app/university_graph.ttl` containing both the ontology and the instance data for a knowledge graph describing universities, departments, employees, students, c",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "torch-pipeline-parallelism",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 240.0,
+          "agent_timeout": 900.0,
+          "instruction": "Implement pipeline parallel training for the LLaMA model using PyTorch. Create the file /app/pipeline_parallel.py \nand implement the following function according to the given signature:\n\n  def train_s",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "torch-tensor-parallelism",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 240.0,
+          "agent_timeout": 900.0,
+          "instruction": "Implement tensor parallelism for linear layers using PyTorch. \nCreate the file /app/parallel_linear.py and implement the following classes according to the given signature:\n\n  ColumnParallelLinear(tor",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "video-processing",
+          "difficulty": "hard",
+          "category": "video-processing",
+          "expert_min": 400.0,
+          "agent_timeout": 3600.0,
+          "instruction": "Write a script, named jump_analyzer.py, and place it in `/app/jump_analyzer.py` . The script analyzes MP4 videos of hurdle jumpers and extracts performance metrics. In the video, there is a single jum",
+          "reason": "expert_time_estimate_min >= 180"
+        },
+        {
+          "task_id": "write-compressor",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 1440.0,
+          "agent_timeout": 900.0,
+          "instruction": "I have a decompressor in /app/decomp.c. It reads compressed data from stdin and writes the decompressed data to stdout. I also have a file /app/data.txt that has a bunch of text. Write me data.comp th",
+          "reason": "expert_time_estimate_min >= 180"
+        }
+      ]
+    },
+    "lhtb2": {
+      "total": 46,
+      "selected": 25,
+      "excluded": [
+        {
+          "task_id": "2048",
+          "difficulty": "hard",
+          "category": "games",
+          "expert_min": 30.0,
+          "agent_timeout": 14400.0,
+          "instruction": "You must PLAY the game of 2048 and build the largest tile you can, move by move.\nYou play turn by turn through the `g2048` command-line tool. There is no file to\nwrite — you make every move yourself, ",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "apex-ib244-matter",
+          "difficulty": "hard",
+          "category": "tool-use",
+          "expert_min": 240.0,
+          "agent_timeout": 14400.0,
+          "instruction": "# KSchool Take-Private — LBO, DCF & Comps Valuation Engagement\n\nYou are the analyst on an investment bank's deal team advising a **private-equity sponsor** on\na **take-private of the EdTech company \"K",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "apex-investment-banking-matter",
+          "difficulty": "hard",
+          "category": "tool-use",
+          "expert_min": 300.0,
+          "agent_timeout": 14400.0,
+          "instruction": "# Advent / Planet Fitness Take-Private — LBO & Valuation Engagement\n\nYou are the analyst on an investment bank's deal team advising **Advent International** on a\n**take-private of Planet Fitness (PLNT",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "apex-law433-matter",
+          "difficulty": "hard",
+          "category": "tool-use",
+          "expert_min": 510.0,
+          "agent_timeout": 18000.0,
+          "instruction": "# Grove Garden Living & MGR/AIAG Lease — Multi-Matter Legal Engagement\n\nYou are outside counsel at a law firm carrying **four client matters** to completion across\n**70 stages**:\n\n- **Matter A — Grove",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "apex-management-consulting-matter",
+          "difficulty": "hard",
+          "category": "tool-use",
+          "expert_min": 600.0,
+          "agent_timeout": 21600.0,
+          "instruction": "# Management-Consulting Engagement — Two Matters (Helios EV Transition + Impact Therapeutics Cost Savings)\n\nYou are the analyst on a management-consulting team. This engagement spans **two client\nmatt",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "apex-openroad-ibex-signoff",
+          "difficulty": "hard",
+          "category": "tool-use",
+          "expert_min": 480.0,
+          "agent_timeout": 28800.0,
+          "instruction": "# RTL-to-GDSII Signoff Closure — OpenROAD / ibex on sky130hd\n\nYou are the physical-design engineer closing **signoff** on the lowRISC `ibex_core`\nCPU for the SkyWater **sky130hd** PDK, using the pinne",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "chess-mate",
+          "difficulty": "hard",
+          "category": "games",
+          "expert_min": 30.0,
+          "agent_timeout": 14400.0,
+          "instruction": "You must **PLAY A FULL GAME OF CHESS FROM THE OPENING** against a\nsuperhuman chess engine. You play **White**, one move at a time, through the\n`chess` command-line tool. There is no file to write — yo",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "commit0-multilib-tdd",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 480.0,
+          "agent_timeout": 18000.0,
+          "instruction": "# Test-drive and implement three Python libraries from their specifications\n\nYou are in a workspace at `/app` containing **three real Python libraries** whose\n**function and method bodies have all bee",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "duckdb-optimizer-closure",
+          "difficulty": "hard",
+          "category": "systems-engineering",
+          "expert_min": 300.0,
+          "agent_timeout": 21600.0,
+          "instruction": "# DuckDB Query Optimizer — Iterative Improvement Task\n\n## Role\n\nYou are a **database internals engineer** tasked with improving DuckDB's query\noptimizer to achieve measurable TPC-H benchmark speedups ",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "generals-bot-arena",
+          "difficulty": "hard",
+          "category": "game-ai",
+          "expert_min": 300.0,
+          "agent_timeout": 14400.0,
+          "instruction": "# Generals Bot Arena\n\nYou are tasked with developing a bot for a **Generals.io-style grid strategy game**. The game features fog of war, territory control, army management, and a win condition of capt",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "grammar-fuzz-coverage-hunt",
+          "difficulty": "hard",
+          "category": "security-testing",
+          "expert_min": 240.0,
+          "agent_timeout": 10800.0,
+          "instruction": "# Grammar Fuzz Coverage Hunt\n\n## Objective\n\nYou are a security researcher developing a **grammar-guided fuzzer** to maximize code coverage of target parsers. Your goal is to iteratively improve your f",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "nbody-accel-iterative",
+          "difficulty": "hard",
+          "category": "scientific-computing",
+          "expert_min": 240.0,
+          "agent_timeout": 10800.0,
+          "instruction": "# N-Body Acceleration: Iterative Optimization\n\n## Objective\n\nOptimize a 2D N-body gravitational simulation from a naive O(N²) implementation.\nThe final implementation must remain fast across both spar",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "poc-exploit-craft",
+          "difficulty": "hard",
+          "category": "security",
+          "expert_min": 240.0,
+          "agent_timeout": 10800.0,
+          "instruction": "# PoC Exploit Craft\n\n## Objective\n\nGenerate proof-of-concept (PoC) binary inputs that trigger specific memory safety vulnerabilities in three C programs. Each stage presents a different vulnerability ",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "riscv-core-debug",
+          "difficulty": "hard",
+          "category": "software-engineering",
+          "expert_min": 360.0,
+          "agent_timeout": 21600.0,
+          "instruction": "# RISC-V Core Bring-up & Debug — frost RV32GCB\n\nYou are the verification engineer bringing up the **frost** RV32GCB RISC-V core\n(an out-of-order, Tomasulo-style superscalar implementation). The RTL un",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "sokoban",
+          "difficulty": "hard",
+          "category": "games",
+          "expert_min": 30.0,
+          "agent_timeout": 14400.0,
+          "instruction": "You must SOLVE a series of Sokoban puzzles, one after another, advancing through\nas many levels as possible. There are 155 levels (the Microban set) that get\nprogressively harder; nobody is expected t",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "spot-scheduler-traces",
+          "difficulty": "hard",
+          "category": "systems-engineering",
+          "expert_min": 200.0,
+          "agent_timeout": 10800.0,
+          "instruction": "# Spot Instance Scheduler — Iterative Policy Optimization\n\n## Overview\n\nYou must implement a scheduling policy that runs a long compute job on cloud\ninstances while minimizing cost. The job requires *",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "tabular-data-feature-covshift",
+          "difficulty": "hard",
+          "category": "ml",
+          "expert_min": 240.0,
+          "agent_timeout": 14400.0,
+          "instruction": "# Sparse Inverse Problem Marathon (Covariate Shift)\n\nYou are given a synthetic dataset where each row contains 50 numeric\n\"observations\" `y_0, ..., y_49` plus 200 numeric \"signals\"\n`x_0, ..., x_199`. ",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "unknown-config-semantics",
+          "difficulty": "hard",
+          "category": "reverse-engineering",
+          "expert_min": 95.0,
+          "agent_timeout": 14400.0,
+          "instruction": "You must RECOVER THE TRUE SEMANTICS of an undocumented job-config format and\nREPAIR a buggy config-normalisation engine so that it produces the correct\n**canonical output** on configs you never see. Y",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        },
+        {
+          "task_id": "vector-db-iterative-build",
+          "difficulty": "hard",
+          "category": "systems-engineering",
+          "expert_min": 360.0,
+          "agent_timeout": 14400.0,
+          "instruction": "# Vector DB Iterative Build\n\n## Objective\n\nBuild an approximate nearest-neighbor (ANN) vector search HTTP service from scratch. You will iteratively improve your implementation from a basic stub to an",
+          "reason": "agent_timeout > 5400; long-horizon extension only"
+        }
+      ]
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "cobol-modernization",
+      "difficulty": "easy",
+      "category": "software-engineering",
+      "expert_min": 20.0,
+      "agent_timeout": 900.0,
+      "instruction": "You are given a COBOL program located at /app/src/program.cbl. This program reads input data from /app/src/INPUT.DAT and modifies one or more .DAT files located in the /app/data/ directory. The COBOL ",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "fix-git",
+      "difficulty": "easy",
+      "category": "software-engineering",
+      "expert_min": 5.0,
+      "agent_timeout": 900.0,
+      "instruction": "I just made some changes to my personal site and checked out master, but now I can't find those changes. Please help me find them and merge them into master.\n",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "overfull-hbox",
+      "difficulty": "easy",
+      "category": "debugging",
+      "expert_min": 60.0,
+      "agent_timeout": 750.0,
+      "instruction": "Ensure that the LaTeX document main.tex compiles successfully using the installed TeX distribution and pdflatex compiler with no \"overfull hbox\" warnings. In doing so, the only edits you may make are ",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "prove-plus-comm",
+      "difficulty": "easy",
+      "category": "software-engineering",
+      "expert_min": 5.0,
+      "agent_timeout": 900.0,
+      "instruction": "Fix the incomplete proof of addition commutativity in the file plus_comm.v. The file contains a partial proof that needs to be completed.\n\nThe theorem states that addition is commutative for natural n",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "log-summary-date-ranges",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "expert_min": 75.0,
+      "agent_timeout": 900.0,
+      "instruction": "You are given multiple log files stored in /app/logs. Each log file name follows the pattern YYYY-MM-DD_<source>.log (e.g., 2025-08-10_db.log), indicating the date of the logs and their source. Each l",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "mteb-retrieve",
+      "difficulty": "medium",
+      "category": "data-science",
+      "expert_min": 15.0,
+      "agent_timeout": 1800.0,
+      "instruction": "Given the query \"terminal-bench\" retrieve the document with the 5th highest cosine similarity among the texts at /app/data.txt, where each line is a separate document, using the bge-small-zh-v1.5 embe",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "sqlite-db-truncate",
+      "difficulty": "medium",
+      "category": "debugging",
+      "expert_min": 60.0,
+      "agent_timeout": 900.0,
+      "instruction": "I have a sqlite database in /app/trunc.db that was corrupted through binary truncation. Recover as many of the rows as possible, and create a JSON file in /app/recover.json. The output should have the",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "gcode-to-text",
+      "difficulty": "medium",
+      "category": "file-operations",
+      "expert_min": 60.0,
+      "agent_timeout": 900.0,
+      "instruction": "I have provided a file called text.gcode. This is a gcode file for a Prusa MK4s. I'm trying to print some text onto an existing object. When I run the print, what will the text show? Write the output ",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "chess-best-move",
+      "difficulty": "medium",
+      "category": "games",
+      "expert_min": 45.0,
+      "agent_timeout": 900.0,
+      "instruction": "The file chess_board.png has an image of a chess board. It is currently white to move. Write the best move for white to play to /app/move.txt in the form [src][dst], for example, e2e4 or h1h8. If ther",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "caffe-cifar-10",
+      "difficulty": "medium",
+      "category": "machine-learning",
+      "expert_min": null,
+      "agent_timeout": 3600.0,
+      "instruction": "Install the original BVLC Caffe deep learning framework (version 1.0.0) and train a\nconvolutional neural network to classify CIFAR-10 images. Clone Caffe to /app/caffe\nand build for only CPU execution",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "largest-eigenval",
+      "difficulty": "medium",
+      "category": "mathematics",
+      "expert_min": 60.0,
+      "agent_timeout": 900.0,
+      "instruction": "Complete the implementation in find_dominant_eigenvalue_and_eigenvector in /app/eigen.py.\n\"Dominant\" means the eigenvalue with the largest magnitude.\nThe input is a 2D square numpy array with real np.",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "pytorch-model-recovery",
+      "difficulty": "medium",
+      "category": "model-training",
+      "expert_min": 15.0,
+      "agent_timeout": 900.0,
+      "instruction": "- You are given a PyTorch state dictionary (/app/weights.pt) representing the weights of a Pytorch model, and a dataset (/app/dataset.pt) containing input-output pairs. Your task is to:\nTask:\n  - Reco",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "portfolio-optimization",
+      "difficulty": "medium",
+      "category": "optimization",
+      "expert_min": 120.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You have a Python baseline in portfolio_baseline.py that calculates portfolio risk and return using nested loops. Complete the provided skeleton files (portfolio_optimized.c and portfolio_optimized.py",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "constraints-scheduling",
+      "difficulty": "medium",
+      "category": "personal-assistant",
+      "expert_min": 15.0,
+      "agent_timeout": 1200.0,
+      "instruction": "Find a 1-hour meeting slot for Alice, Bob, and Carol during January 15-19, 2024 (business hours: 9 AM - 6 PM, Monday-Friday) that satisfies their availability constraints and existing calendar conflic",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "tune-mjcf",
+      "difficulty": "medium",
+      "category": "scientific-computing",
+      "expert_min": 30.0,
+      "agent_timeout": 900.0,
+      "instruction": "Can you tune this MuJoCo model file (mjcf) such that it takes 60% of the original time or less to simulate the same scene for a total of two simulation seconds?\nThe same full physics state should be r",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "crack-7z-hash",
+      "difficulty": "medium",
+      "category": "security",
+      "expert_min": 5.0,
+      "agent_timeout": 1800.0,
+      "instruction": "You need to create a file called \"/app/solution.txt\" with the word found in \"secret_file.txt\" in the \"secrets.7z\" archive.\n",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "code-from-image",
+      "difficulty": "medium",
+      "category": "software-engineering",
+      "expert_min": 30.0,
+      "agent_timeout": 1200.0,
+      "instruction": "You're given an image of a pseudocode snippet at `/app/code.png`. Implement the intended logic of that snippet in any language and produce the same final value it would print. Write the result to `/ap",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "nginx-request-logging",
+      "difficulty": "medium",
+      "category": "system-administration",
+      "expert_min": 20.0,
+      "agent_timeout": 900.0,
+      "instruction": "Set up an Nginx web server with advanced request logging and custom configurations. Your task is to:\n\n1. Install Nginx web server\n2. Configure the server to:\n   - Listen on port 8080\n   - Serve static",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "financial-document-processor",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "expert_min": 30.0,
+      "agent_timeout": 1200.0,
+      "instruction": "You have a collection of mixed document files in the `/app/documents/` directory containing both JPG and PDF files.\n\nYour task is to:\n  - Classify each document as either 'invoice' or 'other' based on",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "extract-moves-from-video",
+      "difficulty": "hard",
+      "category": "file-operations",
+      "expert_min": 120.0,
+      "agent_timeout": 1800.0,
+      "instruction": "A video of someone playing zork is located at /app/video.mp4. Transcribe the entire contents of the text, and create a file /app/solution.txt that has all the moves they input, one per line, in the fo",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "llm-inference-batching-scheduler",
+      "difficulty": "hard",
+      "category": "machine-learning",
+      "expert_min": 45.0,
+      "agent_timeout": 1800.0,
+      "instruction": "In this task you will implement an **LLM inference batching scheduler (shape‑aware)**\nfor a static graph LLM inference system.  \n**Background **\nWhen running large language models on hardware\naccelera",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "train-fasttext",
+      "difficulty": "hard",
+      "category": "model-training",
+      "expert_min": 30,
+      "agent_timeout": 3600.0,
+      "instruction": "Please train a fasttext model on the yelp data in the data/ folder.\n\nThe final model size needs to be less than 150MB but get at least 0.62 accuracy on a private test set that comes from the same yelp",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "protein-assembly",
+      "difficulty": "hard",
+      "category": "scientific-computing",
+      "expert_min": 60.0,
+      "agent_timeout": 1800.0,
+      "instruction": "I am planning an experiment where I'll be testing the stability of dihydrofolate reductase (DHFR) with FRET.\nI have a filter cube that I'm going to use to image the protein with an excitation and emis",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "fix-code-vulnerability",
+      "difficulty": "hard",
+      "category": "security",
+      "expert_min": 120.0,
+      "agent_timeout": 900.0,
+      "instruction": "You need to identify and fix the vulnerability in the code according to the Common Weakness Enumeration (CWE).\n\nThe following is a GitHub repository located in the /app folder. \n\nHere is a simple intr",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "path-tracing-reverse",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "expert_min": 120.0,
+      "agent_timeout": 1800.0,
+      "instruction": "I've compiled a program at /app/mystery. Write a C program /app/mystery.c that performs an identical operation. You can do this by observing input output behavior, decompiling the program, or anything",
+      "benchmark": "tb21",
+      "reason": "stratified: easy all / medium 15 / hard 6"
+    },
+    {
+      "task_id": "climate-netcdf-extreme-event-audit",
+      "difficulty": "hard",
+      "category": "climate-science",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You are working on a climate-science extreme-event audit pipeline in `/app`.\n\nThe current implementation in `src/climate_audit/audit.py` has climate-data\nbugs. It mishandles CF-style temperature/preci",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "gdal-proj-raster-regression",
+      "difficulty": "hard",
+      "category": "engineering-architecture",
+      "expert_min": 300.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# GDAL/PROJ Geospatial Raster Regression\n\nImplement the audit pipeline in `src/geo_audit/audit.py`. The project contains small pinned GeoTIFF rasters and a public manifest at `configs/public_manifest.",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "epa-swmm-stormwater-regression-audit",
+      "difficulty": "hard",
+      "category": "engineering-regression",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# EPA SWMM Stormwater Regression Audit\n\nImplement `src/swmm_audit/audit.py`. Run:\n\n```bash\npython -m swmm_audit.cli run --manifest configs/public_manifest.yml --out-dir outputs\n```\n\nThis task is based",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "super-mario",
+      "difficulty": "hard",
+      "category": "games",
+      "expert_min": 50.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You must PLAY Super Mario Bros, advancing through as many levels as possible\n(World 1-1, then 1-2, 1-3, ...). You play the live game yourself, turn by turn,\nthrough the `mario` command-line tool. Ther",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "dicom-radiology-audit",
+      "difficulty": "hard",
+      "category": "health-medicine",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# DICOM Radiology Series Audit\n\nImplement `src/dicom_audit/audit.py`. The project contains a mixed directory of synthetic DICOM files plus masks and a public manifest at `configs/public_manifest.yml`.",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "materials-phase-diagram-audit",
+      "difficulty": "hard",
+      "category": "materials-science",
+      "expert_min": 300.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# Materials Phase Diagram Audit\n\nRepair the audit pipeline in `/app/phase_audit`.\n\nThe project models a small alloy-screening workflow. It reads a manifest of\nbinary CALPHAD-like sections, ternary iso",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "epidemic-inverse-control-audit",
+      "difficulty": "hard",
+      "category": "mathematical-modeling",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# Epidemic Inverse-Control Audit\n\nImplement `src/epidemic_audit/audit.py`. Run:\n\n```bash\npython -m epidemic_audit.cli run --manifest configs/public_manifest.yml --out-dir outputs\n```\n\nYou are given no",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "satellite-flood-change-detection-audit",
+      "difficulty": "hard",
+      "category": "multimodal",
+      "expert_min": 300.0,
+      "agent_timeout": 5400.0,
+      "instruction": "# Satellite Flood Change Detection Audit\n\nYou are in `/app`. Repair `src/flood_audit/audit.py` so the CLI detects flood extent from paired before/after satellite image tiles.\n\nRun:\n\n```bash\npython -m ",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "sudoku-recovery",
+      "difficulty": "hard",
+      "category": "puzzle",
+      "expert_min": 75.0,
+      "agent_timeout": 5400.0,
+      "instruction": "You must RECOVER a series of corrupted Sudoku puzzles, one after another,\nadvancing through as many levels as possible. There are **7 puzzles** that get\nprogressively harder — genuinely hard, near-min",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "robotics-slam-benchmark-repair",
+      "difficulty": "hard",
+      "category": "robotics",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You are working on a robotics SLAM benchmark audit pipeline in `/app`.\n\nThe current implementation in `src/slam_audit/audit.py` has scientific and\nrobotics bugs. It mishandles SE(2) pose composition, ",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "great-expectations-audit",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "expert_min": 120.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You are building a Great Expectations powered data quality and reconciliation audit.\n\nThe project lives in `/app`. The input contains four messy CSVs plus expectation\nrules:\n\n- customers\n- orders\n- pa",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "langchain-version-migration",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "expert_min": 120.0,
+      "agent_timeout": 5400.0,
+      "instruction": "You are migrating a legacy LangChain support application across a full LangChain\nAPI break, from an extremely early runtime to `langchain==1.3.4`.\n\nThe project lives in `/app`. The installed runtime i",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "su2-airfoil-regression",
+      "difficulty": "hard",
+      "category": "engineering-architecture",
+      "expert_min": 120.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You are reproducing a subset of the official SU2 airfoil regression checker.\n\nThis is an aerospace / CFD task, not a generic data-cleaning task. The official\nreference source is the SU2 `TestCases/ser",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "modflow6-groundwater-regression-audit",
+      "difficulty": "hard",
+      "category": "engineering-regression",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# MODFLOW 6 Groundwater Regression Audit\n\nImplement `src/mf6_audit/audit.py`. Run:\n\n```bash\npython -m mf6_audit.cli run --manifest configs/public_manifest.yml --out-dir outputs\n```\n\nThis task is based",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "rush_hour_campaign",
+      "difficulty": "hard",
+      "category": "games",
+      "expert_min": 30.0,
+      "agent_timeout": 3600,
+      "instruction": "# Rush Hour Campaign: Manual Long-Horizon Board Play\n\nYou must solve this task by playing the Rush Hour boards yourself. The verifier\nwill simulate your submitted move routes exactly, but you are not ",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "microscopy-cell-count-qc-audit",
+      "difficulty": "hard",
+      "category": "multimodal",
+      "expert_min": 300.0,
+      "agent_timeout": 5400.0,
+      "instruction": "# Microscopy Cell Count QC Audit\n\nYou are in `/app`. Repair `src/microscopy_audit/audit.py` so the CLI counts cells and performs QC from microscopy-like PNG image tiles.\n\nRun:\n\n```bash\npython -m micro",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "foldseek-paper-reproduction",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "expert_min": 120.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You are reproducing a small, calibrated experiment inspired by the Foldseek paper: \"Fast and accurate protein structure search with Foldseek\".\n\nFoldseek accelerates structure search by converting prot",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "unison-paper-reproduction",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "expert_min": 120.0,
+      "agent_timeout": 5400.0,
+      "instruction": "You are reproducing a small experiment from the UNISON paper.\n\nUNISON is a user-transparent parallel simulation kernel for ns-3. Its goal is to\nspeed up discrete-event network simulation while preserv",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "spice-ephemeris-regression",
+      "difficulty": "hard",
+      "category": "engineering-architecture",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# NASA SPICE Ephemeris & Visibility Regression\n\nImplement the SPICE audit pipeline in `src/spice_audit/audit.py`.  The project already contains pinned NAIF kernels under `kernels/` and a public manife",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "nrel-pysam-hybrid-renewables-audit",
+      "difficulty": "hard",
+      "category": "engineering-regression",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# NREL PySAM Hybrid Renewables Audit\n\nImplement `src/pysam_audit/audit.py`. Run:\n\n```bash\npython -m pysam_audit.cli run --manifest configs/public_manifest.yml --out-dir outputs\n```\n\nThis task is based",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "snake_maze_campaign",
+      "difficulty": "hard",
+      "category": "games",
+      "expert_min": 35.0,
+      "agent_timeout": 3600,
+      "instruction": "You must PLAY a hard deterministic Snake variant through the `gsnake` command\nline tool. There is no answer file to write. Your score comes only from the\nreal moves you make.\n\n## The game\n\nYou control",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "scientific-figure-data-reconstruction",
+      "difficulty": "hard",
+      "category": "multimodal",
+      "expert_min": 300.0,
+      "agent_timeout": 5400.0,
+      "instruction": "# Scientific Figure Data Reconstruction\n\nYou are in `/app`. Repair `src/figure_recon/audit.py` so the CLI reconstructs numeric plotted data from scientific figure images, captions, and partial referen",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "alp-paper-reproduction",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "expert_min": 120.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You are reproducing a harder experiment subset from the ALP paper.\n\nALP is an adaptive lossless compression algorithm for IEEE 754 floating-point\ncolumns. The original paper evaluates compression rati",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "matpower-opf-regression",
+      "difficulty": "hard",
+      "category": "engineering-architecture",
+      "expert_min": 180.0,
+      "agent_timeout": 3600.0,
+      "instruction": "You are reproducing a MATPOWER/PYPOWER optimal power flow regression audit.\n\nThe official reference source is the MATPOWER case format as exposed by the\nPYPOWER package (`case9`, `case14`, `case30`, `",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    },
+    {
+      "task_id": "opensees-seismic-structural-regression-audit",
+      "difficulty": "hard",
+      "category": "engineering-regression",
+      "expert_min": 240.0,
+      "agent_timeout": 3600.0,
+      "instruction": "# OpenSees Seismic Structural Regression Audit\n\nImplement `src/opensees_audit/audit.py`. Run:\n\n```bash\npython -m opensees_audit.cli run --manifest configs/public_manifest.yml --out-dir outputs\n```\n\nTh",
+      "benchmark": "lhtb2",
+      "reason": "stratified: category x official timeout"
+    }
+  ]
+}

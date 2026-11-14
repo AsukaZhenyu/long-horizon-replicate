@@ -1,0 +1,25 @@
+{
+  "round": "20261113-tb-pilot-500k-context",
+  "purpose": "500k cumulative-token pilot: Base control vs Spine reimplementation on LHTB 2048",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 512,
+  "max_steps": 500,
+  "token_budget": 500000,
+  "wall_clock_sec": 5400,
+  "submit_guard": false,
+  "methods": [
+    "base",
+    "spine-reimpl"
+  ],
+  "tasks": [
+    {
+      "benchmark": "lhtb2",
+      "task_id": "2048",
+      "wall_clock_sec": 5400
+    }
+  ],
+  "output_dir": "experiments/adapters/results/tb-pilot-500k-context",
+  "raw_dir": ".cache/adapters/tb-pilot-500k-context"
+}

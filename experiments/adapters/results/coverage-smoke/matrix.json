@@ -1,0 +1,68 @@
+{
+  "round": "20261113-coverage-smoke",
+  "purpose": "wire-up smoke for the four-benchmark matrix runner: Base only, 20k budget, 4 steps",
+  "model": "qwen3.5-9b",
+  "token_budget": 20000,
+  "context_management": "shared",
+  "methods": [
+    "base"
+  ],
+  "rows": [
+    {
+      "benchmark": "tb21",
+      "task_id": "regex-log",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 2699,
+      "actions": 2,
+      "checks": "0/1",
+      "passed": false,
+      "compactions": 0,
+      "max_prompt_tokens": 795,
+      "agent_seconds": 60.3
+    },
+    {
+      "benchmark": "lhtb2",
+      "task_id": "2048",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 7540,
+      "actions": 4,
+      "checks": "1/1",
+      "passed": true,
+      "compactions": 0,
+      "max_prompt_tokens": 2184,
+      "agent_seconds": 10.4
+    },
+    {
+      "benchmark": "core",
+      "task_id": "capsule-4180912",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 2037,
+      "actions": 4,
+      "checks": "0/2",
+      "passed": false,
+      "compactions": 0,
+      "max_prompt_tokens": 765,
+      "agent_seconds": 9.0
+    },
+    {
+      "benchmark": "mle",
+      "task_id": "synthetic",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 1323,
+      "actions": 4,
+      "checks": "1/1",
+      "passed": true,
+      "compactions": 0,
+      "max_prompt_tokens": 393,
+      "agent_seconds": 9.7
+    }
+  ]
+}

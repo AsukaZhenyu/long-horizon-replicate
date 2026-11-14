@@ -1,0 +1,8 @@
+{"key": "20261113-coverage-smoke|tb21|regex-log|base", "status": "started", "at": 1794571691.6025002}
+{"key": "20261113-coverage-smoke|tb21|regex-log|base", "status": "done", "at": 1794571831.804897, "termination": "max_steps", "tokens": 2699, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/coverage-smoke/20261113-coverage-smoke/tb21/regex-log/base"}
+{"key": "20261113-coverage-smoke|lhtb2|2048|base", "status": "started", "at": 1794571831.804897}
+{"key": "20261113-coverage-smoke|lhtb2|2048|base", "status": "done", "at": 1794571843.9200537, "termination": "max_steps", "tokens": 7540, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-smoke/20261113-coverage-smoke/lhtb2/2048/base"}
+{"key": "20261113-coverage-smoke|core|capsule-4180912|base", "status": "started", "at": 1794571843.9200537}
+{"key": "20261113-coverage-smoke|core|capsule-4180912|base", "status": "done", "at": 1794571853.2687519, "termination": "max_steps", "tokens": 2037, "checks": "0/2", "passed": false, "run_dir": ".cache/adapters/coverage-smoke/20261113-coverage-smoke/core/capsule-4180912/base"}
+{"key": "20261113-coverage-smoke|mle|synthetic|base", "status": "started", "at": 1794571853.269297}
+{"key": "20261113-coverage-smoke|mle|synthetic|base", "status": "done", "at": 1794571863.1887567, "termination": "max_steps", "tokens": 1323, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-smoke/20261113-coverage-smoke/mle/synthetic/base"}

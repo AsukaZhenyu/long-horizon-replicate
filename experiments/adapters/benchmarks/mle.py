@@ -54,6 +54,14 @@ class MLESubmissionVerifier:
         self.data_dir = Path(data_dir)
 
     def grade(self) -> Grade:
+        try:
+            return self._grade_impl()
+        except Exception as exc:
+            return Grade(valid=False, passed=False, checks_passed=0,
+                         checks_total=0,
+                         detail=f"MLE grading error: {type(exc).__name__}: {exc}")
+
+    def _grade_impl(self) -> Grade:
         text = self.host.read_container_file(SUBMISSION_PATH)
         if text is None:
             return Grade(valid=True, passed=False, checks_passed=0,
@@ -68,7 +76,10 @@ class MLESubmissionVerifier:
         if self.metric is not None:
             score = self.metric(text, self.answers_path)
             if score is None:
-                return Grade(valid=False, passed=False, checks_passed=0,
+                # A malformed submission is a method failure, not a grading
+                # failure: the official report would still be valid with
+                # valid_submission=False.
+                return Grade(valid=True, passed=False, checks_passed=0,
                              checks_total=1,
                              detail="submission is not valid for the metric")
             medal = rank_score(score, scores)

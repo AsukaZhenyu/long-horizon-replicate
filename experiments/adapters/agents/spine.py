@@ -24,7 +24,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from typing import Any, Dict, List
 
-from agents.base_react import ACTION_PROTOCOL, ModelClient, parse_action
+from agents.base_react import ACTION_PROTOCOL, ModelClient, ModelRequestError, parse_action
 from contract.types import Action, Host, NativeAgent, Observation, TaskSpec
 
 SPINE_INSTRUCTION = """<spine_instruction>
@@ -173,6 +173,7 @@ class SpineAgent(NativeAgent):
         self.tree_snapshot: Dict[str, Any] = {}
         self.spine_actions: Counter = Counter()
         self.turns = 0
+        self.last_error = ""
 
     def _system_prompt(self) -> str:
         return (SPINE_INSTRUCTION + "\n\n" + SPINE_TOOLS + "\n\n"
@@ -188,8 +189,16 @@ class SpineAgent(NativeAgent):
                     {"role": "user", "content": task.instruction},
                     *node_log.get(self.tree.active.node_id, []),
                 ]
-                response = self.client.complete(messages)
-                self._charge(host, response.total_tokens)
+                try:
+                    response = self.client.complete(messages)
+                except ModelRequestError as exc:
+                    self.last_error = str(exc)
+                    return
+                try:
+                    self._charge(host, response.total_tokens)
+                except RuntimeError as exc:
+                    self.last_error = str(exc)
+                    return
                 self.turns += 1
                 active_id = self.tree.active.node_id
                 node_log.setdefault(active_id, []).append(

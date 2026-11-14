@@ -1,0 +1,48 @@
+{
+  "benchmark": "core",
+  "dataset": "core_test",
+  "level": "codeocean_easy",
+  "method": "recuris-gate",
+  "task": "capsule-4180912",
+  "attempt": 1,
+  "agent_seconds": 21.8,
+  "tokens": 6941,
+  "actions": 5,
+  "grade_valid": true,
+  "grade_passed": false,
+  "checks_passed": 0,
+  "checks_total": 2,
+  "detail": "report.json missing; method did not answer",
+  "action_log": [
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la capsule-4180912"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la capsule-4180912/results"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat capsule-4180912/results/output"
+      }
+    },
+    {
+      "kind": "submit",
+      "payload": {}
+    }
+  ],
+  "turns": 5,
+  "bounces": 0
+}

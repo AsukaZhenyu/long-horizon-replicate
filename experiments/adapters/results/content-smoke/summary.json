@@ -1,0 +1,118 @@
+[
+  {
+    "key": "20261114-content-smoke|office_edit|E2-001_order_date|base",
+    "benchmark": "office_edit",
+    "task_id": "E2-001_order_date",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 3226,
+    "actions": 6,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 824,
+      "prompt_tokens_total": 3098,
+      "completion_tokens": 128,
+      "equivalent_tokens": 175.7,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 66.3,
+    "last_error": "",
+    "detail_tail": "office score=0\n{\n  \"task_id\": \"E2-001_order_date\",\n  \"title\": \"Convert an order date to a real date\",\n  \"category\": \"xlsx\",\n  \"checks\": [\n    {\n      \"name\": \"�ɶ��Ľ����ļ�\",\n      \"passed\": false,\n      \"detail\": \"δ�ҵ� C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Temp\\\\oeb-9dfhl6ru\\\\_submission\\\\edited.xlsx\"\n    }\n  ],\n  \"passed\": false,\n  \"score\": 0\n}\n",
+    "run_dir": ".cache/adapters/content-smoke/20261114-content-smoke/office_edit/E2-001_order_date/base"
+  },
+  {
+    "key": "20261114-content-smoke|chartqa|chartqa-0|base",
+    "benchmark": "chartqa",
+    "task_id": "chartqa-0",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 2307,
+    "actions": 4,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 1183,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 333,
+      "prompt_tokens_total": 1061,
+      "completion_tokens": 63,
+      "equivalent_tokens": 79.3,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 29.7,
+    "last_error": "",
+    "detail_tail": "answer='\"14\"' expected='14'",
+    "run_dir": ".cache/adapters/content-smoke/20261114-content-smoke/chartqa/chartqa-0/base"
+  },
+  {
+    "key": "20261114-content-smoke|chartmimic|bar-fixture|base",
+    "benchmark": "chartmimic",
+    "task_id": "bar-fixture",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 10411,
+    "actions": 6,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/2"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 7373,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 829,
+      "prompt_tokens_total": 2909,
+      "completion_tokens": 129,
+      "equivalent_tokens": 173.8,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 143.5,
+    "last_error": "",
+    "detail_tail": "execution=False score=0/5 issues=[]\noutput.png present",
+    "run_dir": ".cache/adapters/content-smoke/20261114-content-smoke/chartmimic/bar-fixture/base"
+  },
+  {
+    "key": "20261114-content-smoke|ppteval|ppteval-fixture|base",
+    "benchmark": "ppteval",
+    "task_id": "ppteval-fixture",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 3259,
+    "actions": 6,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 1012,
+      "prompt_tokens_total": 3154,
+      "completion_tokens": 105,
+      "equivalent_tokens": 153.5,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 19.3,
+    "last_error": "",
+    "detail_tail": "deck.pptx missing",
+    "run_dir": ".cache/adapters/content-smoke/20261114-content-smoke/ppteval/ppteval-fixture/base"
+  }
+]

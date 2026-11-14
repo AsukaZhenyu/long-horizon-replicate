@@ -1,0 +1,26 @@
+[
+  {
+    "key": "20261114-cowthello-smoke|cowthello|main_smooth|base",
+    "benchmark": "cowthello",
+    "task_id": "main_smooth",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 15182,
+    "actions": 6,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.08,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 3741
+    },
+    "agent_seconds": 17.5,
+    "last_error": "",
+    "detail_tail": "e is 1, minimum score is 0.\n==================================================\nai_submission takes 0.0x the time that ai_advanced takes per game in an ai_advanced vs ai_submission match up.\n                    This passes the speed constraint.\n                    Therefore, score is determined by winrates.\nwinrates_dict: {'against_simple': 0.1, 'against_random': 0.5, 'against_advanced': 0.0}\nScore is 0.08\nFINAL_SCORE=0.08\nUnknown child process pid 254, will report returncode 255\nUnknown child process pid 320, will report returncode 255\nUnknown child process pid 436, will report returncode 255\n",
+    "run_dir": ".cache/adapters/cowthello-smoke/20261114-cowthello-smoke/cowthello/main_smooth/base"
+  }
+]

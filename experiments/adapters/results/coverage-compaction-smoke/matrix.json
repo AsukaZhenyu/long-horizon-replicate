@@ -1,0 +1,26 @@
+{
+  "round": "20261113-compaction-smoke",
+  "purpose": "end-to-end compaction smoke: a deliberately tiny window forces the shared policy to fold history on a real LHTB run",
+  "model": "qwen3.5-9b",
+  "token_budget": 30000,
+  "context_management": "shared",
+  "methods": [
+    "base"
+  ],
+  "rows": [
+    {
+      "benchmark": "lhtb2",
+      "task_id": "2048",
+      "method": "base",
+      "status": "ok",
+      "termination": "max_steps",
+      "tokens": 17326,
+      "actions": 10,
+      "checks": "0/1",
+      "passed": false,
+      "compactions": 5,
+      "max_prompt_tokens": 2099,
+      "agent_seconds": 24.0
+    }
+  ]
+}

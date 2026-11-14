@@ -1,0 +1,50 @@
+{
+  "round": "20261114-cowthello-10h",
+  "purpose": "single 10h long-horizon task: METR cowthello main_smooth (10h human baseline, 5-15h full score), Base from zero, 30M token cap; CPU-only, no GPU contention with the local 9B",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 512,
+  "max_steps": 30000,
+  "token_budget": 100000000,
+  "wall_clock_sec": 64800,
+  "submit_guard": false,
+  "loop_max_identical": 5,
+  "log_full_messages": false,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 16384,
+    "trigger_ratio": 0.72,
+    "target_ratio": 0.55,
+    "keep_recent_messages": 8,
+    "max_messages_before_compact": 24,
+    "max_message_chars": 4000,
+    "max_system_chars": 16000,
+    "max_task_chars": 16000,
+    "summary_chars": 2400,
+    "min_messages_to_compact": 6,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base"
+  ],
+  "benchmarks": [
+    "cowthello"
+  ],
+  "tasks": [
+    {
+      "benchmark": "cowthello",
+      "task_id": "main_smooth",
+      "wall_clock_sec": 64800
+    }
+  ],
+  "cowthello": {
+    "image": "metrevals/public-tasks:cowthello-2.0.2",
+    "variant": "main_smooth",
+    "timeout": 900
+  },
+  "output_dir": "experiments/adapters/results/cowthello-10h",
+  "raw_dir": ".cache/adapters/cowthello-10h",
+  "prompt_equivalent_divisor": 65.0,
+  "equivalent_budget": 600000
+}

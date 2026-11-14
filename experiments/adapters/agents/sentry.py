@@ -14,7 +14,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, List
 
-from agents.base_react import SYSTEM, ModelClient, parse_action
+from agents.base_react import SYSTEM, ModelClient, ModelRequestError, parse_action
 from contract.types import Action, Host, NativeAgent, Observation, TaskSpec
 
 REPO = Path(__file__).resolve().parents[3]
@@ -89,6 +89,7 @@ class SentryAgent(NativeAgent):
         self.events: List[dict] = []
         self.phases: Counter = Counter()
         self.steps = 0
+        self.last_error = ""
 
     def run(self, task: TaskSpec, host: Host) -> None:
         SentryConfig, SentryRunner, agent_step_from_parts, LoggingConfig = _sentry_imports()
@@ -109,8 +110,16 @@ class SentryAgent(NativeAgent):
         try:
             for step_id in range(self.max_steps):
                 self.steps = step_id + 1
-                response = self.client.complete(messages)
-                self._charge(host, response.total_tokens)
+                try:
+                    response = self.client.complete(messages)
+                except ModelRequestError as exc:
+                    self.last_error = str(exc)
+                    return
+                try:
+                    self._charge(host, response.total_tokens)
+                except RuntimeError as exc:
+                    self.last_error = str(exc)
+                    return
                 messages.append({"role": "assistant", "content": response.content})
                 try:
                     action = parse_action(response.content)
@@ -123,7 +132,9 @@ class SentryAgent(NativeAgent):
                         parser_error=str(exc),
                         observation="",
                     )
-                    rescue = self.runner.step(step)
+                    rescue, failed = self._runner_step(step)
+                    if failed:
+                        return
                     messages.append({
                         "role": "user",
                         "content": rescue.prompt_text if rescue is not None
@@ -143,7 +154,9 @@ class SentryAgent(NativeAgent):
                         observation=rendered,
                         accepted_by_environment=True,
                     )
-                    rescue = self.runner.step(step)
+                    rescue, failed = self._runner_step(step)
+                    if failed:
+                        return
                     messages.append({"role": "user", "content": rendered})
                     if rescue is not None:
                         messages.append({"role": "user", "content": rescue.prompt_text})
@@ -161,13 +174,21 @@ class SentryAgent(NativeAgent):
                         observation="",
                         accepted_by_environment=True,
                     )
-                    self.runner.step(step, terminal=True)
-                    return
+                    _, failed = self._runner_step(step, terminal=True)
+                    if failed:
+                        return
                 messages.append({"role": "user", "content": "Use command or final."})
         finally:
             self.runner.finalize()
             self.events = self.runner.guard.drain_runtime_events()
             self.phases = model.phases
+
+    def _runner_step(self, step, terminal: bool = False):
+        try:
+            return self.runner.step(step, terminal=terminal), False
+        except (ModelRequestError, RuntimeError) as exc:
+            self.last_error = str(exc)
+            return None, True
 
     @staticmethod
     def _charge(host: Host, tokens: int) -> None:

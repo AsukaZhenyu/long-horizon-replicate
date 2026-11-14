@@ -1,0 +1,38 @@
+[
+  {
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "base",
+    "termination": "timeout_tokens",
+    "wall_clock_sec": 5400,
+    "agent_error": "",
+    "last_error": "",
+    "agent_seconds": 141.8,
+    "tokens": 509441,
+    "actions": 61,
+    "submitted": false,
+    "grade_valid": true,
+    "grade_passed": false,
+    "checks_passed": 0,
+    "checks_total": 1,
+    "detail": "official tests exit=0 reward=0.181727\n============================= test session starts ==============================\nplatform linux -- Python 3.11.15, pytest-8.4.1, pluggy-1.6.0\nrootdir: /tests\ncollected 1 item\n\ntest_outputs.py .                                                        [100%]\n\n==================================== PASSES ====================================\n______________________________ test_2048_progress ______________________________\n----------------------------- Captured stdout call -----------------------------\nmoves_replayed=60\npeak_band=1  (largest tile milestone reached)\nfinal_score=468  final_max_tile=64\nREWARD=0.181727  (normalized [0,1] = raw 1.999 / 11 [band 11 = 65536 tile, theoretical max])\nRAW_REWARD=1.999  BAND=1  (pass threshold band>=1)\n------------------------------------------------------------\nAGENT PLAY VIDEO: /logs/verifier/agent_play.gif (473335 bytes)\nAGENT PLAY VIDEO: /logs/verifier/agent_play.mp4 (447848 bytes)\n  -> open this trial's verifier/agent_play.gif (next to reward.txt) to watch the run. Prefer the .gif on macOS: the .mp4 may use the mp4v codec, which green-screens in QuickTime (it's fine in VLC/browsers).\nRAW MOVE LOG saved next to reward.txt as verifier/moves.log\n------------------------------------------------------------\n----------------------------- Captured stderr call -----------------------------\n[ERROR:0@0.992] global cap_ffmpeg_impl.hpp:3133 open Could not find encoder for codec_id=27, error: Encoder not found\n[ERROR:0@0.992] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter\n=========================== short test summary info ============================\nPASSED test_outputs.py::test_2048_progress\n============================== 1 passed in 1.67s ===============================\n"
+  },
+  {
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "spine-reimpl",
+    "termination": "crash",
+    "wall_clock_sec": 5400,
+    "agent_error": "RuntimeError: token budget exceeded: 501654",
+    "last_error": "",
+    "agent_seconds": 863.4,
+    "tokens": 501654,
+    "actions": 1,
+    "submitted": false,
+    "grade_valid": true,
+    "grade_passed": false,
+    "checks_passed": 0,
+    "checks_total": 1,
+    "detail": "official tests exit=0 reward=0.0\n============================= test session starts ==============================\nplatform linux -- Python 3.11.15, pytest-8.4.1, pluggy-1.6.0\nrootdir: /tests\ncollected 1 item\n\ntest_outputs.py F                                                        [100%]\n\n=================================== FAILURES ===================================\n______________________________ test_2048_progress ______________________________\n\n    def test_2048_progress():\n        tokens = _read_tokens()\n        if not tokens:\n            _write_reward(0)\n>           raise AssertionError(\n                f\"No moves found at {MOVES_LOG}. The agent did not play \"\n                f\"(use `g2048 move ...`).\"\n            )\nE           AssertionError: No moves found at /opt/g2048/runs/moves.log. The agent did not play (use `g2048 move ...`).\n\ntest_outputs.py:215: AssertionError\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_2048_progress - AssertionError: No moves found a...\n============================== 1 failed in 0.01s ===============================\n"
+  }
+]

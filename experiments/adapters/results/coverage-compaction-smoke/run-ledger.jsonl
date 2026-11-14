@@ -1,0 +1,4 @@
+{"key": "20261113-compaction-smoke|lhtb2|2048|base", "status": "started", "at": 1794571873.1942427}
+{"key": "20261113-compaction-smoke|lhtb2|2048|base", "status": "done", "at": 1794571874.0909612, "termination": "context_overflow", "tokens": 0, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-compaction-smoke/20261113-compaction-smoke/lhtb2/2048/base"}
+{"key": "20261113-compaction-smoke|lhtb2|2048|base", "status": "started", "at": 1794571950.9493594}
+{"key": "20261113-compaction-smoke|lhtb2|2048|base", "status": "done", "at": 1794571976.0585763, "termination": "max_steps", "tokens": 17326, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/coverage-compaction-smoke/20261113-compaction-smoke/lhtb2/2048/base"}

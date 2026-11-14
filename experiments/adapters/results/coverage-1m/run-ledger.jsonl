@@ -1,0 +1,33 @@
+{"key": "20261113-coverage-1m|tb21|regex-log|base", "status": "started", "at": 1794572172.561095}
+{"key": "20261113-coverage-1m|tb21|regex-log|base", "status": "done", "at": 1794572812.3586562, "termination": "loop", "tokens": 76980, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/tb21/regex-log/base"}
+{"key": "20261113-coverage-1m|tb21|regex-log|sentry", "status": "started", "at": 1794572812.359217}
+{"key": "20261113-coverage-1m|tb21|regex-log|sentry", "status": "done", "at": 1794573132.917878, "termination": "loop", "tokens": 16473, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/tb21/regex-log/sentry"}
+{"key": "20261113-coverage-1m|tb21|regex-log|recuris-gate", "status": "started", "at": 1794573132.9184034}
+{"key": "20261113-coverage-1m|tb21|regex-log|recuris-gate", "status": "done", "at": 1794575401.988157, "termination": "submitted", "tokens": 248566, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/tb21/regex-log/recuris-gate"}
+{"key": "20261113-coverage-1m|tb21|regex-log|rrsi", "status": "started", "at": 1794575401.9887044}
+{"key": "20261113-coverage-1m|tb21|regex-log|rrsi", "status": "started", "at": 1794576922.9865537}
+{"key": "20261113-coverage-1m|tb21|regex-log|rrsi", "status": "done", "at": 1794578831.7021613, "termination": "context_overflow", "tokens": 264963, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/tb21/regex-log/rrsi"}
+{"key": "20261113-coverage-1m|lhtb2|2048|base", "status": "started", "at": 1794578831.702696}
+{"key": "20261113-coverage-1m|lhtb2|2048|base", "status": "done", "at": 1794580197.1204913, "termination": "timeout_tokens", "tokens": 1003429, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/lhtb2/2048/base"}
+{"key": "20261113-coverage-1m|lhtb2|2048|sentry", "status": "started", "at": 1794580197.1210284}
+{"key": "20261113-coverage-1m|lhtb2|2048|sentry", "status": "done", "at": 1794583828.6645231, "termination": "timeout_wall", "tokens": 516697, "checks": "0/1", "passed": false, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/lhtb2/2048/sentry"}
+{"key": "20261113-coverage-1m|lhtb2|2048|recuris-gate", "status": "started", "at": 1794583828.6650584}
+{"key": "20261113-coverage-1m|lhtb2|2048|recuris-gate", "status": "done", "at": 1794585209.6018426, "termination": "timeout_tokens", "tokens": 1002469, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/lhtb2/2048/recuris-gate"}
+{"key": "20261113-coverage-1m|lhtb2|2048|rrsi", "status": "started", "at": 1794585209.6023676}
+{"key": "20261113-coverage-1m|lhtb2|2048|rrsi", "status": "done", "at": 1794586541.2720947, "termination": "timeout_tokens", "tokens": 1000191, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/lhtb2/2048/rrsi"}
+{"key": "20261113-coverage-1m|core|capsule-4180912|base", "status": "started", "at": 1794586541.2726164}
+{"key": "20261113-coverage-1m|core|capsule-4180912|base", "status": "done", "at": 1794586593.7174802, "termination": "submitted", "tokens": 24748, "checks": "2/2", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/core/capsule-4180912/base"}
+{"key": "20261113-coverage-1m|core|capsule-4180912|sentry", "status": "started", "at": 1794586593.7180011}
+{"key": "20261113-coverage-1m|core|capsule-4180912|sentry", "status": "done", "at": 1794588110.1758456, "termination": "timeout_tokens", "tokens": 1001293, "checks": "2/2", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/core/capsule-4180912/sentry"}
+{"key": "20261113-coverage-1m|core|capsule-4180912|recuris-gate", "status": "started", "at": 1794588110.1758456}
+{"key": "20261113-coverage-1m|core|capsule-4180912|recuris-gate", "status": "done", "at": 1794588155.3112915, "termination": "submitted", "tokens": 18804, "checks": "2/2", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/core/capsule-4180912/recuris-gate"}
+{"key": "20261113-coverage-1m|core|capsule-4180912|rrsi", "status": "started", "at": 1794588155.3118455}
+{"key": "20261113-coverage-1m|core|capsule-4180912|rrsi", "status": "done", "at": 1794588236.246507, "termination": "submitted", "tokens": 48191, "checks": "2/2", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/core/capsule-4180912/rrsi"}
+{"key": "20261113-coverage-1m|mle|synthetic|base", "status": "started", "at": 1794588236.246507}
+{"key": "20261113-coverage-1m|mle|synthetic|base", "status": "done", "at": 1794588250.7619307, "termination": "submitted", "tokens": 2282, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/mle/synthetic/base"}
+{"key": "20261113-coverage-1m|mle|synthetic|sentry", "status": "started", "at": 1794588250.7624543}
+{"key": "20261113-coverage-1m|mle|synthetic|sentry", "status": "done", "at": 1794588743.2143788, "termination": "timeout_tokens", "tokens": 1003164, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/mle/synthetic/sentry"}
+{"key": "20261113-coverage-1m|mle|synthetic|recuris-gate", "status": "started", "at": 1794588743.214898}
+{"key": "20261113-coverage-1m|mle|synthetic|recuris-gate", "status": "done", "at": 1794588759.130961, "termination": "submitted", "tokens": 2633, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/mle/synthetic/recuris-gate"}
+{"key": "20261113-coverage-1m|mle|synthetic|rrsi", "status": "started", "at": 1794588759.130961}
+{"key": "20261113-coverage-1m|mle|synthetic|rrsi", "status": "done", "at": 1794588777.3865623, "termination": "submitted", "tokens": 3277, "checks": "1/1", "passed": true, "run_dir": ".cache/adapters/coverage-1m/20261113-coverage-1m/mle/synthetic/rrsi"}

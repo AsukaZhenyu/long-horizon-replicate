@@ -18,7 +18,12 @@ class ContainerCommandVerifier:
         self.timeout = timeout
 
     def grade(self) -> Grade:
-        proc = self.host._exec(self.command, timeout=self.timeout)
+        try:
+            proc = self.host._exec(self.command, timeout=self.timeout)
+        except (subprocess.TimeoutExpired, OSError) as exc:
+            return Grade(valid=False, passed=False, checks_passed=0,
+                         checks_total=0,
+                         detail=f"verifier error: {type(exc).__name__}: {exc}")
         passed = proc.returncode == 0
         return Grade(valid=True, passed=passed,
                      checks_passed=1 if passed else 0, checks_total=1,
@@ -47,7 +52,7 @@ class DockerHost(Host):
                            "--workdir", container_workdir]
             run_command.extend(docker_args or [])
             run_command.extend([image, *(command or ["sleep", "infinity"])])
-            subprocess.run(run_command, check=True, capture_output=True, text=True)
+            subprocess.run(run_command, check=True, capture_output=True, encoding="utf-8", errors="replace")
         self.verifier = ContainerCommandVerifier(self, verifier_command)
         for path, content in task.initial_files.items():
             self.step(Action("write", {"path": path, "content": content}))
@@ -66,9 +71,12 @@ class DockerHost(Host):
             raise RuntimeError(f"token budget exceeded: {self._tokens}")
 
     def _exec(self, command: str, timeout: int = 120, input_text: str | None = None):
+        # Benchmark output is arbitrary bytes; never let the locale codec
+        # (GBK on this Windows host) crash the subprocess reader thread.
         return subprocess.run(
             ["docker", "exec", "-i", self.name, "sh", "-c", command],
-            capture_output=True, text=True, timeout=timeout, input=input_text,
+            capture_output=True, encoding="utf-8", errors="replace",
+            timeout=timeout, input=input_text,
         )
 
     def exec(self, argv: List[str], timeout: int = 120,
@@ -83,7 +91,7 @@ class DockerHost(Host):
         command.append(self.name)
         command.extend(argv)
         return subprocess.run(
-            command, capture_output=True, text=True, timeout=timeout,
+            command, capture_output=True, encoding="utf-8", errors="replace", timeout=timeout,
         )
 
     def copy_in(self, source: Path, destination: str) -> None:
@@ -99,7 +107,7 @@ class DockerHost(Host):
             src_arg = str(src)
         subprocess.run(
             ["docker", "cp", src_arg, f"{self.name}:{destination}"],
-            check=True, capture_output=True, text=True,
+            check=True, capture_output=True, encoding="utf-8", errors="replace",
         )
 
     def read_container_file(self, path: str, timeout: int = 30) -> str | None:
@@ -113,26 +121,31 @@ class DockerHost(Host):
         if len(self._actions) >= self.config.max_actions:
             return Observation(error="max actions reached", exit_code=1)
         self._actions.append(action)
-        if action.kind == "write":
-            target = self._path(action.payload.get("path", ""))
-            command = f"mkdir -p \"$(dirname '{target}')\" && cat > '{target}'"
-            proc = self._exec(command, input_text=str(action.payload.get("content", "")))
-            return Observation(output=proc.stdout, error=proc.stderr, exit_code=proc.returncode)
-        if action.kind == "read":
-            proc = self._exec(f"cat '{self._path(action.payload.get('path',''))}'")
-            return Observation(output=proc.stdout, error=proc.stderr, exit_code=proc.returncode)
-        if action.kind == "shell":
-            proc = self._exec(str(action.payload.get("command", "")))
-            return Observation(output=proc.stdout[-8000:], error=proc.stderr[-8000:],
-                               exit_code=proc.returncode)
-        if action.kind == "submit":
-            if self.submit_guard is not None:
-                error = self.submit_guard()
-                if error:
-                    return Observation(error=str(error), exit_code=1)
-            self.submitted = True
-            return Observation(output="submitted")
-        return Observation(error=f"unknown action {action.kind}", exit_code=1)
+        try:
+            if action.kind == "write":
+                target = self._path(action.payload.get("path", ""))
+                command = f"mkdir -p \"$(dirname '{target}')\" && cat > '{target}'"
+                proc = self._exec(command, input_text=str(action.payload.get("content", "")))
+                return Observation(output=proc.stdout, error=proc.stderr, exit_code=proc.returncode)
+            if action.kind == "read":
+                proc = self._exec(f"cat '{self._path(action.payload.get('path',''))}'")
+                return Observation(output=proc.stdout, error=proc.stderr, exit_code=proc.returncode)
+            if action.kind == "shell":
+                proc = self._exec(str(action.payload.get("command", "")))
+                return Observation(output=proc.stdout[-8000:], error=proc.stderr[-8000:],
+                                   exit_code=proc.returncode)
+            if action.kind == "submit":
+                if self.submit_guard is not None:
+                    error = self.submit_guard()
+                    if error:
+                        return Observation(error=str(error), exit_code=1)
+                self.submitted = True
+                return Observation(output="submitted")
+            return Observation(error=f"unknown action {action.kind}", exit_code=1)
+        except subprocess.TimeoutExpired as exc:
+            return Observation(error=f"command timed out: {exc}", exit_code=124)
+        except OSError as exc:
+            return Observation(error=f"host error: {exc}", exit_code=1)
 
     def submit(self) -> Observation:
         return self.step(Action("submit"))
@@ -143,4 +156,4 @@ class DockerHost(Host):
 
     def cleanup(self) -> None:
         subprocess.run(["docker", "rm", "-f", self.name],
-                       capture_output=True, text=True)
+                       capture_output=True, encoding="utf-8", errors="replace")

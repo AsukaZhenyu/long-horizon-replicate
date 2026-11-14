@@ -1,0 +1,46 @@
+{
+  "round": "20261114-math-informal-smoke",
+  "purpose": "wire-up smoke for the L1 informal math adapters: one MATH-500 and one AIME fixture task with final-answer grading",
+  "model": "qwen3.5-9b",
+  "token_budget": 20000,
+  "context_management": "shared",
+  "methods": [
+    "base"
+  ],
+  "rows": [
+    {
+      "benchmark": "math500",
+      "task_id": "fixture-1",
+      "method": "base",
+      "status": "ok",
+      "termination": "submitted",
+      "tokens": 303,
+      "generated_tokens": 144,
+      "equivalent_tokens": 146.4,
+      "actions": 1,
+      "checks": "0/1",
+      "passed": false,
+      "official_score": null,
+      "compactions": 0,
+      "max_prompt_tokens": 159,
+      "agent_seconds": 14.7
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "fixture-1",
+      "method": "base",
+      "status": "ok",
+      "termination": "submitted",
+      "tokens": 603,
+      "generated_tokens": 44,
+      "equivalent_tokens": 52.6,
+      "actions": 3,
+      "checks": "1/1",
+      "passed": true,
+      "official_score": 1.0,
+      "compactions": 0,
+      "max_prompt_tokens": 215,
+      "agent_seconds": 5.7
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "round": "20261113-compaction-smoke",
+  "purpose": "end-to-end compaction smoke: a deliberately tiny window forces the shared policy to fold history on a real LHTB run",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 256,
+  "max_steps": 10,
+  "token_budget": 30000,
+  "wall_clock_sec": 900,
+  "submit_guard": false,
+  "loop_max_identical": 5,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 4000,
+    "trigger_ratio": 0.5,
+    "target_ratio": 0.4,
+    "keep_recent_messages": 4,
+    "max_messages_before_compact": 12,
+    "max_message_chars": 800,
+    "max_system_chars": 4000,
+    "max_task_chars": 4000,
+    "summary_chars": 600,
+    "min_messages_to_compact": 4,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base"
+  ],
+  "benchmarks": [
+    "lhtb2"
+  ],
+  "tasks": [
+    {
+      "benchmark": "lhtb2",
+      "task_id": "2048",
+      "wall_clock_sec": 900
+    }
+  ],
+  "output_dir": "experiments/adapters/results/coverage-compaction-smoke",
+  "raw_dir": ".cache/adapters/coverage-compaction-smoke"
+}

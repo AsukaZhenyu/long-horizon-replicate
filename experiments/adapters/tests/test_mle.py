@@ -223,6 +223,29 @@ class MLEDockerTests(unittest.TestCase):
                 host.cleanup()
 
     @unittest.skipUnless(docker_available(), "docker daemon not available")
+    def test_malformed_submission_is_a_valid_failure(self):
+        image = local_image()
+        if image is None:
+            self.skipTest("no local alpine/busybox image")
+        with tempfile.TemporaryDirectory() as tmp:
+            adapter, task = self._synthetic(tmp, image)
+            config = ExperimentConfig(token_budget=1000, max_actions=20)
+            host = adapter.make_host(task, config)
+            try:
+                agent = BaseAgentAdapter(ScriptedAgent([
+                    Action("write", {"path": "submission/submission.csv",
+                                     "content": "1,a\n2,b\n"}),
+                    Action("submit"),
+                ]))
+                agent.run(task, host)
+                grade = adapter.grade(task, host)
+                self.assertTrue(grade.valid, grade.detail)
+                self.assertFalse(grade.passed, grade.detail)
+                self.assertIn("not valid", grade.detail)
+            finally:
+                host.cleanup()
+
+    @unittest.skipUnless(docker_available(), "docker daemon not available")
     def test_missing_submission_is_a_valid_failure(self):
         image = local_image()
         if image is None:

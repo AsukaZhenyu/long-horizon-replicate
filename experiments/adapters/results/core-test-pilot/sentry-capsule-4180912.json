@@ -1,0 +1,61 @@
+{
+  "benchmark": "core",
+  "dataset": "core_test",
+  "level": "codeocean_easy",
+  "method": "sentry",
+  "task": "capsule-4180912",
+  "attempt": 1,
+  "agent_seconds": 206.7,
+  "tokens": 38400,
+  "actions": 7,
+  "grade_valid": true,
+  "grade_passed": true,
+  "checks_passed": 2,
+  "checks_total": 2,
+  "detail": "correct_questions=2/2 written=2/2 vision=0/0",
+  "action_log": [
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la capsule-4180912"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "ls -la capsule-4180912/results"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat capsule-4180912/results/output"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "echo '{\"Report the accuracy of the neural network classifier.\": 0.8579925650557622, \"Report the macro f1 score for the random classifier.\": 0.4865859856972211}' > report.json"
+      }
+    },
+    {
+      "kind": "shell",
+      "payload": {
+        "command": "cat report.json"
+      }
+    },
+    {
+      "kind": "submit",
+      "payload": {}
+    }
+  ],
+  "phases": {
+    "detector": 6
+  }
+}

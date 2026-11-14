@@ -1,0 +1,36 @@
+[
+  {
+    "benchmark": "tb21",
+    "task_id": "regex-log",
+    "method": "base",
+    "termination": "timeout_wall",
+    "agent_error": "",
+    "last_error": "wall-clock deadline reached",
+    "agent_seconds": 313.1,
+    "tokens": 15895,
+    "actions": 2,
+    "submitted": false,
+    "grade_valid": true,
+    "grade_passed": false,
+    "checks_passed": 0,
+    "checks_total": 1,
+    "detail": "  \"2024-11-11\",\n            \"1999-03-05\",\n        ]\n    \n        # Join logs like a real log file\n        log_text = \"\\n\".join(sample_logs)\n    \n        # Apply regex with MULTILINE\n        matches = re.findall(pattern_text, log_text, re.MULTILINE)\n    \n        # Assert that matches are exactly the expected dates\n>       assert matches == expected_dates, f\"Expected {expected_dates}, but got {matches}\"\nE       AssertionError: Expected ['2025-01-09', '2024-11-01', '2020-01-01', '2019-06-15', '2018-06-06', '2017-03-03', '2016-12-31', '2024-11-11', '1999-03-05'], but got [('192.168.0.1', '2023-12-31', '12', '31'), ('10.0.0.1', '2020-01-01', '01', '01'), ('172.16.0.5', '2018-05-05', '05', '05'), ('8.8.8.8', '2018-06-06', '06', '06'), ('256.100.50.25', '2021-01-01', '01', '01'), ('123.456.78.90', '2020-12-12', '12', '12'), ('0.0.0.0', '2017-03-03', '03', '03'), ('255.255.255.255', '2016-12-31', '12', '31'), ('203.0.113.10', '1999-03-05', '03', '05'), ('172.16.0.256', '2000-05-10', '05', '10'), ('172.16.0.256', '2000-02-30', '02', '30'), ('172.16.0.256', '2000-04-31', '04', '31')]\nE       assert [('192.168.0....', '12'), ...] == ['2025-01-09'...7-03-03', ...]\nE         \nE         At index 0 diff: ('192.168.0.1', '2023-12-31', '12', '31') != '2025-01-09'\nE         Left contains 3 more items, first extra item: ('172.16.0.256', '2000-05-10', '05', '10')\nE         Use -v to get more diff\n\ntest_outputs.py:90: AssertionError\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_regex_matches_dates - AssertionError: Expected [...\n============================== 1 failed in 0.05s ===============================\ndebconf: delaying package configuration, since apt-utils is not installed\ndownloading uv 0.9.5 x86_64-unknown-linux-gnu\nDownloading cpython-3.13.9-linux-x86_64-gnu (download) (32.0MiB)\n Downloading cpython-3.13.9-linux-x86_64-gnu (download)\nDownloading pygments (1.2MiB)\n Downloading pygments\nInstalled 6 packages in 9ms\n"
+  },
+  {
+    "benchmark": "lhtb2",
+    "task_id": "2048",
+    "method": "base",
+    "termination": "timeout_tokens",
+    "agent_error": "",
+    "last_error": "",
+    "agent_seconds": 34.7,
+    "tokens": 50555,
+    "actions": 15,
+    "submitted": false,
+    "grade_valid": true,
+    "grade_passed": false,
+    "checks_passed": 0,
+    "checks_total": 1,
+    "detail": "e (it's fine in VLC/browsers).\"\n            )\n        else:\n            print(\n                \"AGENT PLAY VIDEO: not produced \"\n                \"(set G2048_RENDER_VIDEO=1 and ensure opencv is installed).\"\n            )\n        print(\"RAW MOVE LOG saved next to reward.txt as verifier/moves.log\")\n        print(\"-\" * 60)\n    \n>       assert band >= PASS_BAND, (\n            f\"Band {band} < pass threshold {PASS_BAND}. \"\n            f\"Largest tile reached was {final_max}.\"\n        )\nE       AssertionError: Band 0 < pass threshold 1. Largest tile reached was 8.\nE       assert 0 >= 1\n\ntest_outputs.py:278: AssertionError\n----------------------------- Captured stdout call -----------------------------\nmoves_replayed=14\npeak_band=0  (largest tile milestone reached)\nfinal_score=40  final_max_tile=8\nREWARD=0.090818  (normalized [0,1] = raw 0.999 / 11 [band 11 = 65536 tile, theoretical max])\nRAW_REWARD=0.999  BAND=0  (pass threshold band>=1)\n------------------------------------------------------------\nAGENT PLAY VIDEO: /logs/verifier/agent_play.gif (89316 bytes)\nAGENT PLAY VIDEO: /logs/verifier/agent_play.mp4 (87260 bytes)\n  -> open this trial's verifier/agent_play.gif (next to reward.txt) to watch the run. Prefer the .gif on macOS: the .mp4 may use the mp4v codec, which green-screens in QuickTime (it's fine in VLC/browsers).\nRAW MOVE LOG saved next to reward.txt as verifier/moves.log\n------------------------------------------------------------\n----------------------------- Captured stderr call -----------------------------\n[ERROR:0@0.379] global cap_ffmpeg_impl.hpp:3133 open Could not find encoder for codec_id=27, error: Encoder not found\n[ERROR:0@0.379] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter\n=========================== short test summary info ============================\nFAILED test_outputs.py::test_2048_progress - AssertionError: Band 0 < pass th...\n============================== 1 failed in 1.06s ===============================\n"
+  }
+]

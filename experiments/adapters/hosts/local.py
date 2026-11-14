@@ -56,9 +56,15 @@ class CommandVerifier(Verifier):
         self.timeout = timeout
 
     def grade(self, workdir: Path) -> Grade:
-        proc = subprocess.run(self.command, shell=True, cwd=workdir,
-                              capture_output=True, text=True,
-                              timeout=self.timeout)
+        try:
+            proc = subprocess.run(
+                self.command, shell=True, cwd=workdir,
+                capture_output=True, encoding="utf-8", errors="replace",
+                timeout=self.timeout)
+        except (subprocess.TimeoutExpired, OSError) as exc:
+            return Grade(valid=False, passed=False, checks_passed=0,
+                         checks_total=0,
+                         detail=f"verifier error: {type(exc).__name__}: {exc}")
         passed = proc.returncode == 0
         return Grade(valid=True, passed=passed,
                      checks_passed=1 if passed else 0, checks_total=1,
@@ -106,32 +112,39 @@ class LocalHost(Host):
         if len(self._actions) >= self.config.max_actions:
             return Observation(error="max actions reached", exit_code=1)
         self._actions.append(action)
-        if action.kind == "write":
-            target = self._safe(action.payload.get("path", ""))
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(action.payload.get("content", ""), encoding="utf-8")
-            return Observation(output=f"wrote {target.relative_to(self.workdir)}")
-        if action.kind == "read":
-            target = self._safe(action.payload.get("path", ""))
-            try:
-                return Observation(output=target.read_text(encoding="utf-8"))
-            except FileNotFoundError:
-                return Observation(error=f"missing {action.payload.get('path')}", exit_code=1)
-        if action.kind == "shell":
-            command = action.payload.get("command", "")
-            proc = subprocess.run(command, shell=True, cwd=self.workdir,
-                                  capture_output=True, text=True, timeout=120)
-            return Observation(output=proc.stdout[-8000:],
-                               error=proc.stderr[-8000:],
-                               exit_code=proc.returncode)
-        if action.kind == "submit":
-            if self.submit_guard is not None:
-                error = self.submit_guard()
-                if error:
-                    return Observation(error=str(error), exit_code=1)
-            self.submitted = True
-            return Observation(output="submitted")
-        return Observation(error=f"unknown action {action.kind}", exit_code=1)
+        try:
+            if action.kind == "write":
+                target = self._safe(action.payload.get("path", ""))
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(action.payload.get("content", ""), encoding="utf-8")
+                return Observation(output=f"wrote {target.relative_to(self.workdir)}")
+            if action.kind == "read":
+                target = self._safe(action.payload.get("path", ""))
+                try:
+                    return Observation(output=target.read_text(encoding="utf-8"))
+                except FileNotFoundError:
+                    return Observation(error=f"missing {action.payload.get('path')}", exit_code=1)
+            if action.kind == "shell":
+                command = action.payload.get("command", "")
+                proc = subprocess.run(
+                    command, shell=True, cwd=self.workdir,
+                    capture_output=True, encoding="utf-8", errors="replace",
+                    timeout=120)
+                return Observation(output=proc.stdout[-8000:],
+                                   error=proc.stderr[-8000:],
+                                   exit_code=proc.returncode)
+            if action.kind == "submit":
+                if self.submit_guard is not None:
+                    error = self.submit_guard()
+                    if error:
+                        return Observation(error=str(error), exit_code=1)
+                self.submitted = True
+                return Observation(output="submitted")
+            return Observation(error=f"unknown action {action.kind}", exit_code=1)
+        except subprocess.TimeoutExpired as exc:
+            return Observation(error=f"command timed out: {exc}", exit_code=124)
+        except OSError as exc:
+            return Observation(error=f"host error: {exc}", exit_code=1)
 
     def submit(self) -> Observation:
         return self.step(Action("submit"))

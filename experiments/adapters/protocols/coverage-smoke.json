@@ -1,0 +1,71 @@
+{
+  "round": "20261113-coverage-smoke",
+  "purpose": "wire-up smoke for the four-benchmark matrix runner: Base only, 20k budget, 4 steps",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 256,
+  "max_steps": 4,
+  "token_budget": 20000,
+  "wall_clock_sec": 600,
+  "submit_guard": false,
+  "loop_max_identical": 5,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 16384,
+    "trigger_ratio": 0.72,
+    "target_ratio": 0.55,
+    "keep_recent_messages": 8,
+    "max_messages_before_compact": 24,
+    "max_message_chars": 4000,
+    "max_system_chars": 16000,
+    "max_task_chars": 16000,
+    "summary_chars": 2400,
+    "min_messages_to_compact": 6,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base"
+  ],
+  "benchmarks": [
+    "tb21",
+    "lhtb2",
+    "core",
+    "mle"
+  ],
+  "tasks": [
+    {
+      "benchmark": "tb21",
+      "task_id": "regex-log",
+      "wall_clock_sec": 900
+    },
+    {
+      "benchmark": "lhtb2",
+      "task_id": "2048",
+      "wall_clock_sec": 900
+    },
+    {
+      "benchmark": "core",
+      "task_id": "capsule-4180912",
+      "wall_clock_sec": 1200
+    },
+    {
+      "benchmark": "mle",
+      "task_id": "synthetic",
+      "wall_clock_sec": 600
+    }
+  ],
+  "core": {
+    "dataset": ".cache/upstream/core-bench/benchmark/dataset/core_test.json",
+    "level": "codeocean_easy",
+    "image": "alpine:latest",
+    "download": true
+  },
+  "mle": {
+    "root": ".cache/adapters/mle-synthetic",
+    "split": "all",
+    "image": "alpine:latest"
+  },
+  "output_dir": "experiments/adapters/results/coverage-smoke",
+  "raw_dir": ".cache/adapters/coverage-smoke"
+}
