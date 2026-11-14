@@ -451,11 +451,20 @@ def run_one(adapters: Dict[str, Any], protocol: Dict[str, Any],
 # -------------------------------------------------------------------- matrix
 def build_matrix(protocol: Dict[str, Any],
                  digests: List[Dict[str, Any]]) -> Dict[str, Any]:
-    by_key = {(item["benchmark"], item["method"]): item for item in digests}
+    # Multiple tasks per benchmark share (benchmark, method); the task id is
+    # part of the key so each row keeps its own digest.
+    by_key = {(item["benchmark"], item["task_id"], item["method"]): item
+              for item in digests}
+    # A discovered protocol keeps an empty task list on disk; rebuild it from
+    # the digests so the matrix still has one row per task.
+    tasks = protocol.get("tasks") or [
+        {"benchmark": item["benchmark"], "task_id": item["task_id"]}
+        for item in digests]
     rows = []
-    for task in protocol["tasks"]:
+    for task in tasks:
         for method in protocol["methods"]:
-            item = by_key.get((task["benchmark"], method))
+            item = by_key.get(
+                (task["benchmark"], task["task_id"], method))
             if item is None:
                 rows.append({
                     "benchmark": task["benchmark"],

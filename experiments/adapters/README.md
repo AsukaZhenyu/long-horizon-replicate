@@ -489,6 +489,11 @@ Real data is ready in the ignored cache: MATH-500 `test.jsonl` (500 problems)
 at `.cache/upstream/math500/test.jsonl` and AIME 2024 (30 problems) at
 `.cache/upstream/aime/aime_2024.jsonl`. `protocols/math-informal-real.json`
 uses `"discover": true` to take the first 20 MATH-500 and 10 AIME tasks.
+`prepare_informal_data.py` re-downloads both (optionally through a proxy).
+
+Real 9B pilot on the 5090 (2026-11-14, Base, 6 steps / 20k tokens): MATH-500
+**9/20** and AIME 2024 **0/10**; both valid, no compactions. Results:
+`results/math-informal-real/summary.json`.
 
 ## Real benchmarks
 
@@ -636,6 +641,8 @@ python experiments/adapters/preflight.py
   the Lean compile grade.
 - `experiments/adapters/results/math-informal-smoke/summary.json` — MATH-500 +
   AIME fixture smoke; AIME 1/1, MATH-500 0/1 (artifact not written).
+- `experiments/adapters/results/math-informal-real/summary.json` — 5090 Base
+  pilot on real data: MATH-500 9/20, AIME 2024 0/10 (30 valid runs).
 - `experiments/adapters/results/math-batch-smoke/summary.json` — two-phase
   Putnam/miniF2F/ProofNet collect+grade smoke; `--status` shows progress.
 - `.cache/upstream/putnambench/lean4/formal/README.json` — upstream commits,

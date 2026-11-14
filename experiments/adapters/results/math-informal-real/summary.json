@@ -1,0 +1,872 @@
+[
+  {
+    "key": "20261114-math-informal-real|math500|test-precalculus-807.json|base",
+    "benchmark": "math500",
+    "task_id": "test-precalculus-807.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 2802,
+    "actions": 5,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 672,
+      "prompt_tokens_total": 2433,
+      "completion_tokens": 369,
+      "equivalent_tokens": 406.4,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 2.4,
+    "last_error": "",
+    "detail_tail": "answer='(3,pi/2)' expected='\\\\left( 3, \\\\frac{\\\\pi}{2} \\\\right)'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-precalculus-807.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-intermediate_algebra-1994.json|base",
+    "benchmark": "math500",
+    "task_id": "test-intermediate_algebra-1994.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 4484,
+    "actions": 4,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 1263,
+      "prompt_tokens_total": 3548,
+      "completion_tokens": 936,
+      "equivalent_tokens": 990.6,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 5.3,
+    "last_error": "",
+    "detail_tail": "answer='p-q' expected='p - q'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-intermediate_algebra-1994.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-algebra-2584.json|base",
+    "benchmark": "math500",
+    "task_id": "test-algebra-2584.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 1120,
+    "actions": 2,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 561,
+      "prompt_tokens_total": 743,
+      "completion_tokens": 377,
+      "equivalent_tokens": 388.4,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 2.2,
+    "last_error": "",
+    "detail_tail": "answer='14/3' expected='\\\\frac{14}{3}'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-algebra-2584.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-number_theory-572.json|base",
+    "benchmark": "math500",
+    "task_id": "test-number_theory-572.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 1188,
+    "actions": 4,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 333,
+      "prompt_tokens_total": 1077,
+      "completion_tokens": 111,
+      "equivalent_tokens": 127.6,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 0.9,
+    "last_error": "",
+    "detail_tail": "answer='9' expected='9'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-number_theory-572.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-algebra-1349.json|base",
+    "benchmark": "math500",
+    "task_id": "test-algebra-1349.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 3157,
+    "actions": 2,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 1075,
+      "prompt_tokens_total": 2616,
+      "completion_tokens": 541,
+      "equivalent_tokens": 581.2,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 3.1,
+    "last_error": "",
+    "detail_tail": "answer='Evelyn' expected='\\\\text{Evelyn}'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-algebra-1349.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-prealgebra-1622.json|base",
+    "benchmark": "math500",
+    "task_id": "test-prealgebra-1622.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 538,
+    "actions": 1,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 272,
+      "prompt_tokens_total": 448,
+      "completion_tokens": 90,
+      "equivalent_tokens": 96.9,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 0.7,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-prealgebra-1622.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-number_theory-515.json|base",
+    "benchmark": "math500",
+    "task_id": "test-number_theory-515.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 375,
+    "actions": 1,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 154,
+      "prompt_tokens_total": 154,
+      "completion_tokens": 221,
+      "equivalent_tokens": 223.4,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 1.3,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-number_theory-515.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-precalculus-927.json|base",
+    "benchmark": "math500",
+    "task_id": "test-precalculus-927.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 7451,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 1862,
+      "prompt_tokens_total": 5932,
+      "completion_tokens": 1519,
+      "equivalent_tokens": 1610.3,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 8.3,
+    "last_error": "",
+    "detail_tail": "answer='90' expected='90^\\\\circ'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-precalculus-927.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-algebra-2036.json|base",
+    "benchmark": "math500",
+    "task_id": "test-algebra-2036.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 853,
+    "actions": 1,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 427,
+      "prompt_tokens_total": 596,
+      "completion_tokens": 257,
+      "equivalent_tokens": 266.2,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 1.7,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-algebra-2036.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-prealgebra-1139.json|base",
+    "benchmark": "math500",
+    "task_id": "test-prealgebra-1139.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 4590,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 1290,
+      "prompt_tokens_total": 3666,
+      "completion_tokens": 924,
+      "equivalent_tokens": 980.4,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 5.2,
+    "last_error": "",
+    "detail_tail": "answer='4' expected='4'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-prealgebra-1139.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-number_theory-1032.json|base",
+    "benchmark": "math500",
+    "task_id": "test-number_theory-1032.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 9065,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 1798,
+      "prompt_tokens_total": 7378,
+      "completion_tokens": 1687,
+      "equivalent_tokens": 1800.5,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 9.2,
+    "last_error": "",
+    "detail_tail": "answer='2220' expected='2220'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-number_theory-1032.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-intermediate_algebra-1197.json|base",
+    "benchmark": "math500",
+    "task_id": "test-intermediate_algebra-1197.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 10149,
+    "actions": 4,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2372,
+      "prompt_tokens_total": 8314,
+      "completion_tokens": 1835,
+      "equivalent_tokens": 1962.9,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 10.1,
+    "last_error": "",
+    "detail_tail": "answer='3/56' expected='\\\\frac{3}{56}'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-intermediate_algebra-1197.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-number_theory-737.json|base",
+    "benchmark": "math500",
+    "task_id": "test-number_theory-737.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 1529,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 535,
+      "prompt_tokens_total": 1251,
+      "completion_tokens": 278,
+      "equivalent_tokens": 297.2,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 1.9,
+    "last_error": "",
+    "detail_tail": "answer='284' expected='284'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-number_theory-737.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-geometry-248.json|base",
+    "benchmark": "math500",
+    "task_id": "test-geometry-248.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 1576,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 626,
+      "prompt_tokens_total": 1418,
+      "completion_tokens": 158,
+      "equivalent_tokens": 179.8,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 1.1,
+    "last_error": "",
+    "detail_tail": "answer='The volume of a cylinder is given by the formula V = pi * r^2 * h, where V is the volume, r is the radius, and h is the height. We are given that V = 45pi and r = 3. Substituting these values into the formula, we get 45pi = pi * 3^2 * h. Simplifying, we have 45pi = 9pi * h. Dividing both sides by 9pi, we find h = 45pi / 9pi = 5. Therefore, the height of the cylinder is 5 cm.' expected='5'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-geometry-248.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-precalculus-1303.json|base",
+    "benchmark": "math500",
+    "task_id": "test-precalculus-1303.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 1231,
+    "actions": 1,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 626,
+      "prompt_tokens_total": 885,
+      "completion_tokens": 346,
+      "equivalent_tokens": 359.6,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 2.1,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-precalculus-1303.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-precalculus-990.json|base",
+    "benchmark": "math500",
+    "task_id": "test-precalculus-990.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 5150,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 1505,
+      "prompt_tokens_total": 4178,
+      "completion_tokens": 972,
+      "equivalent_tokens": 1036.3,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 5.5,
+    "last_error": "",
+    "detail_tail": "answer='6 - 5i' expected='6 - 5i'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-precalculus-990.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-intermediate_algebra-134.json|base",
+    "benchmark": "math500",
+    "task_id": "test-intermediate_algebra-134.json",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 1115,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": true,
+      "checks": "1/1"
+    },
+    "official_score": 1.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 388,
+      "prompt_tokens_total": 909,
+      "completion_tokens": 206,
+      "equivalent_tokens": 220.0,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 1.5,
+    "last_error": "",
+    "detail_tail": "answer='-50' expected='-50'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-intermediate_algebra-134.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-precalculus-1199.json|base",
+    "benchmark": "math500",
+    "task_id": "test-precalculus-1199.json",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 10342,
+    "actions": 3,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2041,
+      "prompt_tokens_total": 8767,
+      "completion_tokens": 1575,
+      "equivalent_tokens": 1709.9,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 8.7,
+    "last_error": "",
+    "detail_tail": "answer='pi' expected='\\\\pi'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-precalculus-1199.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-geometry-434.json|base",
+    "benchmark": "math500",
+    "task_id": "test-geometry-434.json",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 12768,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2936,
+      "prompt_tokens_total": 9696,
+      "completion_tokens": 3072,
+      "equivalent_tokens": 3221.2,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 16.4,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-geometry-434.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|math500|test-intermediate_algebra-1000.json|base",
+    "benchmark": "math500",
+    "task_id": "test-intermediate_algebra-1000.json",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 10462,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2319,
+      "prompt_tokens_total": 7953,
+      "completion_tokens": 2509,
+      "equivalent_tokens": 2631.4,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 13.6,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/math500/test-intermediate_algebra-1000.json/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-II-4|base",
+    "benchmark": "aime",
+    "task_id": "2024-II-4",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 8369,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2310,
+      "prompt_tokens_total": 6477,
+      "completion_tokens": 1892,
+      "equivalent_tokens": 1991.6,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 10.4,
+    "last_error": "",
+    "detail_tail": "answer='25/8' expected='33'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-II-4/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-II-12|base",
+    "benchmark": "aime",
+    "task_id": "2024-II-12",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 12955,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2970,
+      "prompt_tokens_total": 9883,
+      "completion_tokens": 3072,
+      "equivalent_tokens": 3224.0,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 16.5,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-II-12/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-I-4|base",
+    "benchmark": "aime",
+    "task_id": "2024-I-4",
+    "method": "base",
+    "termination": "submitted",
+    "tokens": 10076,
+    "actions": 3,
+    "submitted": true,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": 0.0,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2061,
+      "prompt_tokens_total": 8396,
+      "completion_tokens": 1680,
+      "equivalent_tokens": 1809.2,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 9.4,
+    "last_error": "",
+    "detail_tail": "answer='1/115' expected='116'",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-I-4/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-I-3|base",
+    "benchmark": "aime",
+    "task_id": "2024-I-3",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 12063,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2827,
+      "prompt_tokens_total": 9432,
+      "completion_tokens": 2631,
+      "equivalent_tokens": 2776.1,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 14.2,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-I-3/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-I-8|base",
+    "benchmark": "aime",
+    "task_id": "2024-I-8",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 12360,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2868,
+      "prompt_tokens_total": 9288,
+      "completion_tokens": 3072,
+      "equivalent_tokens": 3214.9,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 16.5,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-I-8/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-I-12|base",
+    "benchmark": "aime",
+    "task_id": "2024-I-12",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 12288,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2856,
+      "prompt_tokens_total": 9216,
+      "completion_tokens": 3072,
+      "equivalent_tokens": 3213.8,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 16.5,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-I-12/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-I-11|base",
+    "benchmark": "aime",
+    "task_id": "2024-I-11",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 12498,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2931,
+      "prompt_tokens_total": 9426,
+      "completion_tokens": 3072,
+      "equivalent_tokens": 3217.0,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 16.5,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-I-11/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-II-11|base",
+    "benchmark": "aime",
+    "task_id": "2024-II-11",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 12234,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2847,
+      "prompt_tokens_total": 9162,
+      "completion_tokens": 3072,
+      "equivalent_tokens": 3213.0,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 16.5,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-II-11/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-I-2|base",
+    "benchmark": "aime",
+    "task_id": "2024-I-2",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 12093,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2823,
+      "prompt_tokens_total": 9021,
+      "completion_tokens": 3072,
+      "equivalent_tokens": 3210.8,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 16.5,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-I-2/base"
+  },
+  {
+    "key": "20261114-math-informal-real|aime|2024-II-6|base",
+    "benchmark": "aime",
+    "task_id": "2024-II-6",
+    "method": "base",
+    "termination": "max_steps",
+    "tokens": 9601,
+    "actions": 0,
+    "submitted": false,
+    "grade": {
+      "valid": true,
+      "passed": false,
+      "checks": "0/1"
+    },
+    "official_score": null,
+    "vlm_tokens": 0,
+    "context": {
+      "compactions": 0,
+      "max_prompt_tokens": 2010,
+      "prompt_tokens_total": 7829,
+      "completion_tokens": 1772,
+      "equivalent_tokens": 1892.4,
+      "equivalent_budget": null
+    },
+    "agent_seconds": 9.8,
+    "last_error": "",
+    "detail_tail": "answer.txt missing",
+    "run_dir": ".cache/adapters/math-informal-real/20261114-math-informal-real/aime/2024-II-6/base"
+  }
+]
