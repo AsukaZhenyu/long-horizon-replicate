@@ -65,6 +65,7 @@ protocols/
   math-informal-smoke.json  MATH-500 + AIME fixture wire-up smoke
   math-informal-real.json   20 MATH-500 + 10 AIME 2024 real-data pilot
   math-batch-smoke.json  two-phase Putnam/miniF2F/ProofNet collect+grade smoke
+  math-batch-5090.json    the same smoke labelled for the 5090 host
   coverage-smoke.json    four-benchmark runner wire-up smoke
   coverage-compaction-smoke.json  tiny-window end-to-end compaction smoke
 recording.py             trajectory recorder, heartbeat, model host, loop detection
@@ -81,6 +82,7 @@ prepare_formal_math.py   copies miniF2F/ProofNet statements into the pinned
                          project; optional --precheck compatibility run
 prepare_informal_data.py downloads MATH-500 and AIME 2024 real data
 start_llama_text.sh      Linux/5090 text-mode llama-server launcher
+lake-wrapper.sh          Lean wrapper that bypasses Lake's git checks on 5090
 coverage_matrix.py       summarizes the 4 x 4 coverage matrix
 ```
 
@@ -430,11 +432,12 @@ v4.33.1 project:
 Both upstream ports pin older toolchains (v4.24.0 / v4.20.0). Compiling their
 statements with the same v4.33.1 Mathlib as PutnamBench keeps the formal suite
 comparable; `--precheck` compiles every file with its original `sorry` and
-`precheck.json` makes the loaders skip incompatible files. Precheck results:
-miniF2F **20/20** sampled Test files compile; ProofNet **5/11** files compile
+`precheck.json` makes the loaders skip incompatible files. Full precheck on
+the 5090 (`--workers 8`): **493/499 OK, 6 failed**. miniF2F is **488/488**
+(244 Test + 244 Valid); ProofNet is **5/11** files
 (Cambridge-Tripos, Ireland-Rosen, Pugh, Putnam, Shakarchi = 66 theorems). The
-six excluded files (Artin, Axler, Dummit-Foote, Herstein, Munkres, Rudin) use
-pre-v4.33 Mathlib API. A full 488-file miniF2F precheck is still to run.
+six excluded ProofNet files (Artin, Axler, Dummit-Foote, Herstein, Munkres,
+Rudin) use pre-v4.33 Mathlib API.
 
 `MiniF2FAdapter` is file-level. `ProofNetAdapter` exposes one task per theorem:
 grading runs Lean once per file and maps `declaration uses 'sorry'` warning
@@ -463,6 +466,12 @@ stopped the server once (commit 4.27 → 5.8 GB; the 6.0 GB threshold waited its
 full 90 s because Docker was also running), graded all four, and restarted the
 server in 8.1 s. Closing Docker Desktop raises the post-release headroom to
 about 8 GB and avoids that wait.
+
+The same smoke on the 5090 (`protocols/math-batch-5090.json`, no
+`--release-model` because the host has 62 GB) is 4/4 collected and 4/4 valid
+0/1, with the model server staying up. Lean runs through `lake-wrapper.sh`
+(bypasses Lake's git/package check) with `PUTNAM_LEAN_BIN`; the Putnam compile
+and the miniF2F/ProofNet integration test pass on the transferred Mathlib.
 
 On the Linux 5090 host (62 GB RAM) the model server and Lean can coexist, so
 the batch runner can grade with the server up (omit `--release-model`). Build
