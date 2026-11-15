@@ -99,12 +99,15 @@ does not change the token budget, tools or grading.
 
 ### Harness v2 (2026-11-15)
 
-All method loops also accept `{"path": "...", "content": "..."}` in addition
-to `{"command"}` and `{"final"}`. This is an interface extension, not a
-method-strategy change: the host already had `Action("write")`; the parsers
-and prompts are uniform across Base, Sentry, Recuris, RRSI and Spine.
-`tests/test_write_action.py` covers the mapping, the prompts and a Base
-write→submit episode. The command-only schema is kept as a 30-task ablation.
+All method loops also accept a JSON header `{"path": "..."}` followed by a
+fenced content block (preferred for multi-line Lean files), or a single
+`{"path": "...", "content": "..."}` object. This is an interface extension,
+not a method-strategy change: the host already had `Action("write")`; the
+parsers and prompts are uniform across Base, Sentry, Recuris, RRSI and Spine.
+Use `max_tokens_per_step=4096`: 512 truncates a multi-line Lean write before
+the closing fence. `tests/test_write_action.py` covers the fenced parser, the
+prompts and a Base write→submit episode (4 tests). The command-only schema is
+kept as a 30-task ablation.
 
 ## Reproduction fidelity
 

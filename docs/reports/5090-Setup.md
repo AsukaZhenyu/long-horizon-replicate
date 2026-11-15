@@ -91,5 +91,10 @@ The Lean project is 7.3 GB locally and is sent as a gzip stream excluding
   100 tasks): **100/100 rc=0** with the original `sorry`.
 - Lean compile of `src/putnam_1962_a1.lean` via the wrapper: rc 0 with the
   expected `sorry` warning; miniF2F/ProofNet integration test 7.5 s.
+- Harness v2 smoke (4 tasks): the v2b 512-token run truncated the fenced
+  Lean write before its closing fence; the v2c 4096-token run logged `write`
+  actions on Putnam a2 and ProofNet. All four graded valid 0/1 because the
+  proof content was still wrong; the frozen formal protocols use 4096 and
+  30k/100k E.
 
 

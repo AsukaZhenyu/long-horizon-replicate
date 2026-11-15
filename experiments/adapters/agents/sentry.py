@@ -31,8 +31,8 @@ if SENTRY_SRC.is_dir():
 ACTION_SCHEMA = (
     'Return exactly one JSON object. To run a shell command: '
     '{"reasoning": "...", "command": "..."}. To write a file: '
-    '{"reasoning": "...", "path": "...", "content": "..."}. To submit: '
-    '{"reasoning": "...", "final": "..."}.'
+    '{"reasoning": "...", "path": "..."} followed by a fenced content block. '
+    'To submit: {"reasoning": "...", "final": "..."}.'
 )
 
 

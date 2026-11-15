@@ -17,7 +17,13 @@ from contract.types import Action, Host, NativeAgent, TaskSpec
 
 ACTION_PROTOCOL = """Return exactly one JSON object per turn, with no markdown.
 To run a shell command: {"command": "..."}
-To write a file: {"path": "src/file.lean", "content": "..."}
+To write a file, put a JSON header first and the content in a fenced block
+(no JSON escaping in the content):
+{"path": "src/file.lean"}
+```lean
+<file content>
+```
+A single JSON object {"path": "...", "content": "..."} is also accepted.
 To submit the result: {"final": "short report"}
 Use the available terminal to inspect the workspace, make the required
 artifact, verify it, and then submit."""
@@ -105,8 +111,31 @@ def write_action(action: dict) -> Action | None:
     return None
 
 
+def _parse_block_write(text: str) -> dict | None:
+    """Parse ``{"path": "..."}`` followed by a fenced content block."""
+    start = text.find("{")
+    if start == -1:
+        return None
+    try:
+        header, end = json.JSONDecoder().raw_decode(text[start:])
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(header, dict) or "path" not in header:
+        return None
+    if "content" in header:
+        return None
+    rest = text[start + end:]
+    match = re.search(r"```[^\n]*\n(.*?)```", rest, re.S)
+    if match is None:
+        return None
+    return {"path": str(header["path"]), "content": match.group(1)}
+
+
 def parse_action(text: str) -> dict:
     text = text.strip()
+    block = _parse_block_write(text)
+    if block is not None:
+        return block
     fence = re.search(r"```(?:json)?\s*(.*?)```", text, re.S)
     if fence:
         text = fence.group(1).strip()

@@ -5,8 +5,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from agents.base_react import ACTION_PROTOCOL, ModelClient, ModelResponse
-from agents.base_react import BaseReactAgent, write_action
+from agents.base_react import (
+    ACTION_PROTOCOL, BaseReactAgent, ModelClient, ModelResponse, parse_action,
+    write_action,
+)
 from agents.sentry import ACTION_SCHEMA
 from benchmarks.content import LocalContentHost
 from contract.types import Action, ExperimentConfig, TaskSpec
@@ -36,6 +38,14 @@ class WriteActionTests(unittest.TestCase):
         self.assertIn('"path"', ACTION_PROTOCOL)
         self.assertIn('"path"', ACTION_SCHEMA)
 
+    def test_fenced_write_parse(self):
+        text = ('{"path": "src/a.lean"}\n```lean\n'
+                'theorem a : True := by trivial\n```')
+        action = parse_action(text)
+        self.assertEqual(action["path"], "src/a.lean")
+        self.assertEqual(action["content"],
+                         "theorem a : True := by trivial\n")
+
     def test_base_agent_writes_and_submits(self):
         with tempfile.TemporaryDirectory() as tmp:
             task = TaskSpec(task_id="write-test", benchmark="test",
@@ -43,12 +53,13 @@ class WriteActionTests(unittest.TestCase):
             host = LocalContentHost(task, self.config(), Path(tmp),
                                     install_tools=False)
             client = _ScriptedClient([
-                ModelResponse(content='{"path": "answer.txt", "content": "5"}',
-                              total_tokens=8),
+                ModelResponse(content=(
+                    '{"path": "answer.txt"}\n```text\n5\n```'),
+                    total_tokens=8),
                 ModelResponse(content='{"final": "done"}', total_tokens=8),
             ])
             BaseReactAgent(client, max_steps=2).run(task, host)
-            self.assertEqual((Path(tmp) / "answer.txt").read_text(), "5")
+            self.assertEqual((Path(tmp) / "answer.txt").read_text().strip(), "5")
             self.assertTrue(host.submitted)
             host.cleanup()
 

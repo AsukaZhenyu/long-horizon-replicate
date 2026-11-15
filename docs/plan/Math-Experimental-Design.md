@@ -91,10 +91,13 @@ Aleph、Goedel-Architect、HILBERT、AlphaProof、Seed-Prover、DeepSeek-Prover-
 
 - **决策（已实现 2026-11-15）**：主实验使用 **Harness v2**，动作 schema 为：
   - `{"command": "..."}`
-  - `{"path": "...", "content": "..."}`（写文件；对应 host 的 `Action("write")`）
+  - 写文件（多行首选）：一行 JSON header `{"path": "..."}`，随后一个 fenced block 包含文件内容（无需 JSON 转义，可带 `lean` 语言标记）
+  - 单行 JSON `{"path": "...", "content": "..."}` 作为 fallback
   - `{"final": "..."}`
-- 所有方法（Base/Sentry/Recuris/RRSI/Spine）使用同一 schema；这是**接口扩展**，不改变规划、记忆、恢复、提示策略。host 已支持 `Action("write")`；各方法的 parser/prompt 已统一，`tests/test_write_action.py` 3 项在本机和 5090 均通过。
-- 理由：预实验（command-only）里 9B 多次生成未转义的 heredoc JSON，4 步只有 1–3 个有效 action，解答文件未变；不修接口会把“JSON 转义”误当成数学能力。
+- 所有方法（Base/Sentry/Recuris/RRSI/Spine）使用同一 schema；这是**接口扩展**，不改变规划、记忆、恢复、提示策略。host 已支持 `Action("write")`；各方法的 parser/prompt 已统一，`tests/test_write_action.py` 4 项在本机和 5090 均通过。
+- **每次调用 `max_tokens_per_step=4096`**：v2b smoke 里 512 会在 Lean 文件写到一半时截断（completion_tokens=512，fenced block 没有闭合），所以 512 只保留给早期 answer-only pilot；正式写入协议全部 4096。
+- 理由：预实验（command-only）里 9B 多次生成未转义的 heredoc JSON，4 步只有 1–3 个有效 action，解答文件未变；v2 的纯 JSON `content` 仍会被多行内容截断/转义失败，fenced block 是主路径。
+- v2 smoke（4 题）：512-token 的 v2b 把 fenced block 截断（无闭合 fence，没有 write action）；4096-token 的 v2c 在 Putnam a2 / ProofNet 上真实触发 write action。4 题仍 0/1，说明接口已通，证明内容质量是下一层问题。
 - **消融**：同一 30 题子集跑 command-only（v1），报告 invalid-JSON/格式失败率与 pass 差异；v1 数据只作诊断，不进主表。
 - host 侧：`LocalContentHost` 已实现 write；Lean host 通过 `lake env lean` 提供编译反馈（5090 上 server 与 Lean 共存，agent 可在 episode 内编译）。
 
@@ -103,6 +106,7 @@ Aleph、Goedel-Architect、HILBERT、AlphaProof、Seed-Prover、DeepSeek-Prover-
 - 5090 实测（153 个 timing 样本）：prefill median **7053 t/s**，decode median **197 t/s**，**ρ_5090 = 36**（median；mean 28，报告两者）。E = P/36 + G。
 - 3050 的 ρ=65 只用于本机 smoke；正式数字全部按 5090 ρ=36 重算并记录原始 P/G/E。
 - L1：E_question = **30k E**（raw 100k）；L2 主：**100k E**（raw 500k）；L2 stress：**2M E**（raw 2M，wall 10h）。
+- 每次调用 `max_tokens_per_step=4096`（见第 5 节；512 会截断多行 Lean 文件）。
 - Token 口径：一次任务所有模型调用的 prompt + completion；缓存 tokens 单列；工具输出进入 prompt 的按实际计；Lean/编译时间不计入 E，但记 wall。
 - 终止：submitted / max_steps / timeout_equivalent / timeout_tokens / timeout_wall / loop / crash / model_error / context_overflow；E 与 raw 同时记录。
 
@@ -149,7 +153,7 @@ Aleph、Goedel-Architect、HILBERT、AlphaProof、Seed-Prover、DeepSeek-Prover-
 ## 10. 流程与命令
 
 1. **冻结协议**：`python experiments/adapters/freeze_math_protocol.py --seed 20261115` → `protocols/math-l1-informal.json`、`math-l1-formal.json`、`math-l1-valid.json`、`math-l2-calibration.json`、`math-l2.json`、`math-l2-stress.json`；scaling 为 `math-l1-scale-{informal,formal}-{5k,15k,30k}.json`、`math-l2-scale-{25k,50k,100k}.json`；reliability 为 `math-reliability-{informal,formal}.json`。commit。
-2. **Harness v2（已实现）**：统一 `write` action 到所有方法 parser/prompt；`tests/test_write_action.py` 3 项通过；下一步是 10 题 smoke。
+2. **Harness v2（已实现）**：统一 fenced write（`{"path": ...}` + fenced content）到所有方法 parser/prompt；`max_tokens_per_step=4096`；`tests/test_write_action.py` 4 项通过；4 题 v2c smoke 已验证 write action，正式跑前补 10 题 smoke。
 3. **5090 环境**：`bash experiments/adapters/start_llama_text.sh`；`export PUTNAM_LEAN_BIN=$PWD/.cache/tools/lean-wrapper/bin/lake`。
 4. **L1 gate**：`repro_matrix.py protocols/math-l1-informal.json`（MATH/AIME）+ `repro_math_batch.py protocols/math-l1-formal.json --phase all`（miniF2F）。
 5. **L2 校准**：`repro_math_batch.py protocols/math-l2-calibration.json --phase all`（20 Putnam + 20 ProofNet、50k E、Base/Recuris-gate）；确定主预算。
@@ -180,7 +184,7 @@ Aleph、Goedel-Architect、HILBERT、AlphaProof、Seed-Prover、DeepSeek-Prover-
 
 ## 13. 需要确认的三个决策（当前按推荐值冻结）
 
-1. **接口**：主实验用 Harness v2（统一 `write` action），v1 只作消融。已按推荐实现（2026-11-15）。
+1. **接口**：主实验用 Harness v2（fenced write + 4096 per-step），v1 只作消融。已按推荐实现（2026-11-15）。
 2. **任务专用基线**：只跑权重/代码可用的 1–2 个（优先 Leanabell-Prover-V2-7B / OProver-8B），其余引用。推荐：是；不阻塞主表。
 3. **L2 主预算**：100k E 为默认；校准后若 <2% 命中，只在 50 题子集升到 200k E，不把 1M 套到全部 166 题。推荐：是。
 
