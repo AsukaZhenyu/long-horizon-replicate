@@ -1,0 +1,218 @@
+{
+  "round": "20261115-math-l2-scale-25k",
+  "purpose": "L2 scaling: 20 Putnam + 20 ProofNet at 25000 E",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 512,
+  "max_steps": 200,
+  "token_budget": 125000,
+  "equivalent_budget": 25000,
+  "wall_clock_sec": 7200,
+  "submit_guard": false,
+  "log_full_messages": false,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 16384,
+    "trigger_ratio": 0.72,
+    "target_ratio": 0.55,
+    "keep_recent_messages": 8,
+    "max_messages_before_compact": 24,
+    "max_message_chars": 4000,
+    "max_system_chars": 16000,
+    "max_task_chars": 16000,
+    "summary_chars": 2400,
+    "min_messages_to_compact": 6,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base",
+    "recuris-gate"
+  ],
+  "output_dir": "experiments/adapters/results/math-l2-scale-25k",
+  "raw_dir": ".cache/adapters/math-l2-scale-25k",
+  "benchmarks": [
+    {
+      "name": "putnam",
+      "limit": 10000
+    },
+    {
+      "name": "proofnet",
+      "limit": 10000
+    }
+  ],
+  "tasks": [
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1963_a4"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1970_b4"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1971_a1"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1976_b2"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1976_b6"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1979_a4"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1985_a5"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1988_a4"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1994_b1"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1995_a5"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1997_b4"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_1997_b5"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_2004_b2"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_2011_b6"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_2012_a3"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_2014_a2"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_2022_a5"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_2023_b2"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_2024_a3"
+    },
+    {
+      "benchmark": "putnam",
+      "task_id": "putnam_2024_b4"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Cambridge-Tripos.exercise_2022_IA_4_I_1E_a"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Cambridge-Tripos.exercise_2022_IA_4_I_2D_a"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Cambridge-Tripos.exercise_2022_IB_3_II_13G_a_i"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Ireland-Rosen.exercise_1_30"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Ireland-Rosen.exercise_1_31"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Ireland-Rosen.exercise_2_27a"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Ireland-Rosen.exercise_2_4"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Ireland-Rosen.exercise_4_4"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Pugh.exercise_2_32a"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Pugh.exercise_2_46"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Pugh.exercise_3_4"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Pugh.exercise_4_15a"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Putnam.exercise_1998_a3"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Putnam.exercise_1999_b4"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Putnam.exercise_2017_b3"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Putnam.exercise_2018_b2"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Shakarchi.exercise_1_13a"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Shakarchi.exercise_1_13b"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Shakarchi.exercise_3_22"
+    },
+    {
+      "benchmark": "proofnet",
+      "task_id": "Shakarchi.exercise_3_4"
+    }
+  ],
+  "formal_project": ".cache/upstream/putnambench/lean4",
+  "putnam": {
+    "root": ".cache/upstream/putnambench",
+    "limit": 10000
+  },
+  "minif2f": {
+    "split": "Test",
+    "limit": 10000
+  },
+  "proofnet": {
+    "limit": 10000
+  }
+}

@@ -1,0 +1,371 @@
+{
+  "round": "20261115-math-l1-informal",
+  "purpose": "L1 gate: 50 MATH-500 + 30 AIME 2024, 30k E",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 512,
+  "max_steps": 60,
+  "token_budget": 100000,
+  "equivalent_budget": 30000,
+  "wall_clock_sec": 1800,
+  "submit_guard": false,
+  "log_full_messages": false,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 16384,
+    "trigger_ratio": 0.72,
+    "target_ratio": 0.55,
+    "keep_recent_messages": 8,
+    "max_messages_before_compact": 24,
+    "max_message_chars": 4000,
+    "max_system_chars": 16000,
+    "max_task_chars": 16000,
+    "summary_chars": 2400,
+    "min_messages_to_compact": 6,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base",
+    "sentry",
+    "recuris-gate",
+    "rrsi"
+  ],
+  "output_dir": "experiments/adapters/results/math-l1-informal",
+  "raw_dir": ".cache/adapters/math-l1-informal",
+  "benchmarks": [
+    "math500",
+    "aime"
+  ],
+  "discover": false,
+  "tasks": [
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-1004.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-1082.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-1425.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-2159.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-2199.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-291.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-425.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-524.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-907.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-975.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-10.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-116.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-14.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-188.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-216.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-23957.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-339.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-508.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-737.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-761.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-1108.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-221.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-226.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-229.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-283.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-353.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-434.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-456.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-843.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-geometry-880.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-intermediate_algebra-1014.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-intermediate_algebra-1217.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-intermediate_algebra-1408.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-intermediate_algebra-1981.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-intermediate_algebra-752.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-number_theory-239.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-number_theory-737.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-number_theory-89.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-number_theory-928.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-number_theory-931.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-prealgebra-1044.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-prealgebra-1233.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-prealgebra-1272.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-prealgebra-1922.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-prealgebra-846.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-precalculus-1281.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-precalculus-43.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-precalculus-44.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-precalculus-580.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-precalculus-742.json"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-4"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-12"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-4"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-3"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-8"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-12"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-11"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-11"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-2"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-6"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-7"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-3"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-1"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-7"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-6"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-13"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-15"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-15"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-10"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-9"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-14"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-5"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-9"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-2"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-1"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-10"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-8"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-14"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-I-5"
+    },
+    {
+      "benchmark": "aime",
+      "task_id": "2024-II-13"
+    }
+  ],
+  "math500": {
+    "path": ".cache/upstream/math500/test.jsonl",
+    "limit": 10000
+  },
+  "aime": {
+    "path": ".cache/upstream/aime/aime_2024.jsonl",
+    "limit": 10000
+  }
+}

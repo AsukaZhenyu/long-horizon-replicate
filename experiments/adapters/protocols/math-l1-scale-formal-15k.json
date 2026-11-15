@@ -1,0 +1,136 @@
+{
+  "round": "20261115-math-l1-scale-formal-15k",
+  "purpose": "L1 formal scaling: 20 miniF2F at 15000 E",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 512,
+  "max_steps": 60,
+  "token_budget": 60000,
+  "equivalent_budget": 15000,
+  "wall_clock_sec": 1800,
+  "submit_guard": false,
+  "log_full_messages": false,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 16384,
+    "trigger_ratio": 0.72,
+    "target_ratio": 0.55,
+    "keep_recent_messages": 8,
+    "max_messages_before_compact": 24,
+    "max_message_chars": 4000,
+    "max_system_chars": 16000,
+    "max_task_chars": 16000,
+    "summary_chars": 2400,
+    "min_messages_to_compact": 6,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base",
+    "recuris-gate",
+    "rrsi"
+  ],
+  "output_dir": "experiments/adapters/results/math-l1-scale-formal-15k",
+  "raw_dir": ".cache/adapters/math-l1-scale-formal-15k",
+  "benchmarks": [
+    {
+      "name": "minif2f",
+      "split": "Test",
+      "limit": 10000
+    }
+  ],
+  "tasks": [
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-aime_1983_p3"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-aime_1994_p3"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-aime_1999_p11"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-algebra_apbon2pownleqapownpbpowon2"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-algebra_ineq_nto1onlt2m1on"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-amc12_2000_p6"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-amc12_2001_p21"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-amc12a_2020_p10"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-amc12a_2021_p12"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-amc12b_2020_p6"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-amc12b_2021_p1"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-imo_1983_p6"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-imo_1997_p5"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-imosl_2007_algebra_p6"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-induction_12dvd4expnp1p20"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-induction_prod1p1onk3le3m1onn"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-mathd_algebra_484"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-mathd_numbertheory_66"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-numbertheory_exk2powkeqapb2mulbpa2_aeq1"
+    },
+    {
+      "benchmark": "minif2f",
+      "task_id": "test-numbertheory_fxeq4powxp6powxp9powx_f2powmdvdf2pown"
+    }
+  ],
+  "formal_project": ".cache/upstream/putnambench/lean4",
+  "putnam": {
+    "root": ".cache/upstream/putnambench",
+    "limit": 10000
+  },
+  "minif2f": {
+    "split": "Test",
+    "limit": 10000
+  },
+  "proofnet": {
+    "limit": 10000
+  }
+}

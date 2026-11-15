@@ -1,0 +1,90 @@
+{
+  "round": "20261115-math-reliability-informal",
+  "purpose": "Reliability: 10 MATH-500, 3 runs planned, 30k E",
+  "model": "qwen3.5-9b",
+  "model_url": "http://127.0.0.1:8080",
+  "temperature": 0.2,
+  "max_tokens_per_step": 512,
+  "max_steps": 60,
+  "token_budget": 100000,
+  "equivalent_budget": 30000,
+  "wall_clock_sec": 1800,
+  "submit_guard": false,
+  "log_full_messages": false,
+  "context_management": "shared",
+  "context_policy": {
+    "window_tokens": 16384,
+    "trigger_ratio": 0.72,
+    "target_ratio": 0.55,
+    "keep_recent_messages": 8,
+    "max_messages_before_compact": 24,
+    "max_message_chars": 4000,
+    "max_system_chars": 16000,
+    "max_task_chars": 16000,
+    "summary_chars": 2400,
+    "min_messages_to_compact": 6,
+    "chars_per_token": 2.0
+  },
+  "methods": [
+    "base",
+    "recuris-gate",
+    "rrsi"
+  ],
+  "output_dir": "experiments/adapters/results/math-reliability-informal",
+  "raw_dir": ".cache/adapters/math-reliability-informal",
+  "benchmarks": [
+    "math500",
+    "aime"
+  ],
+  "discover": false,
+  "tasks": [
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-1425.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-2199.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-425.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-907.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-algebra-975.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-10.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-116.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-14.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-188.json"
+    },
+    {
+      "benchmark": "math500",
+      "task_id": "test-counting_and_probability-508.json"
+    }
+  ],
+  "math500": {
+    "path": ".cache/upstream/math500/test.jsonl",
+    "limit": 10000
+  },
+  "aime": {
+    "path": ".cache/upstream/aime/aime_2024.jsonl",
+    "limit": 10000
+  }
+}
