@@ -17,6 +17,7 @@ from contract.types import Action, Host, NativeAgent, TaskSpec
 
 ACTION_PROTOCOL = """Return exactly one JSON object per turn, with no markdown.
 To run a shell command: {"command": "..."}
+To write a file: {"path": "src/file.lean", "content": "..."}
 To submit the result: {"final": "short report"}
 Use the available terminal to inspect the workspace, make the required
 artifact, verify it, and then submit."""
@@ -94,6 +95,16 @@ class ListModelClient(ModelClient):
         return self.responses.pop(0)
 
 
+def write_action(action: dict) -> Action | None:
+    """Map the uniform v2 write schema to the host action."""
+    if "path" in action and "content" in action:
+        return Action("write", {
+            "path": str(action["path"]),
+            "content": str(action["content"]),
+        })
+    return None
+
+
 def parse_action(text: str) -> dict:
     text = text.strip()
     fence = re.search(r"```(?:json)?\s*(.*?)```", text, re.S)
@@ -141,6 +152,12 @@ class BaseReactAgent(NativeAgent):
                 messages.append({"role": "user", "content":
                                  f"exit={observation.exit_code}\n{observation.output}\n{observation.error}"})
                 continue
+            write = write_action(action)
+            if write is not None:
+                observation = host.step(write)
+                messages.append({"role": "user", "content":
+                                 f"exit={observation.exit_code}\n{observation.output}\n{observation.error}"})
+                continue
             if "final" in action:
                 observation = host.submit()
                 if observation.exit_code != 0:
@@ -148,4 +165,5 @@ class BaseReactAgent(NativeAgent):
                                      f"Submit rejected: {observation.error}"})
                     continue
                 return
-            messages.append({"role": "user", "content": "Use command or final."})
+            messages.append({"role": "user", "content":
+                             "Use command, write, or final."})

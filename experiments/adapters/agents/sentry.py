@@ -14,7 +14,9 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, List
 
-from agents.base_react import SYSTEM, ModelClient, ModelRequestError, parse_action
+from agents.base_react import (
+    SYSTEM, ModelClient, ModelRequestError, parse_action, write_action,
+)
 from contract.types import Action, Host, NativeAgent, Observation, TaskSpec
 
 REPO = Path(__file__).resolve().parents[3]
@@ -28,7 +30,8 @@ if SENTRY_SRC.is_dir():
 
 ACTION_SCHEMA = (
     'Return exactly one JSON object. To run a shell command: '
-    '{"reasoning": "...", "command": "..."}. To submit: '
+    '{"reasoning": "...", "command": "..."}. To write a file: '
+    '{"reasoning": "...", "path": "...", "content": "..."}. To submit: '
     '{"reasoning": "...", "final": "..."}.'
 )
 
@@ -161,6 +164,28 @@ class SentryAgent(NativeAgent):
                     if rescue is not None:
                         messages.append({"role": "user", "content": rescue.prompt_text})
                     continue
+                write = write_action(action)
+                if write is not None:
+                    observation = host.step(write)
+                    rendered = self._render(observation)
+                    step = agent_step_from_parts(
+                        step_id=step_id,
+                        reasoning=str(action.get("reasoning", "")),
+                        raw_action=response.content,
+                        tool_name="write",
+                        tool_args={"path": str(action["path"]),
+                                   "content": str(action["content"])},
+                        observation=rendered,
+                        accepted_by_environment=True,
+                    )
+                    rescue, failed = self._runner_step(step)
+                    if failed:
+                        return
+                    messages.append({"role": "user", "content": rendered})
+                    if rescue is not None:
+                        messages.append({"role": "user",
+                                         "content": rescue.prompt_text})
+                    continue
                 if "final" in action:
                     observation = host.submit()
                     if observation.exit_code != 0:
@@ -177,7 +202,8 @@ class SentryAgent(NativeAgent):
                     _, failed = self._runner_step(step, terminal=True)
                     if failed:
                         return
-                messages.append({"role": "user", "content": "Use command or final."})
+                messages.append({"role": "user",
+                                 "content": "Use command, write, or final."})
         finally:
             self.runner.finalize()
             self.events = self.runner.guard.drain_runtime_events()

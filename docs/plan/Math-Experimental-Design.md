@@ -53,7 +53,7 @@
 | ProofNet | 66 | 全部可用定理（5 个文件；6 个文件因 v4.20 API 被 precheck 排除） | 逐定理：目标定理无 `sorry` 且文件编译；其他定理的 `sorry` 不计 |
 
 - L2 主预算：**100k E**（raw cap 500k，max_steps 200，wall 7200s）。先用 20 Putnam + 20 ProofNet、50k E 做校准；若命中率 <2%，只在 50 题子集上把预算升到 200k，不把 1M 套到全部 166 题。
-- Putnam 选中的 100 题在冻结协议生成时用 Lean 预编译一次（带 `sorry`），编译失败题剔除并记录；不因模型结果改题。
+- Putnam 选中的 100 题在冻结协议生成时用 Lean 预编译一次（带 `sorry`）；2026-11-15 在 5090 上 **100/100 rc=0**，没有剔除；不因模型结果改题。
 - ProofNet 已全量 precheck（493/499 OK；miniF2F 488/488；ProofNet 66）。
 
 ### 3.3 L2 stress（10 题，10h）
@@ -89,11 +89,11 @@ Aleph、Goedel-Architect、HILBERT、AlphaProof、Seed-Prover、DeepSeek-Prover-
 
 ## 5. Harness v2：统一 write action（冻结）
 
-- **决策**：主实验使用 **Harness v2**，动作 schema 为：
+- **决策（已实现 2026-11-15）**：主实验使用 **Harness v2**，动作 schema 为：
   - `{"command": "..."}`
   - `{"path": "...", "content": "..."}`（写文件；对应 host 的 `Action("write")`）
   - `{"final": "..."}`
-- 所有方法（Base/Sentry/Recuris/RRSI/Spine）使用同一 schema；这是**接口扩展**，不改变规划、记忆、恢复、提示策略。host 已支持 `Action("write")`，只需各方法的 parser/prompt 统一。
+- 所有方法（Base/Sentry/Recuris/RRSI/Spine）使用同一 schema；这是**接口扩展**，不改变规划、记忆、恢复、提示策略。host 已支持 `Action("write")`；各方法的 parser/prompt 已统一，`tests/test_write_action.py` 3 项在本机和 5090 均通过。
 - 理由：预实验（command-only）里 9B 多次生成未转义的 heredoc JSON，4 步只有 1–3 个有效 action，解答文件未变；不修接口会把“JSON 转义”误当成数学能力。
 - **消融**：同一 30 题子集跑 command-only（v1），报告 invalid-JSON/格式失败率与 pass 差异；v1 数据只作诊断，不进主表。
 - host 侧：`LocalContentHost` 已实现 write；Lean host 通过 `lake env lean` 提供编译反馈（5090 上 server 与 Lean 共存，agent 可在 episode 内编译）。
@@ -149,7 +149,7 @@ Aleph、Goedel-Architect、HILBERT、AlphaProof、Seed-Prover、DeepSeek-Prover-
 ## 10. 流程与命令
 
 1. **冻结协议**：`python experiments/adapters/freeze_math_protocol.py --seed 20261115` → `protocols/math-l1-informal.json`、`math-l1-formal.json`、`math-l1-valid.json`、`math-l2-calibration.json`、`math-l2.json`、`math-l2-stress.json`；scaling 为 `math-l1-scale-{informal,formal}-{5k,15k,30k}.json`、`math-l2-scale-{25k,50k,100k}.json`；reliability 为 `math-reliability-{informal,formal}.json`。commit。
-2. **实现 Harness v2**：统一 `write` action 到所有方法 parser/prompt；加 `tests/test_write_action.py`；重跑 10 题 smoke。
+2. **Harness v2（已实现）**：统一 `write` action 到所有方法 parser/prompt；`tests/test_write_action.py` 3 项通过；下一步是 10 题 smoke。
 3. **5090 环境**：`bash experiments/adapters/start_llama_text.sh`；`export PUTNAM_LEAN_BIN=$PWD/.cache/tools/lean-wrapper/bin/lake`。
 4. **L1 gate**：`repro_matrix.py protocols/math-l1-informal.json`（MATH/AIME）+ `repro_math_batch.py protocols/math-l1-formal.json --phase all`（miniF2F）。
 5. **L2 校准**：`repro_math_batch.py protocols/math-l2-calibration.json --phase all`（20 Putnam + 20 ProofNet、50k E、Base/Recuris-gate）；确定主预算。
@@ -180,7 +180,7 @@ Aleph、Goedel-Architect、HILBERT、AlphaProof、Seed-Prover、DeepSeek-Prover-
 
 ## 13. 需要确认的三个决策（当前按推荐值冻结）
 
-1. **接口**：主实验用 Harness v2（统一 `write` action），v1 只作消融。推荐：是。
+1. **接口**：主实验用 Harness v2（统一 `write` action），v1 只作消融。已按推荐实现（2026-11-15）。
 2. **任务专用基线**：只跑权重/代码可用的 1–2 个（优先 Leanabell-Prover-V2-7B / OProver-8B），其余引用。推荐：是；不阻塞主表。
 3. **L2 主预算**：100k E 为默认；校准后若 <2% 命中，只在 50 题子集升到 200k E，不把 1M 套到全部 166 题。推荐：是。
 

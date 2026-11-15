@@ -111,7 +111,7 @@ MLE-bench 的评分按官方 Kaggle leaderboard 阈值：读取 `score` 列，�
   -s experiments/adapters/tests -t experiments/adapters -v
 ```
 
-结果：**107 项测试通过**（`Ran 107 tests, OK (skipped=2)`；两个跳过项都是需先停 model server 的 Lean 编译集成测试：Putnam 平凡定理、miniF2F+ProofNet 平凡定理）。覆盖此前的新增 8 项适配器测试（下表）、12 项 CORE-Bench、4 项 Spine 重实现、10 项 MLE-bench、2 项提交门、4 项非干扰审计、2 项非 UTF-8 输出回归、3 项模型请求错误、3 项轨迹记录，以及本轮内容/数学适配器新增的 MATH-500/AIME fixture、答案匹配、Putnam cheat 检测、miniF2F/ProofNet loader、逐定理解析与 precheck 过滤等测试。
+结果：**110 项测试通过**（`Ran 110 tests, OK (skipped=2)`；两个跳过项都是需先停 model server 的 Lean 编译集成测试：Putnam 平凡定理、miniF2F+ProofNet 平凡定理）。覆盖此前的新增 8 项适配器测试（下表）、12 项 CORE-Bench、4 项 Spine 重实现、10 项 MLE-bench、2 项提交门、4 项非干扰审计、2 项非 UTF-8 输出回归、3 项模型请求错误、3 项轨迹记录、3 项 Harness v2 write action，以及本轮内容/数学适配器新增的 MATH-500/AIME fixture、答案匹配、Putnam cheat 检测、miniF2F/ProofNet loader、逐定理解析与 precheck 过滤等测试。
 
 | 测试 | 验证内容 |
 | --- | --- |
@@ -223,7 +223,7 @@ TB `regex-log` 第一次尝试的官方评分阶段卡在 `apt-get update`，按
 .cache/venv/Scripts/python.exe experiments/adapters/verify_adapters.py
 ```
 
-它刷新 32 行契约矩阵/就绪度，运行适配器测试，并写 `results/adapter-verification.json`。当前结果：**107 项测试通过（2 项 Lean 集成测试因需停 model server 而跳过）、32/32 contract-ready**；真实 benchmark 成绩复现不在本里程碑内。
+它刷新 32 行契约矩阵/就绪度，运行适配器测试，并写 `results/adapter-verification.json`。当前结果：**110 项测试通过（2 项 Lean 集成测试因需停 model server 而跳过）、32/32 contract-ready**；真实 benchmark 成绩复现不在本里程碑内。
 
 ### 6.3 方法复现 pilot（CORE test split）
 
@@ -301,6 +301,7 @@ pilot 第一轮还暴露了适配器编码 bug：R capsule 的 `results/output` 
 - **MATH-500 / AIME**：本地 JSON/JSONL（`problem`/`answer`）或两题 fixture；agent 写 `answer.txt`，评分取最后一个 `\boxed{}` 或末行，支持字符串、数值相对容差和分数交叉相乘；AIME 限 0–999。`protocols/math-informal-smoke.json` 的 2026-11-14 Base smoke：AIME 1/1（603 tokens，3 actions），MATH-500 0/1（模型把正确答案 `5` 只写进 final 通道，没有生成 `answer.txt`；这是指令遵循失败，不是评分错误）。真实数据 pilot（`prepare_informal_data.py` + `protocols/math-informal-real.json`，5090，Base，6 步/20k）: MATH-500 **9/20**，AIME 2024 **0/10**；30 条全部 valid、无 compaction。
 - **miniF2F / ProofNet**：`prepare_formal_math.py` 把 `yangky11/miniF2F-lean4`（488 个单定理文件）和 `rahul3613/ProofNet-lean4`（11 个文件、360 个定理）复制进统一的 v4.33.1 工程。上游分别 pin v4.24.0 / v4.20.0；为了跨 benchmark 同一 Lean/Mathlib 版本，统一用 v4.33.1，`--precheck` 负责剔除不兼容文件。5090 全量 precheck（`--workers 8`）：**493/499 OK，6 failed**；miniF2F **488/488**，ProofNet **5/11** 文件（Cambridge-Tripos、Ireland-Rosen、Pugh、Putnam、Shakarchi，共 66 个定理），其余 6 个文件（Artin、Axler、Dummit-Foote、Herstein、Munkres、Rudin）依赖 v4.33 之前的 Mathlib API，由 `precheck.json` 过滤。miniF2F 以文件为任务；ProofNet 以单个定理为任务，评分时把 Lean 的 `declaration uses 'sorry'` 警告行映射回目标定理块。`RUN_LEAN_TESTS=1` 的实际编译测试验证了：miniF2F 平凡定理通过；ProofNet 同一文件中已证的定理通过、仍为 `sorry` 的定理被拒绝（本机 168.9 s，5090 7.5 s）。
 - **两阶段 runner**：`repro_math_batch.py --phase all --release-model` 先在 server 运行时收集所有解答（`solution.lean` + `pristine.lean`），然后只停一次 server 批量评分并恢复。可断点续跑，`--status` 查看已收集/已评分数量。2026-11-14 smoke：2 Putnam + 1 miniF2F + 1 ProofNet，4/4 收集、4/4 评分 valid 0/1（解答仍为 `sorry`）；评分阶段只停一次 server（commit 4.27 → 5.8 GB，因 Docker 也在运行，6.0 GB 阈值等满 90 s），8.1 s 后恢复 `/health`。
+- **Harness v2**：统一 `{command, write, final}` 动作；Base/Sentry/Recuris/RRSI/Spine 的 parser/prompt 已接，`tests/test_write_action.py` 3 项通过（本机与 5090）；command-only 保留为 30 题消融。
 
 ## 7 就绪度
 
@@ -328,7 +329,7 @@ pilot 第一轮还暴露了适配器编码 bug：R capsule 的 `results/output` 
 | 真实 host | 0/4 | 3/4，另有 MLE-bench host 路径在合成数据下验证 |
 | 官方评分 | 0/4 | 3/4，且 TB 2.1 真实 oracle 通过、LHTB 2048 真实失败路径正确、CORE-Bench 真实 capsule 通过；MLE-bench 只有合成 metric |
 | 原生方法 loop | 0/8 | 4/8（Base、Sentry、Recuris、RRSI）；另有 Spine 重实现，不计入官方 8 方法 |
-| 测试数 | 14 | 107 |
+| 测试数 | 14 | 110 |
 | 真实 9B smoke | 未跑 | TB Base 0/1；LHTB 四方法 0/1（band 0）；CORE Sentry/RRSI 3/3；Base/Recuris 0/3 → 3/3（加提交门） |
 | 方法分数 | 无 | 仍无正式预算/收益结论 |
 

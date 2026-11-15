@@ -24,7 +24,9 @@ from collections import Counter
 from dataclasses import dataclass, field
 from typing import Any, Dict, List
 
-from agents.base_react import ACTION_PROTOCOL, ModelClient, ModelRequestError, parse_action
+from agents.base_react import (
+    ACTION_PROTOCOL, ModelClient, ModelRequestError, parse_action, write_action,
+)
 from contract.types import Action, Host, NativeAgent, Observation, TaskSpec
 
 SPINE_INSTRUCTION = """<spine_instruction>
@@ -49,6 +51,7 @@ SPINE_TOOLS = """Spine tool actions (one action per turn, same JSON object):
 
 Terminal actions:
 - {"command": "..."}  run a shell command in the task environment
+- {"path": "...", "content": "..."}  write a file
 - {"final": "..."}    submit the result
 """ + ACTION_PROTOCOL
 
@@ -212,6 +215,14 @@ class SpineAgent(NativeAgent):
                 if not isinstance(action, dict):
                     node_log[active_id].append(
                         {"role": "user", "content": "Action must be one JSON object."})
+                    continue
+                write = write_action(action)
+                if write is not None:
+                    observation = host.step(write)
+                    node_log[active_id].append({
+                        "role": "user",
+                        "content": self._render(observation),
+                    })
                     continue
                 keys = set(action) & {
                     "spine_open", "spine_close", "spine_next", "spine_spawn",

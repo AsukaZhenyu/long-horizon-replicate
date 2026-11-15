@@ -97,6 +97,15 @@ An adapter translates the method's native action/observation schema to the
 common `Action`/`Observation`. It does not add, remove or reorder actions and
 does not change the token budget, tools or grading.
 
+### Harness v2 (2026-11-15)
+
+All method loops also accept `{"path": "...", "content": "..."}` in addition
+to `{"command"}` and `{"final"}`. This is an interface extension, not a
+method-strategy change: the host already had `Action("write")`; the parsers
+and prompts are uniform across Base, Sentry, Recuris, RRSI and Spine.
+`tests/test_write_action.py` covers the mapping, the prompts and a Base
+write→submit episode. The command-only schema is kept as a 30-task ablation.
+
 ## Reproduction fidelity
 
 The adapter layer is required to be transparent to the method:

@@ -13,7 +13,9 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Dict, List
 
-from agents.base_react import SYSTEM, ModelClient, ModelRequestError, parse_action
+from agents.base_react import (
+    SYSTEM, ModelClient, ModelRequestError, parse_action, write_action,
+)
 from contract.types import Action, Host, NativeAgent, Observation, TaskSpec
 
 REPO = Path(__file__).resolve().parents[3]
@@ -99,6 +101,16 @@ class RecurisAgent(NativeAgent):
                 )
                 messages.append({"role": "user", "content": self._render(observation)})
                 continue
+            write = write_action(action)
+            if write is not None:
+                observation = host.step(write)
+                bridge.observe_commands(
+                    [SimpleNamespace(keystrokes=f"write {action['path']}")],
+                    (observation.output or "") + (observation.error or ""),
+                    timed_out=False,
+                )
+                messages.append({"role": "user", "content": self._render(observation)})
+                continue
             if "final" in action:
                 if self.completion_gate and self.bounces < self.max_bounces:
                     bounce = bridge.check_completion([], str(action["final"]))
@@ -117,7 +129,8 @@ class RecurisAgent(NativeAgent):
                                      f"Submit rejected: {observation.error}"})
                     continue
                 break
-            messages.append({"role": "user", "content": "Use command or final."})
+            messages.append({"role": "user",
+                             "content": "Use command, write, or final."})
         self.counters = dict(bridge.state.fp.counters)
 
     @staticmethod

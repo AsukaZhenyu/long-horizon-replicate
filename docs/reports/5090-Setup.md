@@ -87,6 +87,8 @@ The Lean project is 7.3 GB locally and is sent as a gzip stream excluding
 - Full precheck (`--workers 8`): **493/499 OK, 6 failed**; miniF2F
   **488/488**; ProofNet 5/11 files / **66 theorems**. The six excluded files
   are pre-v4.33 Mathlib API.
+- Frozen Putnam subset (`freeze_math_protocol.py --check-putnam`,
+  100 tasks): **100/100 rc=0** with the original `sorry`.
 - Lean compile of `src/putnam_1962_a1.lean` via the wrapper: rc 0 with the
   expected `sorry` warning; miniF2F/ProofNet integration test 7.5 s.
 
